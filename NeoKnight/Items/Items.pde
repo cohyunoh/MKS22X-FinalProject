@@ -11,6 +11,8 @@ class Entity{
   Item inHand;
   String name;
   String type;
+  Animation animLeft;
+  Animation animRight;
   Entity(float startX, float startY, String startname, int health, int armor, float money, String type){
     xCor = startX;
     yCor = startY;
@@ -19,6 +21,8 @@ class Entity{
     this.armor = armor;
     this.money = money;
     this.type = type;
+    animLeft = new Animation("knight-walk-left", 8);
+    animLeft = new Animation("knight-walk-right", 8);
   }
   void display(){
     
