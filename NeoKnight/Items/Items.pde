@@ -19,10 +19,10 @@ class Item{
   float price;
   String name;
   String type;
-  PImage[] images;
-  int imageCount;
-  int frame;
   boolean pickedUp; 
+  Animation anim;
+  int imageCount;
+  float xCor, yCor;
   
   Item(int idNum){
     String[] itemList = loadStrings("itemlist.txt");
@@ -31,29 +31,14 @@ class Item{
     price = Float.parseFloat(itemInfo[2]);
     type = itemInfo[3];
     imageCount = Integer.parseInt(itemInfo[4]);
-    render();
     pickedUp = false;
-    frame = 0;
+    anim = new Animation(name, imageCount);
   }
   
-  
-  
-  void render(){
-    images = new PImage[imageCount];
-    for (int i = 0; i < imageCount; i++) {
-      String filename = name + i + ".png";
-      images[i] = loadImage(filename);
-    }
-  }
-  
-  void display(float xpos, float ypos) {
-    frame = (frame+1) % imageCount;
-    image(images[frame], xpos, ypos);
-    frame = (frame+1) % imageCount;
-  }
-  
-  int getWidth() {
-    return images[0].width;
+  void display(float xCor, float yCor){
+    anim.display(xCor-anim.getWidth()/2, yCor);
+    this.xCor = xCor;
+    this.yCor = yCor;
   }
   
   String getName(){
@@ -85,4 +70,29 @@ void draw() {
   float dx = mouseX - xpos;
   xpos = xpos + dx/drag;
   item.display(xpos, ypos);
+}
+
+class Animation {
+  PImage[] frames;
+  int totalFrames;
+  int frame;
+  
+  Animation(String name, int count) {
+    totalFrames = count;
+    frames = new PImage[totalFrames];
+
+    for (int i = 0; i < totalFrames; i++) {
+      String filename = name + i + ".png";
+      frames[i] = loadImage(filename);
+    }
+  }
+
+  void display(float xpos, float ypos) {
+    frame = (frame+1) % totalFrames;
+    image(frames[frame], xpos, ypos);
+   }
+  
+  int getWidth() {
+    return frames[0].width;
+  }
 }
