@@ -1,1 +1,1 @@
-1 sword 25.00 melee
+1 sword 25.00 melee 8

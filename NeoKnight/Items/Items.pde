@@ -20,6 +20,7 @@ class Item{
   String name;
   PImage[] sprites;
   String type;
+  Integer frames;
   float xCor, yCor;
   boolean pickedUp;  
   
@@ -28,7 +29,9 @@ class Item{
     String[] itemInfo = split(itemList[idNum], ' ');
     name = itemInfo[1];
     price = Float.parseFloat(itemInfo[2]);
-    type = 
+    type = itemInfo[3];
+    frames = Integer.parseInt(itemInfo[4]);
+    render();
   }
   
   Item(int idNum, float xCor, float yCor, boolean picked){
@@ -43,8 +46,10 @@ class Item{
   }
   
   void render(){
-    for(int i = 0; i < 8; i++){
-      sprites[i] = loadImage(name + i + ".png");
+    sprites = new PImage[frames];
+    for(int i = 0; i < frames; i++){
+      String filename = name + i + ".png";
+      sprites[i] = loadImage(filename);
     }
   }
   
@@ -73,7 +78,7 @@ class Item{
 Item item;
 void setup(){
   size(64, 64);
-  item = new Item (1, 32, 32, false);
+  item = new Item (0, 32, 32, false);
 }
 
 void draw() {
