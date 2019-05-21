@@ -18,11 +18,11 @@ class Entity{
 class Item{
   float price;
   String name;
-  PImage[] sprites;
   String type;
-  Integer frames;
-  float xCor, yCor;
-  boolean pickedUp;  
+  PImage[] images;
+  int imageCount;
+  int frame;
+  boolean pickedUp; 
   
   Item(int idNum){
     String[] itemList = loadStrings("itemlist.txt");
@@ -30,37 +30,30 @@ class Item{
     name = itemInfo[1];
     price = Float.parseFloat(itemInfo[2]);
     type = itemInfo[3];
-    frames = Integer.parseInt(itemInfo[4]);
+    imageCount = Integer.parseInt(itemInfo[4]);
     render();
+    pickedUp = false;
+    frame = 0;
   }
   
-  Item(int idNum, float xCor, float yCor, boolean picked){
-    this(idNum);
-    this.xCor = xCor;
-    this.yCor = yCor;
-    pickedUp = picked;
-  }
   
-  void use(){
-    
-  }
   
   void render(){
-    sprites = new PImage[frames];
-    for(int i = 0; i < frames; i++){
+    images = new PImage[imageCount];
+    for (int i = 0; i < imageCount; i++) {
       String filename = name + i + ".png";
-      sprites[i] = loadImage(filename);
+      images[i] = loadImage(filename);
     }
   }
   
-  void display(){
-    for(int i = 0; i < sprites.length; i++){
-      image(sprites[i], xCor, yCor);
-    }
+  void display(float xpos, float ypos) {
+    frame = (frame+1) % imageCount;
+    image(images[frame], xpos, ypos);
+    frame = (frame+1) % imageCount;
   }
   
   int getWidth() {
-    return sprites[0].width;
+    return images[0].width;
   }
   
   String getName(){
@@ -76,11 +69,20 @@ class Item{
   }
 }
 Item item;
-void setup(){
-  size(64, 64);
-  item = new Item (0, 32, 32, false);
+float xpos;
+float ypos;
+float drag = 30.0;
+
+void setup() {
+  size(640, 360);
+  background(255, 204, 0);
+  frameRate(10);
+  item =  new Item(0);
+  ypos = height * 0.25;
 }
 
-void draw() {
-  item.display();
+void draw() { 
+  float dx = mouseX - xpos;
+  xpos = xpos + dx/drag;
+  item.display(xpos, ypos);
 }
