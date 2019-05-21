@@ -1,7 +1,7 @@
 import java.util.*;
 import java.io.*;
 
-int currentState;
+int currentState = 0;
 char[][] map;
 
 void setup() {
@@ -36,34 +36,31 @@ void initScreen() {
 }
 
 void gameScreen() {
-  background(255);
-  int rows = (int)random(5.0) * 500;
-  int cols = (int)random(5.0) * 500;
-  try{
-    createMap(rows,cols);
-  } catch (FileNotFoundException f){
-    
-  }
+  createMap();
 }
 
-void createMap(int rows, int cols) throws FileNotFoundException{
-        Scanner s = new Scanner(new File("TestMap.txt"));
-        int r = 0;
-        int c = 0;
-        while (s.hasNextLine()) {
-          r = s.nextLine().length();
-          c++;
-        }
-        map = new char[c][r];
-        s = new Scanner(new File("TestMap.txt"));
-        int i = 0;
-        while (s.hasNextLine()) {
-          String line = s.nextLine();
-          for (int j = 0; j < r; j++) {
-            map[i][j] = line.charAt(j);
-          }
-          i++;
-        }
+void createMap() {
+  try {
+    Scanner s = new Scanner(new File("TestMap.txt"));
+    int r = 0;
+    int c = 0;
+    while (s.hasNextLine()) {
+      r = s.nextLine().length();
+      c++;
+    }
+    map = new char[c][r];
+    Scanner scan = new Scanner(new File("TestMap.txt"));
+    int i = 0;
+    while (scan.hasNextLine()) {
+      String line = scan.nextLine();
+      for (int j = 0; j < map.length; j++) {
+        map[i][j] = line.charAt(j);
+      }
+      i++;
+    }
+  }
+  catch (FileNotFoundException f) {
+  }
 }
 
 void gameOverScreen() {
