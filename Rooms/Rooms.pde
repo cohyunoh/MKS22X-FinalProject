@@ -2,7 +2,7 @@ import java.util.*;
 import java.io.*;
 
 int currentState = 0;
-int[][] map;
+char[][] map;
 
 void setup() {
   size(500, 500);
@@ -42,12 +42,41 @@ void gameScreen() {
 }
 
 void createMap() {
-  map = new int[10][10];
-  int x = (int) Math.random();
+  map = new Room[10][10];
+  for (int i = 0; i < map.length; i++){
+    for (int j = 0; j < map[0].length; j++){
+      map[i][j] = ' ';
+    }
+  }
+  
+  int startRow = (int)(Math.random()) * 10;
+  int endRow = (int)(Math.random()) * 10;
+  int startCol = (int)(Math.random()) * 10;
+  int endCol = (int)(Math.random()) * 10;
+  map[startRow][startCol] = 'S';
+  map[endRow][endCol] = 'E';
+  findPath(startRow, startCol, 0);
+}
+
+
+void findPath(int row, int col, int steps) {
+  if (map[row][col] == 'E') return;
+  if (map[row][col] != ' ') return;
+  int[][] moves = new int[][]{
+    {0, 1}, {1, 0}, {0, -1}, {-1, 0}
+  };
+  for (int i = 0; i < moves.length; i++) {
+    int r = row + moves[i][0];
+    int c = col + moves[i][1];
+    map[row][col] = '@';
+    int solution = solve(r, c, steps + 1);
+    if (solution != -1) return solution;
+    map[row][col] = '.';
+  }
+  return -1;
 }
 
 void displayMap() {
-  
 }
 
 void gameOverScreen() {
