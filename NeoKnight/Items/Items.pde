@@ -4,17 +4,28 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.io.IOException;
 import java.io.FileWriter;
-/*
+
 class Entity{
-  int hp, armor, money;
-  float xCor, yCor;
+  int hp, armor;
+  float xCor, yCor, money;
   Item inHand;
-  Player(float startX, float startY, String startname, int health
+  String name;
+  String type;
+  Entity(float startX, float startY, String startname, int health, int armor, float money, String type){
+    xCor = startX;
+    yCor = startY;
+    name = startname;
+    hp = health;
+    this.armor = armor;
+    this.money = money;
+    this.type = type;
+  }
   void display(){
     
   }
+  
 }
-*/
+
 class Item{
   float price;
   String name;
@@ -63,13 +74,10 @@ void setup() {
   background(255, 204, 0);
   frameRate(10);
   item =  new Item(0);
-  ypos = height * 0.25;
 }
 
-void draw() { 
-  float dx = mouseX - xpos;
-  xpos = xpos + dx/drag;
-  item.display(xpos, ypos);
+void draw() {
+  item.display(320, 180);
 }
 
 class Animation {
@@ -89,6 +97,7 @@ class Animation {
 
   void display(float xpos, float ypos) {
     frame = (frame+1) % totalFrames;
+    background(255, 204, 0);
     image(frames[frame], xpos, ypos);
    }
   
