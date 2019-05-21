@@ -2,7 +2,7 @@ import java.util.*;
 import java.io.*;
 
 int currentState = 0;
-char[][] map;
+int[][] map;
 
 void setup() {
   size(500, 500);
@@ -22,6 +22,7 @@ void draw() {
 void mousePressed() {
   if (currentState==0) {
     startGame();
+    currentState = 1;
   }
 }
 
@@ -37,30 +38,16 @@ void initScreen() {
 
 void gameScreen() {
   createMap();
+  displayMap();
 }
 
 void createMap() {
-  try {
-    Scanner s = new Scanner(new File("TestMap.txt"));
-    int r = 0;
-    int c = 0;
-    while (s.hasNextLine()) {
-      r = s.nextLine().length();
-      c++;
-    }
-    map = new char[c][r];
-    Scanner scan = new Scanner(new File("TestMap.txt"));
-    int i = 0;
-    while (scan.hasNextLine()) {
-      String line = scan.nextLine();
-      for (int j = 0; j < map.length; j++) {
-        map[i][j] = line.charAt(j);
-      }
-      i++;
-    }
-  }
-  catch (FileNotFoundException f) {
-  }
+  map = new int[10][10];
+  int x = (int) Math.random();
+}
+
+void displayMap() {
+  
 }
 
 void gameOverScreen() {
