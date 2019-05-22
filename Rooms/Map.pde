@@ -5,10 +5,11 @@ int[][] moves = {
   {0, 1}, {1, 0}, {0, -1}, {-1, 0}
 };
 
- void Map(int rows, int cols) {
+void Map(int rows, int cols) {
   this.rows = rows;
   this.cols = cols;
   rooms = new Room[rows][cols];
+  initRooms();
 }
 
 void initRooms() {
