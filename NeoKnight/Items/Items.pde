@@ -130,11 +130,9 @@ void keyReleased(){
     if (key == CODED){
       if (keyCode == LEFT){
         left = 0;
-        direction = "left";
       }
       if (keyCode == RIGHT){
         right = 0;
-        direction = "right";;
       }
     }
   }
@@ -144,10 +142,12 @@ void keyReleased(){
       if (keyCode == LEFT){
         left = 1;
         direction = "left";
+        delay(10);
       }
       if (keyCode == RIGHT){
         right = 1;
         direction = "right";
+        delay(10);
       }
     }
   }
