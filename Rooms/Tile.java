@@ -4,11 +4,11 @@ enum Tile {
 
   char symbol, color colorr;
 
-  char symbol() {
+  char getSymbol() {
     return symbol;
   }
 
-  color color() {
+  color getColor() {
     return colorr;
   }
 

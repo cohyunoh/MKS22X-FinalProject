@@ -2,7 +2,19 @@ import java.util.*;
 import java.io.*;
 
 int currentState = 0;
-char[][] map;
+Tile[][] tiles;
+int rows, cols;
+
+private Rooms(int rows, int cols) {
+  this.rows = rows;
+  this.cols = cols;
+  tiles = new Tile[rows][cols];
+}
+
+Room createRoom() {
+  Room room = new Room(tiles);
+  return room;
+}
 
 void setup() {
   size(500, 500);
@@ -42,12 +54,10 @@ void gameScreen() {
 }
 
 void createMap() {
-
 }
 
 
 void findPath(int row, int col, int steps) {
-
 }
 
 void displayMap() {
