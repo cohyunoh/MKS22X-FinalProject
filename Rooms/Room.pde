@@ -3,7 +3,7 @@ class Room {
   Tile[][] tiles;
   int rows, cols;
 
-  int rows() { 
+  int row() { 
     return rows;
   }
 
@@ -11,8 +11,8 @@ class Room {
     return cols;
   }
 
-  public Room(Tile[][] tiles) {
-    this.tiles = tiles;
+  public Room(int row,int cols) {
+    this.tiles = new Tile[row][cols];
     this.width = tiles.length;
     this.height = tiles[0].length;
   }
@@ -20,7 +20,7 @@ class Room {
   Tile getTile(int x, int y) {
     //chekcs if tile is out of bounds and not vaalid
     if (x < 0 || x >= width || y < 0 || y >= height)
-      return Tile.BOUNDS;
+      return Tile.WALL;
     else
       return tiles[x][y];
   }

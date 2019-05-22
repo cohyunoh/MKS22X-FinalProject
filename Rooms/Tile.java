@@ -1,6 +1,6 @@
 enum Tile {
 
-  FLOOR, WALL, BOUNDS;
+  FLOOR, WALL;
 
   char symbol, color colorr;
 

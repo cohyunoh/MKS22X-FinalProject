@@ -2,19 +2,20 @@ import java.util.*;
 import java.io.*;
 
 int currentState = 0;
-Tile[][] tiles;
+Room[][] rooms;
 int rows, cols;
 
 private Rooms(int rows, int cols) {
   this.rows = rows;
   this.cols = cols;
-  tiles = new Tile[rows][cols];
+  rooms = new Room[rows][cols];
 }
 
-Room createRoom() {
-  Room room = new Room(tiles);
-  return room;
+void createRoom() {
+  
 }
+
+void create
 
 void setup() {
   size(500, 500);
@@ -51,16 +52,6 @@ void initScreen() {
 void gameScreen() {
   createMap();
   displayMap();
-}
-
-void createMap() {
-}
-
-
-void findPath(int row, int col, int steps) {
-}
-
-void displayMap() {
 }
 
 void gameOverScreen() {
