@@ -1,18 +1,17 @@
-enum Tile {
+class Tile {
 
-  FLOOR, WALL;
-
-  char symbol, color colorr;
+  char symbol;
+  int colorr;
 
   char getSymbol() {
     return symbol;
   }
 
-  color getColor() {
+  int getColor() {
     return colorr;
   }
 
-  private Tile(char symbol, color colorr) {
+  private Tile(char symbol, int colorr) {
     this.symbol = symbol;
     this.colorr = colorr;
   }

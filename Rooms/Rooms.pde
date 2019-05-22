@@ -1,55 +1,26 @@
 import java.util.*;
 import java.io.*;
 
-int currentState = 0;
-Room[][] rooms;
-int rows, cols;
-int[][] moves = {
-{0,1}, {1,0}, {0,-1},{-1,0}
-};
 
-private Rooms(int rows, int cols) {
-  this.rows = rows;
-  this.cols = cols;
-  rooms = new Room[rows][cols];
-}
 
-void initRooms() {
-  int startX = (int)(Math.random() * rows);
-  int startY = (int)(Math.random() * cols);
-  int row = (int)(Math.random() * width - 1);
-  int col = (int)(Math.random() * height - 1);
-  rooms[startX][startY] = new Room[row][col];
-  for (int i = 0; i < 13; i++){
-    int direction = (int)(Math.random() * 4);
-    startX+= moves[direction][0];
-    startY+= moves[direction][1];
-    int row = (int)(Math.random() * width - 1);
-    int col = (int)(Math.random() * height - 1);
-    rooms[startX][startY] = new Room[row][col];
-  }
-}
-
-void create
-
-  void setup() {
+void setup() {
   size(500, 500);
 }
 
 
 void draw() {
-  if (currentState == 0) {
+  /*if (currentState == 0) {
     initScreen();
   } else if (currentState == 1) {
     gameScreen();
   } else if (currentState == 2) {
     gameOverScreen();
-  }
+  }*/
+  displayRooms();
 }
 
 void mousePressed() {
   if (currentState==0) {
-    startGame();
     currentState = 1;
   }
 }
@@ -65,8 +36,24 @@ void initScreen() {
 }
 
 void gameScreen() {
-  createMap();
-  displayMap();
+  displayRooms();
+}
+
+void displayRooms() {
+  int[][] display = new int[rows][cols];
+
+  for (int r = 0; r < rows; r++) {
+    for (int c = 0; c < cols; c++) {
+      if (rooms[r][c] != null) {
+        display[r][c] = 1;
+      } else {
+        display[r][c] = 0;
+      }
+    }
+  }
+  for (int[] i : display) {
+    printArray(i);
+  }
 }
 
 void gameOverScreen() {
