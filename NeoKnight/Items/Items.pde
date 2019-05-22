@@ -74,13 +74,39 @@ class Item{
   }
 }
 
+class Animation {
+  PImage[] frames;
+  int totalFrames;
+  int frame;
+  
+  Animation(String name, int count) {
+    totalFrames = count;
+    frames = new PImage[totalFrames];
+
+    for (int i = 0; i < totalFrames; i++) {
+      String filename = name + i + ".png";
+      frames[i] = loadImage(filename);
+    }
+  }
+
+  void display(float xpos, float ypos) {
+    frame = (frame+1) % totalFrames;
+    background(255, 204, 0);
+    image(frames[frame], xpos, ypos);
+   }
+  
+  int getWidth() {
+    return frames[0].width;
+  }
+}
+
 Entity person;
 Item item;
 float xpos;
 float ypos;
 float drag = 30.0;
 float x = 0;
-float speed = 3.0;
+float speed = 10.0;
 float left = 0;
 float right = 0;
 String direction;
@@ -125,29 +151,3 @@ void keyReleased(){
       }
     }
   }
-
-class Animation {
-  PImage[] frames;
-  int totalFrames;
-  int frame;
-  
-  Animation(String name, int count) {
-    totalFrames = count;
-    frames = new PImage[totalFrames];
-
-    for (int i = 0; i < totalFrames; i++) {
-      String filename = name + i + ".png";
-      frames[i] = loadImage(filename);
-    }
-  }
-
-  void display(float xpos, float ypos) {
-    frame = (frame+1) % totalFrames;
-    background(255, 204, 0);
-    image(frames[frame], xpos, ypos);
-   }
-  
-  int getWidth() {
-    return frames[0].width;
-  }
-}
