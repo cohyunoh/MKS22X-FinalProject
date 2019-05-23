@@ -1,6 +1,5 @@
 class Map {
 
-
   Room[][] rooms;
   int rows, cols;
   int[][] moves = {
@@ -16,22 +15,33 @@ class Map {
   void initRooms() {
     int startX = (int)(Math.random() * rows);
     int startY = (int)(Math.random() * cols);
-    int row = (int)(Math.random() * width - 1);
-    int col = (int)(Math.random() * height - 1);
+    int row = (int)(Math.random() * width/2 - 1);
+    int col = (int)(Math.random() * height/2 - 1);
     Room r = new Room(row, col);
     rooms[startX][startY] = r;
     for (int i = 0; i < 13; i++) {
       int direction = (int)(Math.random() * 4);
       startX+= moves[direction][0];
       startY+= moves[direction][1];
-      row = (int)(Math.random() * width - 1);
-      col = (int)(Math.random() * height - 1);
+      row = (int)(Math.random() * width/2 - 1);
+      col = (int)(Math.random() * height/2 - 1);
       rooms[startX][startY] = new Room(row, col);
     }
   }
 
   Room[][] getMap() {
-    return rooms;
+    return this.rooms;
   }
+  
+  void displayMap() {
+  for (Room[] room : rooms) {
+    for (Room r : room) {
+      if (r != null) {
+        fill(100);
+        text(r.toString(), width/2, height/2);
+      }
+    }
+  }
+}
   
 }

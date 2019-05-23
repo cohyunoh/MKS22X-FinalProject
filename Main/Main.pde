@@ -1,32 +1,23 @@
 import java.util.*;
 import java.io.*;
 
-int currentState = 0;
+Room r;
 
 void setup() {
   size(500, 500);
+  int rows = (int)(10 - 1);
+  int cols = (int)(10 - 1);
+  r = new Room(rows,cols);
 }
 
 
 void draw() {
-  if (currentState == 0) {
-    initScreen();
-  } else if (currentState == 1) {
-    gameScreen();
-  } else if (currentState == 2) {
-    gameOverScreen();
-  }
+  String str = r.toString();
+  background(255);
+  fill(50);
+  text(str,0,0); 
 }
 
-void mousePressed() {
-  if (currentState==0) {
-    currentState = 1;
-  }
-}
-
-void startGame() {
-  currentState=1;
-}
 
 void initScreen() {
   background(0);
@@ -39,28 +30,10 @@ void gameScreen() {
   int rows = (int)(Math.random() * width - 1);
   int cols = (int)(Math.random() * height - 1);
   Map m = new Map(rows, cols);
-  displayRooms(m.getMap());
+  m.displayMap();
 }
 
-void displayRooms(Room[][] rooms) {
-  int rows = rooms.length;
-  int cols = rooms[0].length;
 
-  int[][] display = new int[rows][cols];
-
-  for (int r = 0; r < rows; r++) {
-    for (int c = 0; c < cols; c++) {
-      if (rooms[r][c] != null) {
-        display[r][c] = 1;
-      } else {
-        display[r][c] = 0;
-      }
-    }
-  }
-  for (int[] i : display) {
-    printArray(i);
-  }
-}
 
 void gameOverScreen() {
   background(0);
