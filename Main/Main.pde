@@ -1,21 +1,23 @@
 import java.util.*;
 import java.io.*;
 
-Room r;
+
+Map m;
 
 void setup() {
-  size(500, 500);
-  int rows = (int)(10 - 1);
-  int cols = (int)(10 - 1);
-  r = new Room(rows,cols);
+  size(1000, 1000);
+  int halfWidth = width / 24;
+  int halfHeight = height / 24;
+  m = new Map(halfWidth,halfHeight);
+  m.initRooms();
 }
 
 
 void draw() {
-  String str = r.toString();
+  String str = m.toString();
   background(255);
   fill(50);
-  text(str,0,0); 
+  text(str,mouseX,mouseY); 
 }
 
 
@@ -27,10 +29,6 @@ void initScreen() {
 
 void gameScreen() {
   background(255);
-  int rows = (int)(Math.random() * width - 1);
-  int cols = (int)(Math.random() * height - 1);
-  Map m = new Map(rows, cols);
-  m.displayMap();
 }
 
 
