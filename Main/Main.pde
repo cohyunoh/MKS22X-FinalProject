@@ -3,23 +3,37 @@ import java.io.*;
 
 
 Map m;
+int currentRoom = 0;
+Room[][] rooms;
+ArrayList<Integer> validRooms;
 
 void setup() {
-  size(1000, 1000);
+  size(1000, 500);
   int halfWidth = width / 24;
   int halfHeight = height / 24;
-  m = new Map(halfWidth,halfHeight);
+  m = new Map(halfWidth, halfHeight);
   m.initRooms();
+  validRooms = m.getCoords();
 }
 
 
 void draw() {
-  String str = m.toString();
+  rooms = m.getMap();
+  Room[] room = rooms[currentRoom];
+  String str = toStringArray(room);
   background(255);
   fill(50);
-  text(str,mouseX,mouseY); 
+  textAlign(LEFT);
+  text(str, 100, 100);
 }
 
+String toStringArray(Room[] room) {
+  String str = " ";
+  for (int i = 0; i < validRooms.size(); i+=2){
+    str += room[validRooms.get(i)][validRooms.get(i+1)] + "\n";
+  }
+  return str;
+}
 
 void initScreen() {
   background(0);
