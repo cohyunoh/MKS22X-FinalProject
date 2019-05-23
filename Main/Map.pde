@@ -16,13 +16,14 @@ void initRooms() {
   int startY = (int)(Math.random() * cols);
   int row = (int)(Math.random() * width - 1);
   int col = (int)(Math.random() * height - 1);
-  //rooms[startX][startY] = new Room(row, col); // throws nullpointer
+  Room r = new Room(row, col);
+  rooms[startX][startY] = r;
   for (int i = 0; i < 13; i++) {
     int direction = (int)(Math.random() * 4);
     startX+= moves[direction][0];
     startY+= moves[direction][1];
     row = (int)(Math.random() * width - 1);
     col = (int)(Math.random() * height - 1);
-    //rooms[startX][startY] = new Room(row, col); //throws nullpointer
+    rooms[startX][startY] = new Room(row, col);
   }
 }

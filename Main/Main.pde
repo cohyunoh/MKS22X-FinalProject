@@ -40,7 +40,7 @@ void gameScreen() {
 }
 
 void displayRooms() {
-  initRooms();
+  Map(rows,cols);
   int[][] display = new int[rows][cols];
 
   for (int r = 0; r < rows; r++) {

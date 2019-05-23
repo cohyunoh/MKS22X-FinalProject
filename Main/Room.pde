@@ -1,6 +1,6 @@
 class Room {
 
-  Tile[][] tiles;
+  char[][] tiles;
   int rows, cols;
 
   int row() { 
@@ -12,12 +12,7 @@ class Room {
   }
 
   public Room(int row, int cols) {
-    this.tiles = new Tile[row][cols];
-    /*for (int r = 0; r < row; r++){
-     for (int c = 0; c < cols; c++){
-      tiles[r][c] = new Tile('#', 255); 
-     }
-    }*/
+    this.tiles = new char[row][cols];
     this.rows = row;
     this.cols = cols;
   }
