@@ -1,7 +1,7 @@
 import java.util.*;
 import java.io.*;
 
-
+int currentState = 0;
 
 void setup() {
   size(500, 500);
@@ -36,11 +36,16 @@ void initScreen() {
 
 void gameScreen() {
   background(255);
-  displayRooms();
+  int rows = (int)(Math.random() * width - 1);
+  int cols = (int)(Math.random() * height - 1);
+  Map m = new Map(rows, cols);
+  displayRooms(m.getMap());
 }
 
-void displayRooms() {
-  Map(rows,cols);
+void displayRooms(Room[][] rooms) {
+  int rows = rooms.length;
+  int cols = rooms[0].length;
+
   int[][] display = new int[rows][cols];
 
   for (int r = 0; r < rows; r++) {
