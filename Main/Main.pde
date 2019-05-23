@@ -14,23 +14,24 @@ void setup() {
   m = new Map(halfWidth, halfHeight);
   m.initRooms();
   validRooms = m.getCoords();
+  rooms = m.getMap();
 }
 
 
 void draw() {
-  rooms = m.getMap();
-  Room[] room = rooms[currentRoom];
-  String str = toStringArray(room);
+  String str = toStringArray();
   background(255);
   fill(50);
   textAlign(LEFT);
   text(str, 100, 100);
 }
 
-String toStringArray(Room[] room) {
+String toStringArray() {
   String str = " ";
-  for (int i = 0; i < validRooms.size(); i+=2){
-    str += room[validRooms.get(i)][validRooms.get(i+1)] + "\n";
+  for (int i = 0; i < validRooms.size(); i+=2) {
+    int r = validRooms.get(i);
+    int c = validRooms.get(i+1);
+    str += rooms[r][c].toString() + "\n";
   }
   return str;
 }
