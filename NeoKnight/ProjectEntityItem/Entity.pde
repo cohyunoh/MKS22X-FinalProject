@@ -22,15 +22,19 @@ class Entity{
     right = loadImage (type + "/" + type + "-walk-right7.png");
     left = loadImage (type + "/" + type + "-walk-left7.png");
   }
-  void display(String direction){
-    if(direction.equals("left")){
-      animLeft.display(xCor, yCor);
-    }else if(direction.equals("right")){
-      animRight.display(xCor, yCor);
-    }else if(direction.equals("idleRight")){
-     image(right, xCor, yCor);
-    }else if(direction.equals("idleLeft")){
-     image(left, xCor, yCor);
+  void display(String direction, boolean move){
+    if(move){
+      if(direction.equals("left")){
+        animLeft.display(xCor, yCor);
+      }else if(direction.equals("right")){
+        animRight.display(xCor, yCor);
+      }
+    }else{
+      if(direction.equals("idleRight")){
+       image(right, xCor, yCor);
+      }else if(direction.equals("idleLeft")){
+       image(left, xCor, yCor);
+      }
     }
   }
   
