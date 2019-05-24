@@ -1,1 +1,2 @@
+0 null 0.0 null 0
 1 sword 25.00 melee 8
