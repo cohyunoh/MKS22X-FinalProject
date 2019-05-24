@@ -74,4 +74,12 @@ class Entity{
   void setMoney(float newBalance){
     money = newBalance;
   }
+  
+  Item getItem(){
+    return inHand;
+  }
+  
+  void setItem(Item newItem){
+    inHand = newItem;
+  }
 }
