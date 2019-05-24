@@ -13,6 +13,7 @@
   float down = 0;
   String direction;
   boolean move;
+  ArrayList<String> moves;
   
   void setup() {
     size(640, 360);
@@ -21,6 +22,7 @@
     item =  new Item(0, 320, 180);
     person = new Entity("bob", 100, 100, 0.0, "knight", x, y);
     direction = "left";
+    moves = new ArrayList<String>(1);
   }
   
   void draw() {
@@ -29,48 +31,44 @@
     background(255, 204, 0);   
     person.setX(x);
     person.setY(y);
-    person.display(direction, move);
+    person.display(moves);
     item.display();
   }
   
   void keyReleased(){
     if (key == 'a' || key == 'A'){
       left = 0;
-      direction = "idleLeft";
-      move = false;
+      moves.add("idleLeft");
     }
     if (key == 'd' || key == 'D'){
       right = 0;
-      direction = "idleRight";
-      move = false;
+      moves.add("idleRight");
     }
     if (key == 'w' || key == 'W'){
       up = 0;
-      move = false;
+      moves.add("idleLeft");
     }
     if (key == 's' || key == 'S'){
       down = 0;
-      move = false;
+      moves.add("idleRight");
     }
    }
   
   void keyPressed(){
      if (key == 'a' || key == 'A'){
        left = 1;
-       direction = "left";
-       move = true;
+       moves.add("left");
      }
      if (key == 'd' || key == 'D'){
         right = 1;
-        direction = "right";
-        move = true;
+        moves.add("right");
      }
      if (key == 'w' || key == 'W'){
       up = 1;
-      move = true;
+      moves.add("left");
     }
     if (key == 's' || key == 'S'){
       down = 1;
-      move = true;
+      moves.add("right");
     }
    }
