@@ -29,17 +29,19 @@
   
   void draw() {
     background(255, 204, 0);   
-    item.display();
     x += (right - left) * speed;
     y += (down - up) * speed;
     person.setX(x);
     person.setY(y);
     process();
+    item.display();
+    
   }
   
   void process(){
     String [] movesList = split(moves.toString(), ' ');
-    person.display(movesList[movesList.length - 1]);
+    printArray(movesList);
+    person.display(movesList[movesList.length - 2]);
   }
   
   void keyReleased(){
