@@ -3,6 +3,8 @@ class Room {
   Tile[][] tiles;
   int rows, cols;
   PImage walls, floors;
+  final int wall = 1;
+  final int floor = 2;
 
   int row() { 
     return rows;
@@ -24,14 +26,31 @@ class Room {
   void initTiles() {
     for (int r = 0; r < rows; r++) {
       for (int c = 0; c < cols; c++) {
-        tiles[r][c] = new Tile(floors);
+        tiles[r][c] = new Tile(floors, floor);
         if (r == 0 || r == rows ) {
-          tiles[r][c] = new Tile(walls);
+          tiles[r][c] = new Tile(walls, wall);
         }
         if (c == 0 || c == cols) {
-          tiles[r][c] = new Tile(walls);
+          tiles[r][c] = new Tile(walls, wall);
         }
       }
     }
+  }
+
+
+  String toString() {
+    String str = " ";
+    for (Tile[] tile : tiles) {
+      String s = " ";
+      for (Tile t : tile) {
+        if (t.getType() == 1) {
+          s += "W";
+        } else {
+          s += "F";
+        }
+      }
+      str += s + '\n';
+    }
+    return str;
   }
 }

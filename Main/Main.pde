@@ -27,8 +27,8 @@ void draw() {
   if (currentState == 2) deathScreen();
 }
 
-void mousePressed(){
- if (currentState == 0) currentState = 1; 
+void mousePressed() {
+  if (currentState == 0) currentState = 1;
 }
 
 String toStringMap() {
@@ -53,8 +53,6 @@ void gameScreen() {
   textAlign(LEFT);
   text(str, 0, 10);
 }
-
-
 
 void deathScreen() {
   background(0);
