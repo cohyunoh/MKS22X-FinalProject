@@ -31,27 +31,26 @@
   }
   
   void keyReleased(){
-      if (key == CODED){
-        if (keyCode == LEFT){
-          left = 0;
-        }
-        if (keyCode == RIGHT){
-          right = 0;
-        }
+    if (key == 'a' || key == 'A'){
+      left = 0;
+    }
+    if (key == 'd' || key == 'D'){
+      right = 0;
+    }
         /*
         if (keyCode == UP){
           up = 0;
         }
         */
-      }
-    }
+   }
   
   void keyPressed(){
-     if (key == 'w' or key == 'W'){
+     if (key == 'a' || key == 'A'){
        left = 1;
+       direction = "left";
      }
-       if (keyCode == RIGHT){
-         right = 1;
-       }
-      }
-    }
+     if (key == 'd' || key == 'D'){
+        right = 1;
+        direction = "right";
+     }
+   }
