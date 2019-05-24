@@ -19,6 +19,14 @@ class Item{
     this.yCor = yCor;
   }
   
+  Item(int idNum){
+    String[] itemList = loadStrings("itemlist.txt");
+    String[] itemInfo = split(itemList[idNum], ' ');
+    name = itemInfo[1];
+    price = Float.parseFloat(itemInfo[2]);
+    type = itemInfo[3];
+  }
+  
   void display(){
     anim.display(xCor-anim.getWidth()/2, yCor);
   }

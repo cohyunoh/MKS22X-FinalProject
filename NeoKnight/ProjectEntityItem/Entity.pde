@@ -16,6 +16,7 @@ class Entity{
     this.armor = armor;
     this.money = money;
     this.type = type;
+    inHand = new Item(0);
     animLeft = new Animation(type + "/" + type + "-walk-left", 8);
     animRight = new Animation(type + "/" + type + "-walk-right", 8);
     current = animRight;
@@ -48,5 +49,29 @@ class Entity{
   
   float getY(){
     return yCor;
+  }
+  
+  int getHealth(){
+    return hp;
+  }
+  
+  void setHealth(int newHP){
+    hp = newHP;
+  }
+  
+  int getArmor(){
+    return armor;
+  }
+  
+  void setArmor(int newArmor){
+    armor = newArmor;
+  }
+  
+  float getMoney(){
+    return money;
+  }
+  
+  void setMoney(float newBalance){
+    money = newBalance;
   }
 }
