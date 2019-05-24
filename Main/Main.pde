@@ -4,8 +4,10 @@ import java.io.*;
 
 Map m;
 int currentRoom = 0;
+int currentState = 0;
 Room[][] rooms;
 ArrayList<Integer> validRooms;
+String str;
 
 void setup() {
   size(1000, 500);
@@ -15,15 +17,18 @@ void setup() {
   m.initRooms();
   validRooms = m.getCoords();
   rooms = m.getMap();
+  str = toStringMap();
 }
 
 
 void draw() {
-  String str = toStringMap();
-  background(255);
-  fill(50);
-  textAlign(LEFT);
-  text(str, mouseX, mouseY);
+  if (currentState == 0) startScreen();
+  if (currentState == 1) gameScreen();
+  if (currentState == 2) deathScreen();
+}
+
+void mousePressed(){
+ if (currentState == 0) currentState = 1; 
 }
 
 String toStringMap() {
@@ -36,19 +41,22 @@ String toStringMap() {
   return str;
 }
 
-void initScreen() {
+void startScreen() {
   background(0);
   textAlign(CENTER);
-  text("Click to start", height/2, width/2);
+  text("Click to start", width/2, height/2);
 }
 
 void gameScreen() {
   background(255);
+  fill(50);
+  textAlign(LEFT);
+  text(str, 0, 10);
 }
 
 
 
-void gameOverScreen() {
+void deathScreen() {
   background(0);
   textAlign(CENTER);
   fill(255);

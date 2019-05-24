@@ -2,7 +2,7 @@ class Room {
 
   Tile[][] tiles;
   int rows, cols;
-  PImage walls,floors;
+  PImage walls, floors;
 
   int row() { 
     return rows;
@@ -16,8 +16,8 @@ class Room {
     this.tiles = new Tile[row][cols];
     this.rows = row;
     this.cols = cols;
-    this.walls = loadImage("wall/wall0.png");
-    this.floors = loadImage("floor/floor0.png");
+    this.walls = loadImage("wall0.png");
+    this.floors = loadImage("Floor0.png");
     initTiles();
   }
 
