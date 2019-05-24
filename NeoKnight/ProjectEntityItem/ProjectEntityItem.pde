@@ -13,62 +13,69 @@
   float down = 0;
   String direction;
   boolean move;
-  ArrayList<String> moves;
+  StringBuffer moves;
   
   void setup() {
     size(640, 360);
     background(255, 204, 0);
+    smooth();
     frameRate(10);
     item =  new Item(0, 320, 180);
     person = new Entity("bob", 100, 100, 0.0, "knight", x, y);
-    direction = "left";
-    moves = new ArrayList<String>(1);
+    direction = "left ";
+    moves = new StringBuffer();
+    moves.append(direction);
   }
   
   void draw() {
+    background(255, 204, 0);   
+    item.display();
     x += (right - left) * speed;
     y += (down - up) * speed;
-    background(255, 204, 0);   
     person.setX(x);
     person.setY(y);
-    person.display(moves);
-    item.display();
+    process();
+  }
+  
+  void process(){
+    String [] movesList = split(moves.toString(), ' ');
+    person.display(movesList[movesList.length - 1]);
   }
   
   void keyReleased(){
     if (key == 'a' || key == 'A'){
       left = 0;
-      moves.add("idleLeft");
+      moves.append("idleLeft ");
     }
     if (key == 'd' || key == 'D'){
       right = 0;
-      moves.add("idleRight");
+      moves.append("idleRight ");
     }
     if (key == 'w' || key == 'W'){
       up = 0;
-      moves.add("idleLeft");
+      moves.append("idleLeft ");
     }
     if (key == 's' || key == 'S'){
       down = 0;
-      moves.add("idleRight");
+      moves.append("idleRight ");
     }
    }
   
   void keyPressed(){
      if (key == 'a' || key == 'A'){
        left = 1;
-       moves.add("left");
+       moves.append("left ");
      }
      if (key == 'd' || key == 'D'){
         right = 1;
-        moves.add("right");
+        moves.append("right ");
      }
      if (key == 'w' || key == 'W'){
       up = 1;
-      moves.add("left");
+      moves.append("left ");
     }
     if (key == 's' || key == 'S'){
       down = 1;
-      moves.add("right");
+      moves.append("right ");
     }
    }

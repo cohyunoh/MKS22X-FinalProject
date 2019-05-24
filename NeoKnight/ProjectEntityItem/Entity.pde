@@ -22,8 +22,7 @@ class Entity{
     right = loadImage (type + "/" + type + "-walk-right7.png");
     left = loadImage (type + "/" + type + "-walk-left7.png");
   }
-  void display(ArrayList<String> moves){
-    for(String direction : moves){
+  void display(String direction){
       if(direction.equals("left")){
         animLeft.display(xCor, yCor);
       }else if(direction.equals("right")){
@@ -33,7 +32,6 @@ class Entity{
       }else if(direction.equals("idleLeft")){
        image(left, xCor, yCor);
       }
-    }
   }
   
   void setX(float x){
