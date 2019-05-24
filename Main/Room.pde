@@ -1,7 +1,8 @@
 class Room {
 
-  char[][] tiles;
+  Tile[][] tiles;
   int rows, cols;
+  PImage walls,floors;
 
   int row() { 
     return rows;
@@ -12,29 +13,25 @@ class Room {
   }
 
   Room(int row, int cols) {
-    this.tiles = new char[row][cols];
+    this.tiles = new Tile[row][cols];
     this.rows = row;
     this.cols = cols;
+    this.walls = loadImage("wall/wall0.png");
+    this.floors = loadImage("floor/floor0.png");
     initTiles();
   }
 
   void initTiles() {
     for (int r = 0; r < rows; r++) {
-      for (int c = 0; c <cols; c++) {
-        tiles[r][c] = (Math.random() < 0.5) ? '@' : '#';
+      for (int c = 0; c < cols; c++) {
+        tiles[r][c] = new Tile(floors);
+        if (r == 0 || r == rows ) {
+          tiles[r][c] = new Tile(walls);
+        }
+        if (c == 0 || c == cols) {
+          tiles[r][c] = new Tile(walls);
+        }
       }
     }
-  }
-
-  String toString() {
-    String str = " ";
-    for (char[] cha : tiles) {
-      String s = " ";
-      for (char c : cha) {
-        s += c;
-      }
-      str += s + '\n';
-    }
-    return str;
   }
 }

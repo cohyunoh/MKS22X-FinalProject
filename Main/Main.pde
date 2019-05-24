@@ -19,14 +19,14 @@ void setup() {
 
 
 void draw() {
-  String str = toStringArray();
+  String str = toStringMap();
   background(255);
   fill(50);
   textAlign(LEFT);
-  text(str, 100, 100);
+  text(str, mouseX, mouseY);
 }
 
-String toStringArray() {
+String toStringMap() {
   String str = " ";
   for (int i = 0; i < validRooms.size(); i+=2) {
     int r = validRooms.get(i);
