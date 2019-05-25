@@ -1,5 +1,5 @@
 class Player extends Entity implements Moveable {
-  int vel = 3;
+  int vel = 10;
   boolean isLeft, isRight, isUp, isDown, wasLeft, wasRight;
   int w,l;
   Player(String startname, String type, float xCor, float yCor){
@@ -47,41 +47,41 @@ class Player extends Entity implements Moveable {
   boolean setMove(int k, boolean b) {
     switch (k) {
       case +'W':
-        vel = 6;
+        vel = 20;
         wasLeft = false;
         wasRight = true;
       case 'w':
-        vel = 3;
+        vel = 10;
         wasLeft = false;
         wasRight = true;
         return isUp = b;
    
       case + 'S':
-        vel = 6;
+        vel = 20;
         wasLeft = true;
         wasRight = false;
       case 's':
-        vel = 3;
+        vel = 10;
         wasLeft = true;
         wasRight = false;
         return isDown = b;
    
       case +'A':
-        vel = 6;
+        vel = 20;
         wasLeft = true;
         wasRight = false;
       case 'a':
-        vel = 3;
+        vel = 10;
         wasLeft = true;
         wasRight = false;
         return isLeft = b;
    
       case +'D':
-        vel = 6;
+        vel = 20;
         wasLeft = false;
         wasRight = true;
       case 'd':
-        vel = 3;
+        vel = 10;
         wasLeft = false;
         wasRight = true;
         return isRight = b;
