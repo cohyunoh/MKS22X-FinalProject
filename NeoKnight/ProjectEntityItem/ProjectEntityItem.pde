@@ -25,3 +25,4 @@
   void keyPressed(){
      person.setMove(keyCode, true); 
    }
+   

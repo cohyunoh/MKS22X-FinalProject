@@ -28,7 +28,16 @@ class Item{
   }
   
   void display(){
-    anim.display(xCor-anim.getWidth()/2, yCor);
+    if(!pickedUp){
+      anim.display(xCor-anim.getWidth()/2, yCor);
+    }
+  }
+  
+  boolean picked(Player person){
+    if (dist(xCor,yCor,person.getX(),person.getY()) < 0.5){
+      return true;
+    }
+    return false;
   }
   
   String getName(){
@@ -57,5 +66,9 @@ class Item{
   
   float getY(){
     return yCor;
+  }
+  
+  void setPicked(boolean newP){
+    pickedUp = newP;
   }
 }
