@@ -25,7 +25,7 @@
     textSize(11);
     text("Player X:" + person.getX(), 10, 30); 
     text("Player Y:" + person.getY(), 10, 50);
-    
+    text("Inventory: " + person.stringInv(), 10, 110);
   }
   
   void keyReleased(){

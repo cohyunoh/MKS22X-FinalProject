@@ -104,4 +104,15 @@ class Player extends Entity implements Moveable {
       }
   }
   
+  String stringInv(){
+    String ans = "";
+    for (int i = 0; i < inv.size(); i++){
+      Item item = inv.get(i);
+      ans += item.getName();
+      if(i != inv.size() - 1){
+        ans += ", ";
+      }
+    }
+    return ans;
+  }
 }
