@@ -14,7 +14,6 @@ class Player extends Entity implements Moveable {
     if(grab){
       grab(items);
     }
-    
     if(run){
       vel = 25;
     }else{
