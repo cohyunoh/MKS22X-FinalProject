@@ -1,21 +1,31 @@
 
   Player person;
-  Item item;
-  
+  ArrayList<Item> items;
   void setup() {
     size(640, 360);
     background(255, 204, 0);
     smooth(3);
     frameRate(10);
-    item =  new Item(0, 320, 180);
+    items = new ArrayList<Item>();
+    Item item =  new Item(0, 320, 180);
+    items.add(item);
     person = new Player("bob", "knight", 0, 180);
   }
   
   void draw() {
-    background(255, 204, 0);   
-    item.display();
+    background(255, 204, 0);  
+    for(int i = 0; i < items.size(); i++){
+      Item item = items.get(i);
+      item.display();
+      text("Item X:" + item.getX(), 10, 70);
+      text("Item Y:" + item.getY(), 10, 90);
+    }
     person.move();
-    person.display();
+    person.display(items);
+    textSize(11);
+    text("Player X:" + person.getX(), 10, 30); 
+    text("Player Y:" + person.getY(), 10, 50);
+    
   }
   
   void keyReleased(){
