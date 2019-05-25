@@ -26,7 +26,14 @@ class Player extends Entity implements Moveable {
       return ;
     }
     if(!isDown && !isUp && !isRight && !isLeft){
-      
+      if(wasLeft){
+        image(left, xCor, yCor);
+        return ;
+      }
+      if (wasRight){
+        image(right, xCor, yCor);
+        return ;
+      }
     }
   }
   

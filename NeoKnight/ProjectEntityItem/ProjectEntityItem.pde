@@ -8,7 +8,7 @@
     smooth(3);
     frameRate(10);
     item =  new Item(0, 320, 180);
-    person = new Player("bob", "knight", x, y);
+    person = new Player("bob", "knight", 0, 180);
   }
   
   void draw() {
@@ -23,5 +23,5 @@
   }
   
   void keyPressed(){
-     person.setMove(keyCode, false); 
+     person.setMove(keyCode, true); 
    }
