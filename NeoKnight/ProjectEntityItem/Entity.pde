@@ -8,6 +8,7 @@ class Entity{
   Animation animRight;
   Animation current;
   PImage right, left;
+  
   Entity(String startname, int health, int armor, float money, String type, float xCor, float yCor){
     this.xCor = xCor;
     this.yCor = yCor;

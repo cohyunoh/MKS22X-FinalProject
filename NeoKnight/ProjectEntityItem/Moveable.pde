@@ -1,3 +1,5 @@
 interface Moveable{
-  void move(float[] x, float[] y);
+  void move();
+  boolean setMove(int k, boolean b);
+  
 }

@@ -22,4 +22,7 @@ class Animation {
   int getWidth() {
     return frames[0].width;
   }
+  int getHeight() {
+    return frames[0].height;
+  }
 }
