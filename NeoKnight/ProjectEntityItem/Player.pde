@@ -1,5 +1,5 @@
 class Player extends Entity implements Moveable {
-  int vel = 10;
+  int vel = 3;
   boolean isLeft, isRight, isUp, isDown, wasLeft, wasRight;
   int w,l;
   Player(String startname, String type, float xCor, float yCor){
@@ -18,12 +18,24 @@ class Player extends Entity implements Moveable {
       return ;
     }
     if(isUp) {
-      animRight.display(xCor, yCor);
-      return ;
+      if(wasLeft){
+        animLeft.display(xCor, yCor);
+        return ;
+      }
+      if (wasRight){
+        animRight.display(xCor, yCor);
+        return ;
+      }
     }
     if(isDown) {
-      animLeft.display(xCor, yCor);
-      return ;
+      if(wasLeft){
+        animLeft.display(xCor, yCor);
+        return ;
+      }
+      if (wasRight){
+        animRight.display(xCor, yCor);
+        return ;
+      }
     }
     if(!isDown && !isUp && !isRight && !isLeft){
       if(wasLeft){
@@ -35,6 +47,7 @@ class Player extends Entity implements Moveable {
         return ;
       }
     }
+    image(right, xCor, yCor);
   }
   
   void move(){
@@ -46,42 +59,41 @@ class Player extends Entity implements Moveable {
   
   boolean setMove(int k, boolean b) {
     switch (k) {
-      case +'W':
-        vel = 20;
-        wasLeft = false;
-        wasRight = true;
+      case 'W':
+        vel = 30;
+        return isUp = b;
       case 'w':
-        vel = 10;
-        wasLeft = false;
-        wasRight = true;
+        vel = 5;
         return isUp = b;
    
-      case + 'S':
-        vel = 20;
-        wasLeft = true;
-        wasRight = false;
+      case 'S':
+        vel = 30;
+        return isDown = b;
+        
       case 's':
-        vel = 10;
-        wasLeft = true;
-        wasRight = false;
+        vel = 5;
         return isDown = b;
    
-      case +'A':
-        vel = 20;
+      case 'A':
+        vel = 30;
         wasLeft = true;
         wasRight = false;
+        return isLeft = b;
+        
       case 'a':
-        vel = 10;
+        vel = 5;
         wasLeft = true;
         wasRight = false;
         return isLeft = b;
    
-      case +'D':
-        vel = 20;
+      case 'D':
+        vel = 30;
         wasLeft = false;
         wasRight = true;
+        return isRight = b;
+        
       case 'd':
-        vel = 10;
+        vel = 5;
         wasLeft = false;
         wasRight = true;
         return isRight = b;
