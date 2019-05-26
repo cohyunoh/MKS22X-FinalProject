@@ -14,7 +14,6 @@ void setup() {
   int halfWidth = width / 24;
   int halfHeight = height / 24;
   m = new Map(halfWidth, halfHeight);
-  m.initRooms();
   validRooms = m.getCoords();
   rooms = m.getMap();
   str = toStringMap();
@@ -48,7 +47,7 @@ void startScreen() {
 }
 
 void gameScreen() {
-  background(255);
+  background(0,0,255);
   fill(50);
   textAlign(LEFT);
   text(str, 0, 10);
