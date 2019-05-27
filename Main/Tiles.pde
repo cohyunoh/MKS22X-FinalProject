@@ -12,7 +12,7 @@ class Tile {
   }
 
   String toString() {
-    return this.getCurrent() + "";
+    return this.current + "";
   }
 
   char getCurrent() {

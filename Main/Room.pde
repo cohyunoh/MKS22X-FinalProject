@@ -22,4 +22,16 @@ class Room {
       }
     }
   }
+
+  String toString() {
+    String str = " ";
+    for (int r = 0; r < rows; r++) {
+      String s = " ";
+      for (int c = 0; c < cols; c++) {
+        s += floor[r][c] + "";
+      }
+      str += s + '\n';
+    }
+    return str;
+  }
 }
