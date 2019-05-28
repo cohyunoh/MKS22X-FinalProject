@@ -2,7 +2,7 @@ import java.util.*;
 import java.io.*;
 
 
-Map m;
+Map map;
 int currentRoom = 0;
 int currentState = 0;
 Room[][] rooms;
@@ -11,12 +11,11 @@ String str;
 
 void setup() {
   size(1000, 500);
-  int halfWidth = width / 24;
-  int halfHeight = height / 24;
-  m = new Map(halfWidth, halfHeight);
-  validRooms = m.getCoords();
-  rooms = m.getMap();
-  str = toStringMap();
+  int randomRows = (int)(Math.random() * width);
+  int randomCols = (int)(Math.random() * height);
+  int randomDivider = (int)(Math.random() * Math.min(width,height)) / 2;
+  map = new Map(width/randomDivider,height/randomDivider,randomRows,randomCols);
+  str = map.toString();
 }
 
 
