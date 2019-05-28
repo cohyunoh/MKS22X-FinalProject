@@ -5,17 +5,14 @@ import java.io.*;
 Map map;
 int currentRoom = 0;
 int currentState = 0;
-Room[][] rooms;
-ArrayList<Integer> validRooms;
+Room[] rooms;
 String str;
 
 void setup() {
-  size(1000, 500);
-  int randomRows = (int)(Math.random() * width);
-  int randomCols = (int)(Math.random() * height);
-  int randomDivider = (int)(Math.random() * Math.min(width,height)) / 2;
-  map = new Map(width/randomDivider,height/randomDivider,randomRows,randomCols);
-  str = map.toString();
+  size(1000, 1000);
+  map = new Map(width/4);
+  rooms = map.getMap();
+  str = rooms[currentRoom].toString();
 }
 
 
@@ -27,16 +24,6 @@ void draw() {
 
 void mousePressed() {
   if (currentState == 0) currentState = 1;
-}
-
-String toStringMap() {
-  String str = " ";
-  for (int i = 0; i < validRooms.size(); i+=2) {
-    int r = validRooms.get(i);
-    int c = validRooms.get(i+1);
-    str += rooms[r][c].toString() + "\n";
-  }
-  return str;
 }
 
 void startScreen() {
