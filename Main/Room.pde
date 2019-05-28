@@ -13,21 +13,27 @@ class Room {
   }
 
   void initRoom() {
+    float wid = textWidth('#');
+    float wid2 = textWidth('.');
+    int newWid = (int)Math.min(wid,wid2) / (int)(wid + wid2);
+    textSize(newWid);
     for (int r = 0; r <rows; r++) {
       for (int c = 0; c < cols; c++) {
-        double random = Math.random();
-        if (random < 0.15) floor[r][c] = '#';
-        if (r == 0|| r == rows - 1) initRowDoors(r, c);
-        else if (c == 0|| c == cols-1) initColDoors(r, c);
-        else floor[r][c] = '.';
+        if (r < width && c < height) {
+          double random = Math.random();
+          if (random < 0.15) floor[r][c] = '#';
+          if (r == 0|| r == rows - 1) initRowDoors(r, c);
+          else if (c == 0|| c == cols-1) initColDoors(r, c);
+          else floor[r][c] = '.';
+        }
       }
-    }/*
+    }
     if (doors == 0) {
-      int r = Math.random() < .5 ? 0 : rows - 1; 
-      int c = Math.random() < .5 ? 0 : cols - 1;
-      floor[r][c] = 'D';
-      doors++;
-    }*/
+     int r = Math.random() < .5 ? 0 : rows - 1; 
+     int c = Math.random() < .5 ? 0 : cols - 1;
+     floor[r][c] = 'D';
+     doors++;
+     }
   }
 
   void initRowDoors(int row, int col) {
