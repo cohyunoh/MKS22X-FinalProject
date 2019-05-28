@@ -1,1 +1,2 @@
+0 hand 0.00 melee 4
 1 sword 25.00 melee 8

@@ -7,7 +7,7 @@
     smooth(3);
     frameRate(10);
     items = new ArrayList<Item>();
-    Item item =  new Item(0, 320, 180);
+    Item item =  new Item(1, 320, 180);
     items.add(item);
     person = new Player("bob", "knight", 0, 180);
   }
@@ -26,6 +26,7 @@
     text("Player X:" + person.getX(), 10, 30); 
     text("Player Y:" + person.getY(), 10, 50);
     text("Inventory: " + person.stringInv(), 10, 110);
+    text("Current: " + person.getItem(), 10, 130);
   }
   
   void keyReleased(){
@@ -35,4 +36,7 @@
   void keyPressed(){
      person.setMove(keyCode, true); 
    }
-   
+  void mouseWheel(MouseEvent event) {
+    float e = event.getCount();
+    person.switchItem(e);
+  }

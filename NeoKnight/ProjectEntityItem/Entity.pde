@@ -18,11 +18,11 @@ class Entity{
     this.money = money;
     this.type = type;
     inHand = new Item(0);
-    animLeft = new Animation(type + "/" + type + "-walk-left", 8);
-    animRight = new Animation(type + "/" + type + "-walk-right", 8);
+    animLeft = new Animation(type + "-" + inHand + "/" + type + "-walk-left", 8);
+    animRight = new Animation(type + "-" + inHand + "/" + type + "-walk-right", 8);
     current = animRight;
-    right = loadImage (type + "/" + type + "-walk-right7.png");
-    left = loadImage (type + "/" + type + "-walk-left7.png");
+    right = loadImage (type + "-" + inHand + "/" + type + "-walk-right7.png");
+    left = loadImage (type + "-" + inHand + "/" + type + "-walk-left7.png");
   }
   void display(String direction){
       if(direction.equals("left")){

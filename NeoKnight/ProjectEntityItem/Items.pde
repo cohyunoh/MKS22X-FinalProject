@@ -14,7 +14,7 @@ class Item{
     type = itemInfo[3];
     imageCount = Integer.parseInt(itemInfo[4]);
     pickedUp = false;
-    anim = new Animation(name, imageCount);
+    anim = new Animation(name + "/" + name, imageCount);
     this.xCor = xCor;
     this.yCor = yCor;
   }
@@ -72,5 +72,9 @@ class Item{
   
   void setPicked(boolean newP){
     pickedUp = newP;
+  }
+  
+  String toString(){
+    return name;
   }
 }

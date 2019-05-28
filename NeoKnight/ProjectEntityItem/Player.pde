@@ -1,21 +1,27 @@
 class Player extends Entity implements Moveable {
   int vel = 5;
   boolean isLeft, isRight, isUp, isDown, wasLeft, wasRight, run, grab;
-  int w,l;
+  int w,l,currentSlot;
   ArrayList<Item> inv;
   Player(String startname, String type, float xCor, float yCor){
     super(startname, 100, 100, 1.00, type, xCor, yCor);
     w = animLeft.getWidth();
     l = animLeft.getHeight();
     inv = new ArrayList<Item>();
-    inv.add(null);
+    Item hand = new Item(0);
+    inv.add(hand);
     inHand = inv.get(0);
+    currentSlot = 0;
   }
   
   void display(ArrayList<Item> items){
+    text("HEALTH", 10, 10);
+    text("ARMOR",10,35);
     rectMode(CORNER);
     fill(225,0,0);
     rect(10,10,hp,10);
+    fill(0,0,255);
+    rect(10,35,armor,10);
     if(grab){
       grab(items);
     }
@@ -107,6 +113,14 @@ class Player extends Entity implements Moveable {
       default:
         return b;
       }
+  }
+  
+  void switchItem(float e){
+    if(e < 0){
+      inHand = inv.get(abs(currentSlot - 1) % inv.size());
+    }else{
+      inHand = inv.get(abs(currentSlot + 1) % inv.size());
+    }
   }
   
   String stringInv(){
