@@ -1,24 +1,39 @@
 class Map {
 
-  Room[] rooms;
-  int rows, cols;
+  Room[][] rooms;
+  int rows, cols, startRow, startCol;
+  int[][] moves = {
+    {0, 1}, {0, -1}, {1, 0}, {-1, 0}
+  };
 
-  Map(int rows) {
+  Map(int rows, int cols) {
     this.rows = rows;
-    this.cols = rows;
-    rooms = new Room[rows];
-    initRooms();
+    this.cols = cols;
+    rooms = new Room[rows][cols];
+    createMap();
+    startRow = (int)Math.random() * rows;
+    startCol = (int)Math.random() * cols;
   }
 
-  void initRooms() {
-    for (int r = 0; r < rows; r++) {
-        int numRows = (int)(Math.random() * rows);
-        int numCols = (int)(Math.random() * cols);
-        rooms[r] = new Room(numRows, numCols);
+  void createMap() {
+    int whichDirection = (int)(Math.random() * 4);
+    rooms[startRow][startCol] = new Room(50, 50);
+    int changeRow = moves[whichDirection][0];
+    int changeCol = moves[whichDirection][1];
+    createRooms(startRow+changeRow, startCol+changeCol, new Door(startRow, startCol));
+  }
+
+  void createRooms(int row, int col, Door door) {
+    if (rooms[row][col] == null) {
+      rooms[row][col] = new Room(row, col, door);
+      int whichDirection = (int)(Math.random() * 4);
+      int changeRow = moves[whichDirection][0];
+      int changeCol = moves[whichDirection][1];
+      createRooms(startRow+changeRow, startCol+changeCol, new Door(startRow, startCol));
     }
   }
 
-  Room[] getMap() {
+  Room[][] getMap() {
     return this.rooms;
   }
 

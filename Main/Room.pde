@@ -1,62 +1,61 @@
 class Room {
 
   char[][] floor;
+  ArrayList<Door> doors;
+  ArrayList<Integer> coords;
   char current, next;
-  int rows, cols, doors;
+  int rows, cols, totaldoors;
+
 
   public Room(int rows, int cols) {
     this.rows = rows;
     this.cols = cols;
     floor = new char[rows][cols];
-    doors = 0;
-    initRoom();
+    totaldoors = 0;
+    initRoom(rows, cols);
+    doors = new ArrayList<Door>();
+    coords = new ArrayList<Integer>();
   }
 
-  void initRoom() {
-    float wid = textWidth('#');
-    float wid2 = textWidth('.');
-    int newWid = (int)Math.min(wid,wid2) / (int)(wid + wid2);
-    textSize(newWid);
-    for (int r = 0; r <rows; r++) {
+  public Room(int rows, int cols, Door door) {
+    this.rows = rows;
+    this.cols = cols;
+    floor = new char[rows][cols];
+    coords = new ArrayList<Integer>();
+    doors = new ArrayList<Door>();
+    totaldoors = 0;
+    initRoom(door.getRow(), door.getCol());
+  }
+
+
+  void initRoom(int row, int col) {
+    /*float wid = textWidth('#');
+     float wid2 = textWidth('.');
+     int newWid = (int)Math.min(wid,wid2) / (int)(wid + wid2);*/
+    textSize(10);
+    for (int r = 0; r < rows; r++) {
       for (int c = 0; c < cols; c++) {
-        if (r < width && c < height) {
-          double random = Math.random();
-          if (random < 0.15) floor[r][c] = '#';
-          if (r == 0|| r == rows - 1) initRowDoors(r, c);
-          else if (c == 0|| c == cols-1) initColDoors(r, c);
-          else floor[r][c] = '.';
+        floor[r][c] = ' ';
+        if (r == 0 || r == rows - 1 || c == 0 || c == cols - 1) {
+          if (Math.random() < .1 && totaldoors < 4) {
+            doors.add(new Door(r, c));
+            coords.add(r);
+            coords.add(c);
+            totaldoors++;
+          } else floor[r][c] = 'W';
         }
       }
     }
-    if (doors == 0) {
-     int r = Math.random() < .5 ? 0 : rows - 1; 
-     int c = Math.random() < .5 ? 0 : cols - 1;
-     floor[r][c] = 'D';
-     doors++;
-     }
+    doors.add(new Door(row, col));
+    coords.add(row);
+    coords.add(col);
   }
 
-  void initRowDoors(int row, int col) {
-    int countDoors = 0;
-    for (int c = 0; c < cols; c++) {
-      if (floor[row][c] == 'D') countDoors++;
-    }
-    if (doors < 2 && countDoors < 2) {
-      if (Math.random() < 0.2) floor[row][col] = 'D'; 
-      doors++;
-    } else floor[row][col] = '#';
+  ArrayList<Door> getDoors() {
+    return doors;
   }
 
-  void initColDoors(int row, int col) {
-    int countDoors = 0;
-    for (int r = 0; r < rows; r++) {
-      if (floor[r][col] == 'D') countDoors++;
-    }
-    if (doors < 2 && countDoors < 1) {
-      if (Math.random() < 0.3) floor[row][col] = 'D'; 
-      doors++;
-    } else floor[row][col] = '#';
-  }
+
 
   String toString() {
     String str = " ";
