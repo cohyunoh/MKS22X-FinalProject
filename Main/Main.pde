@@ -11,7 +11,7 @@ Screen screen;
 
 void setup() {
   size(1000, 1000);
-  map = new Map(width/4,height/4);
+  map = new Map(width/4, height/4);
   rooms = map.getMap();
   screen = new Screen();
 }
