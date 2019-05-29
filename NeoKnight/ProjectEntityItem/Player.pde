@@ -8,7 +8,7 @@ class Player extends Entity implements Moveable {
     w = animLeft.getWidth();
     l = animLeft.getHeight();
     inv = new ArrayList<Item>();
-    Item hand = new Item(0);
+    Item hand = new Item(0, 20, height - 27);
     inv.add(hand);
     inHand = inv.get(0);
     currentSlot = 0;
@@ -22,6 +22,9 @@ class Player extends Entity implements Moveable {
     rect(10,10,hp,10);
     fill(0,0,255);
     rect(10,35,armor,10);
+    fill(50);
+    rect(10, height - 50, 30, height - 50);
+    inHand.display();
     if(grab){
       grab(items);
     }
@@ -80,6 +83,7 @@ class Player extends Entity implements Moveable {
     for(int i = 0; i < items.size(); i ++){
       Item item = items.get(i);
       if(dist(item.getX(),item.getY(),xCor,yCor) <= 20){
+        item = new Item(item.getId(), 20, height - 27);
         item.setPicked(true);
         inv.add(item);
         items.remove(i);
@@ -116,16 +120,12 @@ class Player extends Entity implements Moveable {
   }
   
   void switchItem(float e){
-    if(e < 0){
-      inHand = inv.get(abs(currentSlot - 1) % inv.size());
-    }else{
-      inHand = inv.get(abs(currentSlot + 1) % inv.size());
-    }
+    inHand = inv.get(currentSlot + abs((int)(1 * e)) % inv.size());
   }
   
   String stringInv(){
     String ans = "";
-    for (int i = 1; i < inv.size(); i++){
+    for (int i = 0; i < inv.size(); i++){
       Item item = inv.get(i);
       ans += item.getName();
       if(i != inv.size() - 1){

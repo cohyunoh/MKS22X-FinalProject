@@ -5,10 +5,11 @@ class Item{
   boolean pickedUp; 
   Animation anim;
   int imageCount;
+  int id;
   
   Item(int idNum, float xCor, float yCor){
     String[] itemList = loadStrings("itemlist.txt");
-    String[] itemInfo = split(itemList[idNum], ' ');
+    String[] itemInfo = split(itemList[idNum + 1], ' ');
     name = itemInfo[1];
     price = Float.parseFloat(itemInfo[2]);
     type = itemInfo[3];
@@ -17,11 +18,12 @@ class Item{
     anim = new Animation(name + "/" + name, imageCount);
     this.xCor = xCor;
     this.yCor = yCor;
+    id = idNum;
   }
   
   Item(int idNum){
     String[] itemList = loadStrings("itemlist.txt");
-    String[] itemInfo = split(itemList[idNum], ' ');
+    String[] itemInfo = split(itemList[idNum + 1], ' ');
     name = itemInfo[1];
     price = Float.parseFloat(itemInfo[2]);
     type = itemInfo[3];
@@ -76,5 +78,9 @@ class Item{
   
   String toString(){
     return name;
+  }
+  
+  int getId(){
+    return id;
   }
 }
