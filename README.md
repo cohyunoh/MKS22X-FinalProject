@@ -20,7 +20,8 @@ Connor:
 Figured out that the background command needs to be called after each animation but two animations can't be shown at the same 
 time
 Made the entity constructor and its display method
-Finally got the character to move around . 
+Finally got the character to move around .    
+  
 Samson:    
 Scratched the premade map and returned to random gen . 
 Created a class and attempted using an enum to help generate the map . 
@@ -46,3 +47,34 @@ Samson:
 Able to display the whole maps . 
 Stored valid coordinates of Rooms . 
 Able to display only the current room . 
+
+Day 6:  
+Samson:  
+Used Images for Room displays . 
+Switched from Images to letters . 
+
+Day 7: 
+Samson:  
+Planned out how to properly display rooms . 
+  
+  
+Day 8:
+Samson:  
+Redid most of the code based on plan . 
+
+Day 9: 
+Samson: 
+Able to display the rooms cleaner . 
+Added toString for rooms for display purposes . 
+
+Day 10:
+Samson: 
+Able to display the current room of the player . 
+Messed around with chaaracter sizing in order to make rooms nicer to look at . 
+
+Day 11:
+Samson:
+Made Doors class in order to simplify transitions . 
+Created room constructor that takes in a door in order to make sure you can return . 
+Stored coordinates of door in order to display door location . 
+Stored doors in order to access later . 
