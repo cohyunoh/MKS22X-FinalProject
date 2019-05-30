@@ -13,6 +13,7 @@ class Player extends Entity implements Moveable {
     inHand = inv.get(0);
     currentSlot = 0;
     swit = false;
+    attack = false;
   }
   
   void attack(){
@@ -28,7 +29,7 @@ class Player extends Entity implements Moveable {
     fill(0,0,255);
     rect(10,35,armor,10);
     fill(50);
-    rect(10, height - 50, 40, height - 20, 7);
+    rect(10, height - 50, 40, 40, 7);
     inHand.display();
     if(swit){
        if(next){
@@ -44,7 +45,10 @@ class Player extends Entity implements Moveable {
         switchSlot();
     }
     
-
+    if(attack){
+      attack = false;
+    }
+    
     if(grab){
       grab(items);
     }
@@ -176,5 +180,9 @@ class Player extends Entity implements Moveable {
       }
     }
     return ans;
+  }
+  
+  boolean isAttacking(){
+    return attack;
   }
 }

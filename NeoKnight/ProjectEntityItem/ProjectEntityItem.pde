@@ -1,5 +1,6 @@
   Player person;
   ArrayList<Item> items;
+  Gorlag enemy;
   void setup() {
     size(640, 360);
     background(255, 204, 0);
@@ -9,6 +10,7 @@
     Item item =  new Item(1, 320, 180);
     items.add(item);
     person = new Player("bob", "knight", 0, 180);
+    enemy = new Gorlag(400, 200);
   }
   
   void draw() {
@@ -26,6 +28,9 @@
     text("Player Y:" + person.getY(), 10, 50);
     text("Inventory: " + person.stringInv(), 10, 110);
     text("Current: " + person.getItem(), 10, 130);
+    enemy.setMove(person);
+    enemy.move();
+    enemy.display();
   }
   
   void mouseClicked(){
