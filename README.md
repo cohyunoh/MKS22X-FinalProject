@@ -27,3 +27,20 @@ Connor:
 Fixed the issue of two animations not being able to be shown
 Realized that entities and items should have stored x and y values and have helper methods to alter and use those two floats
 Working on a buffer for the keyboard
+
+DAY 6:
+Connor:
+Worked and failed at buffer after trying so many methods like serials and stringbuffer, going to ask Mr. K the next day.
+Also gave the entities more helper methods to access instance variables
+
+DAY 7:
+Connor:
+Got the buffer to work and the Player can now walk, run, and pick up items and store it in its inventory
+
+DAY 8:
+Connor:
+Worked on displaying the HUD with the health, armor, and worked on the inventory display. Scrolling through the inventory is 
+giving problems
+
+DAY 9:
+Connor:
