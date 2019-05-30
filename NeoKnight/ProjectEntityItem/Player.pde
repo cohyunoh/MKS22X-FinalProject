@@ -120,7 +120,13 @@ class Player extends Entity implements Moveable {
   }
   
   void switchItem(float e){
-    inHand = inv.get(currentSlot + abs((int)(1 * e)) % inv.size());
+    currentSlot += (int)e;
+    if(currentSlot < 0){
+      currentSlot = inv.size() - 1;
+    }else{
+      currentSlot = currentSlot % inv.size();
+    }
+    inHand = inv.get(currentSlot);
   }
   
   String stringInv(){
