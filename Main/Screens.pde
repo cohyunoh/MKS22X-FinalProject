@@ -9,7 +9,7 @@ class Screen {
     text("Click to start", width/2, height/2);
   }
 
-  void gameScreen() {
+  void gameScreen(String str) {
     background(0, 0, 255);
     fill(50);
     textAlign(LEFT);

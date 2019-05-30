@@ -14,12 +14,13 @@ void setup() {
   map = new Map(width/4, height/4);
   rooms = map.getMap();
   screen = new Screen();
+  str = map.toString();
 }
 
 
 void draw() {
   if (currentState == 0) screen.startScreen();
-  if (currentState == 1) screen.gameScreen();
+  if (currentState == 1) screen.gameScreen(str);
   if (currentState == 2) screen.deathScreen();
 }
 
