@@ -29,6 +29,10 @@
     text("Current: " + person.getItem(), 10, 130);
   }
   
+  void mouseClicked(){
+    person.attack();
+  }
+  
   void keyReleased(){
     person.setMove(keyCode, false); 
   }
