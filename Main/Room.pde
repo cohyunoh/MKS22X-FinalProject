@@ -26,7 +26,7 @@ class Room {
     initRoom(door.getRow() - 1, door.getCol() - 1);
   }
 
-
+//THIS IS WHEN YOU HAVE DOOR
   void initRoom(int row, int col) {
     /*float wid = textWidth('#');
      float wid2 = textWidth('.');
@@ -50,6 +50,10 @@ class Room {
     //coords.add(col);
   }
 
+//WHEN YOU DONT HAVE DOOR
+void initRoom(){
+  
+}
   ArrayList<Integer> getDoors() {
     return coords;
   }
