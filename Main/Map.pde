@@ -10,27 +10,43 @@ class Map {
     this.rows = rows;
     this.cols = cols;
     rooms = new Room[rows][cols];
-    createMap();
     startRow = (int)Math.random() * rows;
     startCol = (int)Math.random() * cols;
+    createMap();
   }
 
   void createMap() {
-    int whichDirection = (int)(Math.random() * 4);
     rooms[startRow][startCol] = new Room(50, 50);
-    int changeRow = moves[whichDirection][0];
-    int changeCol = moves[whichDirection][1];
-    createRooms(startRow+changeRow, startCol+changeCol, new Door(startRow, startCol));
+    //initilaizes all rooms
+    for (int i = 0; i < 4; i++) {
+      if (Math.random() < .5) {
+        int changeRow = moves[i][0];
+        int changeCol = moves[i][1];
+        if (inBounds(startRow + changeRow, startCol + changeCol)){
+          createRooms(startRow+changeRow, startCol+changeCol, new Door(startRow, startCol));
+        }
+      }
+    }
   }
 
   void createRooms(int row, int col, Door door) {
     if (rooms[row][col] == null) {
       rooms[row][col] = new Room(row, col, door);
-      int whichDirection = (int)(Math.random() * 4);
-      int changeRow = moves[whichDirection][0];
-      int changeCol = moves[whichDirection][1];
-      createRooms(startRow+changeRow, startCol+changeCol, new Door(startRow, startCol));
+      for (int i = 0; i < 4; i++) {
+        if (Math.random() < .3) {
+          int changeRow = moves[i][0];
+          int changeCol = moves[i][1];
+          if (rooms[row+changeRow][col+changeCol] == null) {
+            createRooms(row+changeRow, col+changeCol, new Door(startRow, startCol));
+          }
+        }
+      }
     }
+  }
+  
+  boolean inBounds(int row, int col){
+    if (row > rows || row < 0 || col > cols || col < 0) return false;
+    return true;
   }
 
   Room[][] getMap() {
