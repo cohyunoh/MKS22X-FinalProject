@@ -1,6 +1,6 @@
 class Player extends Entity implements Moveable {
   int vel = 5;
-  boolean isLeft, isRight, isUp, isDown, wasLeft, wasRight, run, grab;
+  boolean isLeft, isRight, isUp, isDown, wasLeft, wasRight, run, grab, next, prev, swit, attack;
   int w,l,currentSlot;
   ArrayList<Item> inv;
   Player(String startname, String type, float xCor, float yCor){
@@ -8,10 +8,15 @@ class Player extends Entity implements Moveable {
     w = animLeft.getWidth();
     l = animLeft.getHeight();
     inv = new ArrayList<Item>();
-    Item hand = new Item(0);
+    Item hand = new Item(0, 29, height - 30);
     inv.add(hand);
     inHand = inv.get(0);
     currentSlot = 0;
+    swit = false;
+  }
+  
+  void attack(){
+    attack = true;
   }
   
   void display(ArrayList<Item> items){
@@ -23,8 +28,23 @@ class Player extends Entity implements Moveable {
     fill(0,0,255);
     rect(10,35,armor,10);
     fill(50);
-    rect(10, height - 50, 30, height - 50);
-    inHand.display(20, height - 27);
+    rect(10, height - 50, 40, height - 20, 7);
+    inHand.display();
+    if(swit){
+       if(next){
+         currentSlot ++;
+         currentSlot = currentSlot % inv.size();
+        }
+        if(prev){
+          currentSlot --;
+          if(currentSlot < 0){
+            currentSlot = inv.size() - 1;
+           }
+        }
+        switchSlot();
+    }
+    
+
     if(grab){
       grab(items);
     }
@@ -79,16 +99,17 @@ class Player extends Entity implements Moveable {
     yCor = yCor + vel *(int(isDown)  - int(isUp));
   }
   
-  void grab(ArrayList<Item> items){
+  ArrayList<Item> grab(ArrayList<Item> items){
     for(int i = 0; i < items.size(); i ++){
       Item item = items.get(i);
       if(dist(item.getX(),item.getY(),xCor,yCor) <= 20){
-        item = new Item(item.getId(), 20, height - 27);
-        item.setPicked(true);
+        item.setX(24);
+        item.setY(height - 30);        
         inv.add(item);
         items.remove(i);
       }
     }
+    return items;
   }
   
   boolean setMove(int k, boolean b) {
@@ -120,7 +141,29 @@ class Player extends Entity implements Moveable {
   }
   
   void switchItem(float e){
-    inHand = inv.get(currentSlot + abs((int)(1 * e)) % inv.size());
+    if(inv.size()>1){
+      if(e < 0){
+        prev = true;
+        next = false;
+        swit = true;
+      }else if(e > 0){
+        prev = false;
+        next = true;
+        swit = true;
+      }
+    }
+    
+  }
+  
+  void switchSlot(){
+    inHand = inv.get(currentSlot);
+    animLeft = new Animation(type + "-" + inHand + "/" + type + "-walk-left", 8);
+    animRight = new Animation(type + "-" + inHand + "/" + type + "-walk-right", 8);
+    right = loadImage (type + "-" + inHand + "/" + type + "-walk-right7.png");
+    left = loadImage (type + "-" + inHand + "/" + type + "-walk-left7.png");
+    prev = false;
+    next = false;
+    swit = false;
   }
   
   String stringInv(){

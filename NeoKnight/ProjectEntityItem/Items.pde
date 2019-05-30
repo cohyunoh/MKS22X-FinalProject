@@ -30,11 +30,7 @@ class Item{
   }
   
   void display(){
-    if(!pickedUp){
-      anim.display(xCor-anim.getWidth()/2, yCor);
-    }else{
-      return ;
-    }
+    anim.display(xCor-anim.getWidth()/2, yCor - anim.getHeight()/2);
   }
   
   void display(float x , float y){
