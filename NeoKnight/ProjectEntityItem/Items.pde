@@ -37,6 +37,10 @@ class Item{
     }
   }
   
+  void display(float x , float y){
+    anim.display(x-anim.getWidth()/2, y);
+  }
+  
   boolean picked(Player person){
     if (dist(xCor,yCor,person.getX(),person.getY()) < 0.5){
       return true;

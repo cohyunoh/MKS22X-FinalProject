@@ -8,7 +8,7 @@ class Player extends Entity implements Moveable {
     w = animLeft.getWidth();
     l = animLeft.getHeight();
     inv = new ArrayList<Item>();
-    Item hand = new Item(0, 20, height - 27);
+    Item hand = new Item(0);
     inv.add(hand);
     inHand = inv.get(0);
     currentSlot = 0;
@@ -24,7 +24,7 @@ class Player extends Entity implements Moveable {
     rect(10,35,armor,10);
     fill(50);
     rect(10, height - 50, 30, height - 50);
-    inHand.display();
+    inHand.display(20, height - 27);
     if(grab){
       grab(items);
     }

@@ -1,4 +1,3 @@
-
   Player person;
   ArrayList<Item> items;
   void setup() {
