@@ -1,6 +1,6 @@
 class Player extends Entity implements Moveable {
   int vel = 5;
-  boolean isLeft, isRight, isUp, isDown, wasLeft, wasRight, run, grab;
+  boolean isLeft, isRight, isUp, isDown, wasLeft, wasRight, run, grab, next, prev, swit;
   int w,l,currentSlot;
   ArrayList<Item> inv;
   Player(String startname, String type, float xCor, float yCor){
@@ -12,6 +12,7 @@ class Player extends Entity implements Moveable {
     inv.add(hand);
     inHand = inv.get(0);
     currentSlot = 0;
+    swit = false;
   }
   
   void display(ArrayList<Item> items){
@@ -25,6 +26,20 @@ class Player extends Entity implements Moveable {
     fill(50);
     square(10,height - 50, 30);
     inHand.display();
+    if(swit){
+       if(next){
+         currentSlot ++;
+         currentSlot = currentSlot % inv.size();
+        }
+        if(prev){
+          currentSlot --;
+          if(currentSlot < 0){
+            currentSlot = inv.size() - 1;
+           }
+        }
+        switchSlot();
+    }
+    
     if(grab){
       grab(items);
     }
@@ -121,17 +136,29 @@ class Player extends Entity implements Moveable {
   }
   
   void switchItem(float e){
-    currentSlot += (int)e;
-    if(currentSlot < 0){
-      currentSlot = inv.size() - 1;
-    }else{
-      currentSlot = currentSlot % inv.size();
+    if(inv.size()>1){
+      if(e < 0){
+        prev = true;
+        next = false;
+        swit = true;
+      }else if(e > 0){
+        prev = false;
+        next = true;
+        swit = true;
+      }
     }
+    
+  }
+  
+  void switchSlot(){
     inHand = inv.get(currentSlot);
     animLeft = new Animation(type + "-" + inHand + "/" + type + "-walk-left", 8);
     animRight = new Animation(type + "-" + inHand + "/" + type + "-walk-right", 8);
     right = loadImage (type + "-" + inHand + "/" + type + "-walk-right7.png");
     left = loadImage (type + "-" + inHand + "/" + type + "-walk-left7.png");
+    prev = false;
+    next = false;
+    swit = false;
   }
   
   String stringInv(){
