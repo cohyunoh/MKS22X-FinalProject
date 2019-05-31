@@ -1,6 +1,6 @@
 class Player extends Entity implements Moveable {
   int vel = 5;
-  boolean isLeft, isRight, isUp, isDown, wasLeft, wasRight, run, grab, next, prev, swit, attack;
+  boolean isLeft, isRight, isUp, isDown, wasLeft, wasRight, run, grab, next, prev, swit, attack, die;
   int w,l,currentSlot, damage;
   ArrayList<Item> inv;
   Animation attackleft, attackright;
@@ -62,6 +62,13 @@ class Player extends Entity implements Moveable {
   }
   
   void display(ArrayList<Item> items){
+    die();
+    if(die){
+      fill(50);
+      rect(xCor, yCor, 30,30);
+      attack = false;
+      return ;
+    }
     text("HEALTH", 10, 10);
     text("ARMOR",10,35);
     rectMode(CORNER);
@@ -72,6 +79,7 @@ class Player extends Entity implements Moveable {
     fill(50);
     rect(10, height - 50, 40, 40, 7);
     inHand.display();
+    
     if(swit){
        if(next){
          currentSlot ++;
@@ -193,6 +201,12 @@ class Player extends Entity implements Moveable {
       }
   }
   
+   void die(){
+    if(hp <= 0){
+      die =  true;
+    }
+  }
+  
   void switchItem(float e){
     if(inv.size()>1){
       if(e < 0){
@@ -216,8 +230,6 @@ class Player extends Entity implements Moveable {
     left = loadImage (type + "-" + inHand + "/" + type + "-walk-left7.png");
     attackleft = new Animation(type + "-" + "attack" + "/" + inHand + "-left",8);
     attackright = new Animation(type + "-" + "attack" + "/" + inHand + "-right",8);
-    prev = false;
-    next = false;
     swit = false;
   }
   

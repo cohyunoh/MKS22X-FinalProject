@@ -126,15 +126,15 @@ class Gorlag extends Entity{
   
   void hurt(Player enemy){
     hp -= enemy.getDamage();
-    if(enemy.getX() >= xCor){
+    if(enemy.getX() > xCor){
       xCor -= 10;
     }else{
       xCor += 10;
     }
-    if(enemy.getY() >= yCor){
-      xCor -= 10;
+    if(enemy.getY() > yCor){
+      yCor -= 10;
     }else{
-      xCor += 10;
+      yCor += 10;
     }
   }
 }
