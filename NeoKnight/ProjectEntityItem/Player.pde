@@ -3,6 +3,7 @@ class Player extends Entity implements Moveable {
   boolean isLeft, isRight, isUp, isDown, wasLeft, wasRight, run, grab, next, prev, swit, attack;
   int w,l,currentSlot;
   ArrayList<Item> inv;
+  Animation attackleft, attackright;
   Player(String startname, String type, float xCor, float yCor){
     super(startname, 100, 100, 1.00, type, xCor, yCor);
     w = animLeft.getWidth();
@@ -14,6 +15,8 @@ class Player extends Entity implements Moveable {
     currentSlot = 0;
     swit = false;
     attack = false;
+    attackleft = new Animation(type + "-" + "attack" + "/" + inHand + "-left",8);
+    attackright = new Animation(type + "-" + "attack" + "/" + inHand + "-right",8);
   }
   
   void attack(){
@@ -46,7 +49,15 @@ class Player extends Entity implements Moveable {
     }
     
     if(attack){
-      attack = false;
+      if(wasLeft){
+        attackleft.display(xCor - animLeft.getWidth()/2, yCor - animLeft.getHeight()/2);
+        attack = false;
+      }
+      if(wasRight) {
+        attackright.display(xCor - animLeft.getWidth()/2, yCor - animLeft.getHeight()/2);
+        attack = false;
+      }
+      return ;
     }
     
     if(grab){
@@ -99,8 +110,10 @@ class Player extends Entity implements Moveable {
   }
   
   void move(){
-    xCor = xCor + vel *(int(isRight) - int(isLeft));
-    yCor = yCor + vel *(int(isDown)  - int(isUp));
+    if(!attack){
+      xCor = xCor + vel *(int(isRight) - int(isLeft));
+      yCor = yCor + vel *(int(isDown)  - int(isUp));
+    }
   }
   
   ArrayList<Item> grab(ArrayList<Item> items){
@@ -165,6 +178,8 @@ class Player extends Entity implements Moveable {
     animRight = new Animation(type + "-" + inHand + "/" + type + "-walk-right", 8);
     right = loadImage (type + "-" + inHand + "/" + type + "-walk-right7.png");
     left = loadImage (type + "-" + inHand + "/" + type + "-walk-left7.png");
+    attackleft = new Animation(type + "-" + "attack" + "/" + inHand + "-left",8);
+    attackright = new Animation(type + "-" + "attack" + "/" + inHand + "-right",8);
     prev = false;
     next = false;
     swit = false;
