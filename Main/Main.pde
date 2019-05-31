@@ -6,15 +6,19 @@ Map map;
 int currentRoomRow, currentRoomCol;
 int currentState = 0;
 Room[][] rooms;
+Room current;
 String str;
 Screen screen;
 
 void setup() {
   size(1000, 1000);
   map = new Map(width, height);
+  currentRoomRow = map.getStartRow();
+  currentRoomCol = map.getStartCol();
   rooms = map.getMap();
   screen = new Screen();
-  str = map.toString();
+  current = rooms[currentRoomRow][currentRoomCol];
+  str = current.toString();
 }
 
 

@@ -46,6 +46,14 @@ class Map {
     }
   }
 
+  int getStartRow() {
+    return startRow;
+  }
+
+  int getStartCol() {
+    return startCol;
+  }
+
   //checks if room is in bounds
   boolean inBounds(int row, int col) {
     if (row > rows || row < 0 || col > cols || col < 0) return false;
