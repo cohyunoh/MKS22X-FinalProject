@@ -25,7 +25,6 @@ void draw() {
   if (currentState == 0) screen.startScreen();
   if (currentState == 1) screen.gameScreen(str);
   if (currentState == 2) screen.deathScreen();
-  getRoom();
 }
 
 void getRoom(){
