@@ -55,9 +55,9 @@ class Player extends Entity implements Moveable {
       xCor += 10;
     }
     if(enemy.getY() > yCor){
-      xCor -= 10;
+      yCor -= 10;
     }else{
-      xCor += 10;
+      yCor += 10;
     }
   }
   
