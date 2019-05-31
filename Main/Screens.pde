@@ -15,6 +15,7 @@ class Screen {
   void gameScreen(String str) {
     background(0, 0, 255);
     fill(50);
+    textSize(10);
     textAlign(LEFT);
     text(str, 0, 10);
   }

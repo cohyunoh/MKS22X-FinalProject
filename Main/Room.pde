@@ -32,10 +32,10 @@ class Room {
         floor[r][c] = isWall(r, c) ? '#' : ' ';
       }
     }
-    if (door.isUp()) putDoorDown(door);
-    else if (door.isDown(this)) putDoorUp(door);
-    else if (door.isLeft()) putDoorLeft(door);
-    else putDoorRight(door);
+    if (door.isUp()) putDoorDown();
+    else if (door.isDown(this)) putDoorUp();
+    else if (door.isLeft()) putDoorLeft();
+    else putDoorRight();
   }
 
 
@@ -65,29 +65,25 @@ class Room {
   //********   METHODS THAT CREATE DOORS PROPERLY ********// 
 
   void generateRandomDoor() {
-    int randomRow = Math.random() < .5 ? 0 : rows;
-    int randomCol = Math.random() < .5 ? 0 : cols;
-    floor[randomRow][randomCol] = 'D';
+    int randomRow = Math.random() < .5 ? 0 : rows-1;
+    int randomCol = Math.random() < .5 ? 0 : cols-1;
+    floor[randomRow][randomCol] =  'D';
   }
 
-  void putDoorDown(Door door) {
-    int doorCol = door.getCol();
-    floor[rows][doorCol] = 'D';
+  void putDoorDown() {
+    floor[rows-1][cols/2] = 'D';
   }
 
-  void putDoorUp(Door door) {
-    int doorCol = door.getCol();
-    floor[0][doorCol] = 'D';
+  void putDoorUp() {
+    floor[0][cols/2] = 'D';
   }
 
-  void putDoorLeft(Door door) {
-    int doorRow = door.getRow();
-    floor[doorRow][0] = 'D';
+  void putDoorLeft() {
+    floor[rows/2][0] = 'D';
   }
 
-  void putDoorRight(Door door) {
-    int doorRow = door.getRow();
-    floor[doorRow][cols] = 'D';
+  void putDoorRight() {
+    floor[rows/2][cols] = 'D';
   }
 
   //generates a string of the room

@@ -33,18 +33,22 @@ class Map {
   //recursively initalizes every room in the array 
   void createRooms(int row, int col, Door door) {
     if (rooms[row][col] == null) {
-      rooms[row][col] = new Room(row, col, door);
+      int roomRows = (int)(Math.random() + 50);
+      int roomCols = (int)(Math.random() * 50);
+      rooms[row][col] = new Room(roomRows, roomCols, door);
       for (int i = 0; i < 4; i++) {
         if (Math.random() < .3) {
           int changeRow = moves[i][0];
           int changeCol = moves[i][1];
-          if (rooms[row+changeRow][col+changeCol] == null) {
+          if (rooms[row+changeRow][col+changeCol] == null && inBounds(row+changeRow,col+changeCol) {
             createRooms(row+changeRow, col+changeCol, new Door(startRow, startCol));
           }
         }
       }
     }
   }
+  
+  
 
   int getStartRow() {
     return startRow;
