@@ -8,6 +8,7 @@ class Entity{
   Animation animRight;
   Animation current;
   PImage right, left;
+
   Entity(String startname, int health, int armor, float money, String type, float xCor, float yCor){
     this.xCor = xCor;
     this.yCor = yCor;
@@ -16,14 +17,15 @@ class Entity{
     this.armor = armor;
     this.money = money;
     this.type = type;
-    animLeft = new Animation(type + "/" + type + "-walk-left", 8);
-    animRight = new Animation(type + "/" + type + "-walk-right", 8);
+    inHand = new Item(0);
+    animLeft = new Animation(type + "-" + inHand + "/" + type + "-walk-left", 8);
+    animRight = new Animation(type + "-" + inHand + "/" + type + "-walk-right", 8);
     current = animRight;
-    right = loadImage (type + "/" + type + "-walk-right7.png");
-    left = loadImage (type + "/" + type + "-walk-left7.png");
+    right = loadImage (type + "-" + inHand + "/" + type + "-walk-right7.png");
+    left = loadImage (type + "-" + inHand + "/" + type + "-walk-left7.png");
   }
-  void display(ArrayList<String> moves){
-    for(String direction : moves){
+  
+  void display(String direction){
       if(direction.equals("left")){
         animLeft.display(xCor, yCor);
       }else if(direction.equals("right")){
@@ -33,7 +35,6 @@ class Entity{
       }else if(direction.equals("idleLeft")){
        image(left, xCor, yCor);
       }
-    }
   }
   
   void setX(float x){
@@ -50,5 +51,38 @@ class Entity{
   
   float getY(){
     return yCor;
+  }
+
+  
+  int getHealth(){
+    return hp;
+  }
+  
+  void setHealth(int newHP){
+    hp = newHP;
+  }
+  
+  int getArmor(){
+    return armor;
+  }
+  
+  void setArmor(int newArmor){
+    armor = newArmor;
+  }
+  
+  float getMoney(){
+    return money;
+  }
+  
+  void setMoney(float newBalance){
+    money = newBalance;
+  }
+  
+  Item getItem(){
+    return inHand;
+  }
+  
+  void setItem(Item newItem){
+    inHand = newItem;
   }
 }

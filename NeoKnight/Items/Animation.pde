@@ -15,15 +15,11 @@ class Animation {
 
   void display(float xpos, float ypos) {
     frame = (frame+1) % totalFrames;
-    imageMode(CENTER);
-    image(frames[frame], (xpos + getWidth() / 2), ypos + (getHeight() / 2));
+    background(255, 204, 0);
+    image(frames[frame], xpos, ypos);
    }
   
   int getWidth() {
     return frames[0].width;
-  }
-  
-  int getHeight() {
-    return frames[0].height;
   }
 }

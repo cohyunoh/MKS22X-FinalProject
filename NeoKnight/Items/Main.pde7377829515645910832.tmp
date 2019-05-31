@@ -1,5 +1,4 @@
-
- Entity person;
+Entity person;
   Item item;
   float xpos;
   float ypos;
