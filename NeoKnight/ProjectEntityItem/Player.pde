@@ -1,7 +1,7 @@
 class Player extends Entity implements Moveable {
   int vel = 5;
   boolean isLeft, isRight, isUp, isDown, wasLeft, wasRight, run, grab, next, prev, swit, attack;
-  int w,l,currentSlot;
+  int w,l,currentSlot, damage;
   ArrayList<Item> inv;
   Animation attackleft, attackright;
   Player(String startname, String type, float xCor, float yCor){
@@ -10,6 +10,7 @@ class Player extends Entity implements Moveable {
     l = animLeft.getHeight();
     inv = new ArrayList<Item>();
     Item hand = new Item(0, 29, height - 30);
+    damage = hand.getVal();
     inv.add(hand);
     inHand = inv.get(0);
     currentSlot = 0;
@@ -18,9 +19,46 @@ class Player extends Entity implements Moveable {
     attackleft = new Animation(type + "-" + "attack" + "/" + inHand + "-left",8);
     attackright = new Animation(type + "-" + "attack" + "/" + inHand + "-right",8);
   }
+  Player(String startname, String type, float xCor, float yCor, ArrayList<Item> inv, int slot){
+    super(startname, 100, 100, 1.00, type, xCor, yCor);
+    w = animLeft.getWidth();
+    l = animLeft.getHeight();
+    this.inv = inv;
+    currentSlot = slot;
+    inHand = inv.get(currentSlot);
+    damage = inHand.getVal();
+    swit = false;
+    attack = false;
+    attackleft = new Animation(type + "-" + "attack" + "/" + inHand + "-left",8);
+    attackright = new Animation(type + "-" + "attack" + "/" + inHand + "-right",8);
+  }
   
-  void attack(){
-    attack = true;
+  void attack(boolean e, ArrayList<Gorlag> enemies){
+     attack = e;
+     for(int i = 0; i < enemies.size(); i ++){
+       Gorlag enemy = enemies.get(i);
+       if(dist(enemy.getX(), enemy.getY(),xCor, yCor) < 100){
+          enemy.hurt(this);
+        }
+     }
+  }
+  
+  int getDamage(){
+   return damage;
+  }
+  
+  void hurt(Gorlag enemy){
+    hp -= enemy.getDamage();
+    if(enemy.getX() > xCor){
+      xCor -= 10;
+    }else{
+      xCor += 10;
+    }
+    if(enemy.getY() > yCor){
+      xCor -= 10;
+    }else{
+      xCor += 10;
+    }
   }
   
   void display(ArrayList<Item> items){
@@ -51,62 +89,60 @@ class Player extends Entity implements Moveable {
     if(attack){
       if(wasLeft){
         attackleft.display(xCor - animLeft.getWidth()/2, yCor - animLeft.getHeight()/2);
-        attack = false;
       }
       if(wasRight) {
         attackright.display(xCor - animLeft.getWidth()/2, yCor - animLeft.getHeight()/2);
-        attack = false;
       }
-      return ;
-    }
-    
-    if(grab){
-      grab(items);
-    }
-    if(run){
-      vel = 25;
     }else{
-      vel = 10;
-    }
-    if(isLeft){
-      animLeft.display(xCor - animLeft.getWidth()/2, yCor - animLeft.getHeight()/2);
-      return ;
-    }
-    if(isRight){
-      animRight.display(xCor - animRight.getWidth()/2, yCor - animRight.getHeight()/2);
-      return ;
-    }
-    if(isUp) {
-      if(wasLeft){
+    
+      if(grab){
+        grab(items);
+      }
+      if(run){
+        vel = 25;
+      }else{
+        vel = 10;
+      }
+      if(isLeft){
         animLeft.display(xCor - animLeft.getWidth()/2, yCor - animLeft.getHeight()/2);
         return ;
       }
-      if (wasRight){
+      if(isRight){
         animRight.display(xCor - animRight.getWidth()/2, yCor - animRight.getHeight()/2);
         return ;
       }
+      if(isUp) {
+        if(wasLeft){
+          animLeft.display(xCor - animLeft.getWidth()/2, yCor - animLeft.getHeight()/2);
+          return ;
+        }
+        if (wasRight){
+          animRight.display(xCor - animRight.getWidth()/2, yCor - animRight.getHeight()/2);
+          return ;
+        }
+      }
+      if(isDown) {
+        if(wasLeft){
+          animLeft.display(xCor - animLeft.getWidth()/2, yCor - animLeft.getHeight()/2);
+          return ;
+        }
+        if (wasRight){
+          animRight.display(xCor - animRight.getWidth()/2, yCor - animRight.getHeight()/2);
+          return ;
+        }
+      }
+      if(!isDown && !isUp && !isRight && !isLeft){
+        if(wasLeft){
+          image(left, xCor, yCor);
+          return ;
+        }
+        if (wasRight){
+          image(right, xCor, yCor);
+          return ;
+        }
+      }
+      image(right, xCor, yCor);
     }
-    if(isDown) {
-      if(wasLeft){
-        animLeft.display(xCor - animLeft.getWidth()/2, yCor - animLeft.getHeight()/2);
-        return ;
-      }
-      if (wasRight){
-        animRight.display(xCor - animRight.getWidth()/2, yCor - animRight.getHeight()/2);
-        return ;
-      }
-    }
-    if(!isDown && !isUp && !isRight && !isLeft){
-      if(wasLeft){
-        image(left, xCor, yCor);
-        return ;
-      }
-      if (wasRight){
-        image(right, xCor, yCor);
-        return ;
-      }
-    }
-    image(right, xCor, yCor);
   }
   
   void move(){

@@ -6,6 +6,7 @@ class Item{
   Animation anim;
   int imageCount;
   int id;
+  int valueUsed;
   
   Item(int idNum, float xCor, float yCor){
     String[] itemList = loadStrings("itemlist.txt");
@@ -19,6 +20,9 @@ class Item{
     this.xCor = xCor;
     this.yCor = yCor;
     id = idNum;
+    if(type.equals("melee")){
+      valueUsed = Integer.parseInt(itemInfo[5]);
+    }
   }
   
   Item(int idNum){
@@ -27,6 +31,13 @@ class Item{
     name = itemInfo[1];
     price = Float.parseFloat(itemInfo[2]);
     type = itemInfo[3];
+    if(type.equals("melee")){
+      valueUsed = Integer.parseInt(itemInfo[5]);
+    }
+  }
+  
+  int getVal(){
+    return valueUsed;
   }
   
   void display(){
