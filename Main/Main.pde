@@ -3,7 +3,7 @@ import java.io.*;
 
 
 Map map;
-int currentRoom = 0;
+int currentRoomRow, currentRoomCol;
 int currentState = 0;
 Room[][] rooms;
 String str;
@@ -11,7 +11,7 @@ Screen screen;
 
 void setup() {
   size(1000, 1000);
-  map = new Map(width/4, height/4);
+  map = new Map(width, height);
   rooms = map.getMap();
   screen = new Screen();
   str = map.toString();
@@ -26,4 +26,5 @@ void draw() {
 
 void mousePressed() {
   if (currentState == 0) currentState = 1;
+  if (currentState == 2) currentState = 0;
 }

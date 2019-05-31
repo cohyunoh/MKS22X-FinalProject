@@ -6,14 +6,15 @@ class Room {
   char current, next;
   int rows, cols, totaldoors;
 
+  //********   CONSTRUCTORS THAT CREATE ROOMS DEPENDING ON IF THERE WAS A PREVIOUS DOOR OR NOT ********//
 
   public Room(int rows, int cols) {
     this.rows = rows;
     this.cols = cols;
     floor = new char[rows][cols];
-    totaldoors = 0;
     initRoom();
   }
+
 
   public Room(int rows, int cols, Door door) {
     this.rows = rows;
@@ -23,12 +24,12 @@ class Room {
     initRoom(door);
   }
 
-  //THIS IS WHEN YOU HAVE DOOR
+  //********   METHODS THAT INITALIZE ROOMS DEPENDING ON IF THERE IS A PREVIOUS DOOR OR NOT ********//
+
   void initRoom(Door door) {
     for (int r = 0; r < rows; r++) {
       for (int c = 0; c < cols; c++) {
-        if (!isWall(r, c)) floor[r][c] = ' ';
-        if (isWall(r, c)) floor[r][c] = '#';
+        floor[r][c] = isWall(r, c) ? '#' : ' ';
       }
     }
     if (door.isUp()) putDoorDown(door);
@@ -37,10 +38,17 @@ class Room {
     else putDoorRight(door);
   }
 
-  //WHEN YOU DONT HAVE DOOR
+
   void initRoom() {
+    for (int r = 0; r < rows; r++) {
+      for (int c = 0; c < cols; c++) {
+        floor[r][c] = isWall(r, c) ? '#' : ' ';
+      }
+    }
+    generateRandomDoor();
   }
 
+  //Checks if the tile should be a wall or not
   boolean isWall(int row, int col) {
     if (row == 0 || row == rows - 1|| col == 0|| col == cols - 1) return true;
     return false;
@@ -53,24 +61,36 @@ class Room {
   int getCols() {
     return cols;
   }
-  
-  void putDoorDown(Door door){
-    int doorCol = door.getCol();
-    floor[doorCol
-  }
-  
-  void putDoorUp(Door door){
-    int doorCol = door.getCol();
-  }
-  
-  void putDoorLeft(Door door){
-    int doorRow = door.getRow();
-  }
-  
-  void putDoorRight(Door door){
-    int doorRow = door.getRow();
+
+  //********   METHODS THAT CREATE DOORS PROPERLY ********// 
+
+  void generateRandomDoor() {
+    int randomRow = Math.random() < .5 ? 0 : rows;
+    int randomCol = Math.random() < .5 ? 0 : cols;
+    floor[randomRow][randomCol] = 'D';
   }
 
+  void putDoorDown(Door door) {
+    int doorCol = door.getCol();
+    floor[rows][doorCol] = 'D';
+  }
+
+  void putDoorUp(Door door) {
+    int doorCol = door.getCol();
+    floor[0][doorCol] = 'D';
+  }
+
+  void putDoorLeft(Door door) {
+    int doorRow = door.getRow();
+    floor[doorRow][0] = 'D';
+  }
+
+  void putDoorRight(Door door) {
+    int doorRow = door.getRow();
+    floor[doorRow][cols] = 'D';
+  }
+
+  //generates a string of the room
   String toString() {
     String str = " ";
     for (int r = 0; r < rows; r++) {

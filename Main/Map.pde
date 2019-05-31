@@ -15,6 +15,7 @@ class Map {
     createMap();
   }
 
+  //This creates a map where the starting room is always 50x50 and then creates four rooms in every direction
   void createMap() {
     rooms[startRow][startCol] = new Room(50, 50);
     //initilaizes all rooms
@@ -22,13 +23,14 @@ class Map {
       if (Math.random() < .5) {
         int changeRow = moves[i][0];
         int changeCol = moves[i][1];
-        if (inBounds(startRow + changeRow, startCol + changeCol)){
+        if (inBounds(startRow + changeRow, startCol + changeCol)) {
           createRooms(startRow+changeRow, startCol+changeCol, new Door(startRow, startCol));
         }
       }
     }
   }
 
+  //recursively initalizes every room in the array 
   void createRooms(int row, int col, Door door) {
     if (rooms[row][col] == null) {
       rooms[row][col] = new Room(row, col, door);
@@ -43,8 +45,9 @@ class Map {
       }
     }
   }
-  
-  boolean inBounds(int row, int col){
+
+  //checks if room is in bounds
+  boolean inBounds(int row, int col) {
     if (row > rows || row < 0 || col > cols || col < 0) return false;
     return true;
   }
