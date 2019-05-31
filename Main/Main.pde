@@ -17,8 +17,7 @@ void setup() {
   currentRoomCol = map.getStartCol();
   rooms = map.getMap();
   screen = new Screen();
-  current = rooms[currentRoomRow][currentRoomCol];
-  str = current.toString();
+  getRoom();
 }
 
 
@@ -26,6 +25,11 @@ void draw() {
   if (currentState == 0) screen.startScreen();
   if (currentState == 1) screen.gameScreen(str);
   if (currentState == 2) screen.deathScreen();
+  getRoom();
+}
+
+void getRoom(){
+  str = rooms[currentRoomRow][currentRoomCol].toString();
 }
 
 void mousePressed() {

@@ -40,7 +40,7 @@ class Map {
         if (Math.random() < .3) {
           int changeRow = moves[i][0];
           int changeCol = moves[i][1];
-          if (rooms[row+changeRow][col+changeCol] == null && inBounds(row+changeRow,col+changeCol) {
+          if (inBounds(row+changeRow,col+changeCol) && rooms[row+changeRow][col+changeCol] == null ) {
             createRooms(row+changeRow, col+changeCol, new Door(startRow, startCol));
           }
         }

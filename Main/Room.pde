@@ -65,8 +65,8 @@ class Room {
   //********   METHODS THAT CREATE DOORS PROPERLY ********// 
 
   void generateRandomDoor() {
-    int randomRow = Math.random() < .5 ? 0 : rows-1;
-    int randomCol = Math.random() < .5 ? 0 : cols-1;
+    int randomRow = (int)(Math.random() * rows);
+    int randomCol = (int)(Math.random() * cols);
     floor[randomRow][randomCol] =  'D';
   }
 
