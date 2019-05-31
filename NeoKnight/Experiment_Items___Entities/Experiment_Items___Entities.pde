@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.io.IOException;
 import java.io.FileWriter;
+/*
 class Entity{
   int hp, armor, money;
   float xCor, yCor;
@@ -13,18 +14,23 @@ class Entity{
     
   }
 }
-
+*/
 class Item{
   float price;
   String name;
-  PImage[] sprite;
+  PImage sprite;
   String type;
-  File file = new File("itemlist.txt");
-  Scanner itemList = new Scanner(file);
   float xCor, yCor;
   boolean pickedUp;  
+  Scanner itemList;
   
   Item(int idNum){
+    try{
+      File file = new File("itemlist.txt");
+      itemList = new Scanner(file);
+    }catch(FileNotFoundException e){
+      e.printStackTrace();
+    }
     boolean notfound = true;
     while(itemList.hasNextInt() && notfound){
       if(itemList.nextInt() == idNum){
@@ -32,6 +38,7 @@ class Item{
         price = Float.parseFloat(itemList.next());
         type = itemList.next();
         notfound = false;
+        render();
       }
     }
   }
@@ -48,20 +55,35 @@ class Item{
   }
   
   void render(){
-    boolean notDone = true;
-    for (int i = 0; notDone; i++){
-      PImage frame = loadImage(name + i);
+    sprite = loadImage(name + ".gif");
   }
   
   void display(){
-    boolean notDone = true;
-    for (int i = 0; notDone; i++){
-      PImage frame = loadImage(name + i);
-      image(frame, xCor, yCor);
-    }
+    image(sprite, xCor, yCor);
+  }
+  /*
+  int getWidth() {
+    return sprites[0].width;
+  }
+  */
+  String getName(){
+    return name;
   }
   
-  int getWidth() {
-    return sprite.width;
+  float getPrice(){
+    return price;
   }
+  
+  String getType(){
+     return type;
+  }
+}
+Item item;
+void setup(){
+  size(64, 64);
+  item = new Item (1, 32, 32, false);
+}
+
+void draw() {
+  item.display();
 }
