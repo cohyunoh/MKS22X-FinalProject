@@ -56,28 +56,38 @@ class Gorlag extends Entity{
     yCor = yCor + vel *(int(isDown)  - int(isUp));
   }
   void setMove(Player person){
-    if(dist(person.getX(), person.getY(),xCor, yCor) < 50){
+    if(dist(person.getX(), person.getY(),xCor, yCor) < 300){
       chase = true;
-      if(person.getX() >= xCor){
+      if(person.getX() > xCor){
         wasLeft = false;
         wasRight = true;
         isRight = true;
         isLeft = false;
-      }else{
+      }else if(person.getX() < xCor){
         wasLeft = true;
         wasRight = false;
         isRight = false;
         isLeft = true;
+      }else{
+        isRight = false;
+        isLeft = false;
       }
-      if(person.getY() >= yCor){
+      if(person.getY() > yCor){
         isDown = true;
         isUp = false;
-      }else{
+      }else if (person.getY() < yCor){
         isDown = false;
         isUp = true;
+      }else{
+        isDown = false;
+        isUp = false;
       }
     }else{
       chase = false;
+      isRight = false;
+      isLeft = false;
+      isDown = false;
+      isUp = false;
     }
   }
 }
