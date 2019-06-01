@@ -1,12 +1,28 @@
 class Door {
 
   //coordinates of the Door
+  float x, y;
   int row, col;
-
+  PImage sprite = loadImage("door.png");
+  boolean up, down, right, left;
   //creates door
-  public Door(int row, int col) {
+  public Door(float x, float y, int row, int col, String direction) {
     this.row = row;
     this.col = col;
+    this.x = x;
+    this.y = y;
+    if(direction.equals("up")){
+      up = true;
+    }
+    if(direction.equals("down")){
+      down = true;
+    }
+    if(direction.equals("left")){
+      left = true;
+    }
+    if(direction.equals("right")){
+      right = true;
+    }
   }
 
   int getRow() {
@@ -16,26 +32,40 @@ class Door {
   int getCol() {
     return col;
   }
-
-  boolean isUp() {
-    if (row == 0) return true;
-    return false;
+  
+  boolean isUp(){
+    return up;
   }
-
-  boolean isLeft() {
-    if (col == 0) return true;
-    return false;
+  
+  boolean isDown(){
+    return down;
   }
-
-  boolean isDown(Room room) {
-    int roomRows = room.getRows();
-    if (row == roomRows) return true;
-    return false;
+  
+  boolean isLeft(){
+    return left;
   }
-
-  boolean isRight(Room room) {
-    int roomCols = room.getCols();
-    if (col == roomCols) return true;
-    return false;
+  
+  boolean isRight(){
+    return right;
   }
+  
+  void display(){
+    translate(x,y);
+    if(up){
+      rotate(PI);
+    }
+    if(down){
+      rotate(0);
+    }
+    if(left){
+      rotate(3 * PI / 2);
+    }
+    if(right){
+      rotate(PI / 2);
+    }
+    imageMode(CENTER);
+    image(sprite, x,y);
+  }
+  
+  
 }

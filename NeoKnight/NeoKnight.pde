@@ -74,16 +74,14 @@ void mousePressed() {
     currentState = 0;
     setup();
   }
-  
+  person.setAttack(true);
 }
 
 void mouseReleased(){
    person.setAttack(false);
 }
 
-void mouseClicked(){
-  person.setAttack(true);
-}
+
 
 void createEnemies(){
   int numEnemies = (int)(Math.random() * (5 + roomNum)) + 5;

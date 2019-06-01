@@ -23,30 +23,10 @@ class Screen {
 
   //this prints out the current room 
   void gameScreen(Room room, Player person) {
-    
-    
-   
-    
     room.move();
     room.display();
     person.display(items);
-    /*
-    for(int i = 0; i < items.size(); i++){
-      Item item = items.get(i);
-      item.display();
-    }
-    
-    for(int i = 0; i < enemies.size(); i++){
-      Gorlag enemy = enemies.get(i);
-      enemy.setMove(person);
-      enemy.move();
-      if(dist(person.getX(), person.getY(),enemy.getX(), enemy.getY()) < 50){
-        enemy.attack(person);
-      }
-      enemy.display();
-    }
-    */
-     fill(50);
+    fill(50);
     textSize(20);
     textAlign(LEFT);
     text("Room X: " + room.getX(), 0, 500);
