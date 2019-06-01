@@ -14,14 +14,19 @@ class Screen {
   //this prints out the current room 
   void gameScreen(Room room) {
     
-    background(0, 0, 255);
+    
     /*
     fill(50);
     textSize(10);
     textAlign(LEFT);
     text(str, 0, 10);
     */
+    
+    room.move();
     room.display();
+    rectMode(CENTER);
+    fill(225,0,0);
+    rect(1000,500,50,50);
   }
 
   //after the player dies a death screen comes up

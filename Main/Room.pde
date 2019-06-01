@@ -1,7 +1,8 @@
 import java.util.*;
 
 class Room {
-
+  int vel = 5;
+  boolean isLeft, isRight, isUp, isDown, wasLeft, wasRight, run;
   char[][] floor;
   char current, next;
   int rows, cols, totaldoors;
@@ -119,5 +120,35 @@ class Room {
       str += s + '\n';
     }
     return str;
+  }
+  
+  void move(){
+    x = x + vel *(int(isLeft) - int(isRight));
+    y = y + vel *(int(isUp)  - int(isDown));
+  }
+  
+  boolean setMove(int k, boolean b) {
+    switch (k) {
+      case SHIFT:
+        return run = b;
+      case + 'W':
+      case 'w':
+        return isUp = b;
+      case + 'S':  
+      case 's':
+        return isDown = b;
+      case + 'A':  
+      case 'a':
+        wasLeft = true;
+        wasRight = false;
+        return isLeft = b;
+      case + 'D':  
+      case 'd':
+        wasLeft = false;
+        wasRight = true;
+        return isRight = b;
+      default:
+        return b;
+    }
   }
 }
