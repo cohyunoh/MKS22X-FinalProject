@@ -98,3 +98,9 @@ Day 12 5/30:
 Connor:
 Polished the chasing enemy making it stop while not in pursuit
 Worked on the attack feature
+
+Day 13 5/31
+Connor:
+After merging the previous branches, the room is now able to be displayed
+Camera moves with player
+Failed to implement player
