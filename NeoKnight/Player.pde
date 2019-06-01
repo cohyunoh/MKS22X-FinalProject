@@ -1,7 +1,8 @@
 class Player extends Entity{
   boolean isLeft, isRight, isUp, isDown, wasLeft, wasRight, grab, next, prev, swit, attack, die;
-  int w,l,currentSlot, damage;
+  int w,l,currentSlot, damage, attackFrames;
   ArrayList<Item> inv;
+  ArrayList<Enemy> enemies;
   Animation attackleft, attackright;
   Player(String startname, String type, float xCor, float yCor){
     super(startname, 100, 100, 1.00, type, xCor, yCor);
@@ -18,6 +19,8 @@ class Player extends Entity{
     attackleft = new Animation(type + "-" + "attack" + "/" + inHand + "-left",8);
     attackright = new Animation(type + "-" + "attack" + "/" + inHand + "-right",8);
   }
+  
+  
   Player(String startname, String type, float xCor, float yCor, ArrayList<Item> inv, int slot){
     super(startname, 100, 100, 1.00, type, xCor, yCor);
     w = animLeft.getWidth();
@@ -32,8 +35,11 @@ class Player extends Entity{
     attackright = new Animation(type + "-" + "attack" + "/" + inHand + "-right",8);
   }
   
-  void attack(boolean e, ArrayList<Enemy> enemies){
-     attack = e;
+  void addEnemies(ArrayList<Enemy> enemies){
+    this.enemies = enemies;
+  }
+  
+  void attack(){
      for(int i = 0; i < enemies.size(); i ++){
        Enemy enemy = enemies.get(i);
        if(dist(enemy.getX(), enemy.getY(),xCor, yCor) < 100){
@@ -46,7 +52,7 @@ class Player extends Entity{
    return damage;
   }
   
-  void hurt(Gorlag enemy){
+  void hurt(Enemy enemy){
     hp -= enemy.getDamage();
     if(enemy.getX() > xCor){
       xCor -= 10;
@@ -68,6 +74,8 @@ class Player extends Entity{
       attack = false;
       return ;
     }
+    textAlign(LEFT);
+    textSize(12);
     text("HEALTH", 10, 10);
     text("ARMOR",10,35);
     rectMode(CORNER);
@@ -100,6 +108,12 @@ class Player extends Entity{
       if(wasRight) {
         attackright.display(xCor - animLeft.getWidth()/2, yCor - animLeft.getHeight()/2);
       }
+      attack();
+      attackFrames += 1;
+      if(attackFrames >= 8){
+        attack = false;
+      }
+      attack = false;
     }else{
     
       if(grab){
@@ -230,7 +244,7 @@ class Player extends Entity{
     return ans;
   }
   
-  boolean isAttacking(){
-    return attack;
+  void setAttack(boolean attack){
+    this.attack = attack;
   }
 }

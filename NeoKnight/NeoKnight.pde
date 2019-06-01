@@ -9,13 +9,16 @@ int currentRoomRow, currentRoomCol;
 int currentState = 0;
 Room[][] rooms;
 Room current;
-int roomnum = 0;
+int roomNum = 0;
 //String str;
 Screen screen;
 
 void setup() {
-  size(2000, 1000);
-  map = new Map(width, height, enemies, items);
+  size(1500, 1000);
+  items = new ArrayList<Item>();
+  enemies = new ArrayList<Enemy>();
+  createEnemies();
+  map = new Map(width, height);
   currentRoomRow = map.getStartRow();
   currentRoomCol = map.getStartCol();
   rooms = map.getMap();
@@ -23,13 +26,15 @@ void setup() {
   getRoom();
   smooth(3);
   frameRate(10);
-  items = new ArrayList<Item>();
-  enemies = new ArrayList<Enemy>();
+  current.addEnemies(enemies);
+  
   /*
   Item item =  new Item(1, 320, 180);
   items.add(item);
   */
-  person = new Player("bob", "knight", 1000, 500);
+  person = new Player("bob", "knight", 750, 500);
+  current.addPlayer(person);
+  person.addEnemies(enemies);
   /*
   Gorlag enemy = new Gorlag(400, 200, (int)(Math.random() * 10));
   enemies.add(enemy);
@@ -63,13 +68,20 @@ void keyPressed(){
 void mousePressed() {
   if (currentState == 0) currentState = 1;
   if (currentState == 2) currentState = 0;
-  person.attack(true, enemies);
 }
 
 void mouseReleased(){
-   person.attack(false, enemies);
+   person.setAttack(false);
+}
+
+void mouseClicked(){
+  person.setAttack(true);
 }
 
 void createEnemies(){
-  int numEnemies = 
+  int numEnemies = (int)(Math.random() * (5 + roomNum));
+  for(int i = 0; i < numEnemies; i++){
+    Enemy gorlag = new Enemy(0,0,(int)(Math.random() * 15) + 5);
+    enemies.add(gorlag);
+  }
 }

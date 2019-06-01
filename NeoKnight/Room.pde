@@ -11,22 +11,21 @@ class Room implements Moveable{
   PImage wall = loadImage("wall.png");
   ArrayList<Enemy> enemies;
   ArrayList<Item> items;
+  Player person;
 
   //********   CONSTRUCTORS THAT CREATE ROOMS DEPENDING ON IF THERE WAS A PREVIOUS DOOR OR NOT ********//
 
-  public Room(int rows, int cols, float x, float y, ArrayList<Enemy> enemies, ArrayList<Item> items) {
+  public Room(int rows, int cols, float x, float y) {
     this.rows = rows;
     this.cols = cols;
     floor = new char[rows][cols];
     initRoom();
     this.x = x;
     this.y = y;
-    this.items = items;
-    this.enemies = enemies;
   }
 
 
-  public Room(int rows, int cols, Door door, float x, float y, ArrayList<Enemy> enemies, ArrayList<Item> items) {
+  public Room(int rows, int cols, Door door, float x, float y) {
     this.rows = rows;
     this.cols = cols;
     floor = new char[rows][cols];
@@ -34,12 +33,27 @@ class Room implements Moveable{
     initRoom(door);
     this.x = x;
     this.y = y;
-    this.items = items;
-    this.enemies = enemies;
   }
 
   //********   METHODS THAT INITALIZE ROOMS DEPENDING ON IF THERE IS A PREVIOUS DOOR OR NOT ********//
-
+  
+  void addEnemies(ArrayList<Enemy> enemies){
+    this.enemies = enemies;
+    for(int i = 0; i < enemies.size(); i++){
+      Enemy enemy = enemies.get(i);
+      enemy.setX((float)(32 + (Math.random() * (32 * rows - 2))));
+      enemy.setY((float)(32 + (Math.random() * (32 * cols - 2))));
+    }
+  }
+  
+  void addItems(ArrayList<Item> items){
+    this.items = items;
+  }
+  
+  void addPlayer(Player person){
+    this.person = person;
+  }
+  
   void initRoom(Door door) {
     for (int r = 0; r < rows; r++) {
       for (int c = 0; c < cols; c++) {
@@ -118,6 +132,22 @@ class Room implements Moveable{
         }
       }
     }
+    if(items != null){
+      for(int i = 0; i < items.size(); i++){
+        Item item = items.get(i);
+        item.display();
+      }
+    }
+    if(enemies != null){
+      for(int i = 0; i < enemies.size(); i++){
+        Enemy enemy = enemies.get(i);
+        enemy.setMove(person);
+        if(dist(person.getX(), person.getY(),enemy.getX(), enemy.getY()) < 50){
+          enemy.attack(person);
+        }
+        enemy.display();
+      }
+    }
   }
   
   //generates a string of the room
@@ -134,8 +164,28 @@ class Room implements Moveable{
   }
   
   void move(){
-    x = constrain(x + vel *(int(isLeft) - int(isRight)), -32 * (rows - 1), 32 * (rows - 1));
-    y = constrain(y + vel *(int(isUp)  - int(isDown)), -32 * (cols - 1), 32 * (cols - 1));
+    x = constrain(x + vel *(int(isLeft) - int(isRight)), -32 * (rows), 32 * (rows));
+    y = constrain(y + vel *(int(isUp)  - int(isDown)), -32 * (cols), 32 * (cols));
+    moveAll(vel *(int(isLeft) - int(isRight)),vel *(int(isUp)  - int(isDown)));
+  }
+  
+  void moveAll(float x, float y){
+    if(items != null){
+      for(int i = 0; i < items.size(); i++){
+        Item item = items.get(i);
+        item.setX(item.getX() - x);
+        item.setY(item.getY() - y);
+      }
+    }
+    if(enemies != null){
+      for(int i = 0; i < enemies.size(); i++){
+        
+        Enemy enemy = enemies.get(i);
+        enemy.setX(enemy.getX() + x);
+        enemy.setY(enemy.getY() + y);
+        enemy.move();
+      }
+    }
   }
   
   boolean setMove(int k, boolean b) {
@@ -161,5 +211,13 @@ class Room implements Moveable{
       default:
         return b;
     }
+  }
+  
+  float getX(){
+    return x;
+  }
+  
+  float getY(){
+    return y;
   }
 }

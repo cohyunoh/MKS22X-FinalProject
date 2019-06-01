@@ -15,12 +15,7 @@ class Screen {
   void gameScreen(Room room, Player person) {
     
     
-    /*
-    fill(50);
-    textSize(10);
-    textAlign(LEFT);
-    text(str, 0, 10);
-    */
+   
     
     room.move();
     room.display();
@@ -41,7 +36,11 @@ class Screen {
       enemy.display();
     }
     */
-    
+     fill(50);
+    textSize(20);
+    textAlign(LEFT);
+    text("Room X: " + room.getX(), 0, 500);
+    text("Room Y: " + room.getY(), 0, 530);
   }
 
   //after the player dies a death screen comes up
