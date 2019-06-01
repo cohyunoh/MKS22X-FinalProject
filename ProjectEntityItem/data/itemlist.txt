@@ -1,0 +1,6 @@
+id name price type frames damage heal armorHeal
+0 hand 0.00 melee 4 10 0 0 
+1 sword 25.00 melee 8 35 0 0
+2 shield 35.00 block 8 0 0 0
+3 health+ 5.00 heal 8 5 10 0
+4 armor+ 5.00 heal 8 5 0 10

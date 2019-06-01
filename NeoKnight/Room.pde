@@ -1,6 +1,6 @@
 import java.util.*;
 
-class Room {
+class Room implements Moveable{
   int vel = 5;
   boolean isLeft, isRight, isUp, isDown, wasLeft, wasRight, run;
   char[][] floor;
@@ -123,8 +123,8 @@ class Room {
   }
   
   void move(){
-    x = constrain(x + vel *(int(isLeft) - int(isRight)), 0, 32 * (rows));
-    y = constrain(y + vel *(int(isUp)  - int(isDown)), 0, 32 * (cols));
+    x = constrain(x + vel *(int(isLeft) - int(isRight)), -32 * (rows - 1), 32 * (rows - 1));
+    y = constrain(y + vel *(int(isUp)  - int(isDown)), -32 * (cols - 1), 32 * (cols - 1));
   }
   
   boolean setMove(int k, boolean b) {

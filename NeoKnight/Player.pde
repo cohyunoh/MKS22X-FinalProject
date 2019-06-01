@@ -1,5 +1,4 @@
-class Player extends Entity implements Moveable {
-  int vel = 5;
+class Player extends Entity{
   boolean isLeft, isRight, isUp, isDown, wasLeft, wasRight, run, grab, next, prev, swit, attack, die;
   int w,l,currentSlot, damage;
   ArrayList<Item> inv;
@@ -150,13 +149,6 @@ class Player extends Entity implements Moveable {
         }
       }
       image(right, xCor, yCor);
-    }
-  }
-  
-  void move(){
-    if(!attack){
-      xCor = xCor + vel *(int(isRight) - int(isLeft));
-      yCor = yCor + vel *(int(isDown)  - int(isUp));
     }
   }
   
