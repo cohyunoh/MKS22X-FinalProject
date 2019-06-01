@@ -41,8 +41,8 @@ class Room implements Moveable{
     this.enemies = enemies;
     for(int i = 0; i < enemies.size(); i++){
       Enemy enemy = enemies.get(i);
-      enemy.setX((float)(32 + (Math.random() * (32 * rows - 2))));
-      enemy.setY((float)(32 + (Math.random() * (32 * cols - 2))));
+      enemy.setX((float)(32 + abs((float)(Math.random() * (32 * rows - 2)))));
+      enemy.setY((float)(32 + abs((float)(Math.random() * (32 * cols - 2)))));
     }
   }
   
@@ -167,8 +167,8 @@ class Room implements Moveable{
     if(person.isDead()){
       return ;
     }
-    x = constrain(x + vel *(int(isLeft) - int(isRight)), -32 * (rows), 32 * (rows));
-    y = constrain(y + vel *(int(isUp)  - int(isDown)), -32 * (cols), 32 * (cols));
+    x = constrain(x + vel *(int(isLeft) - int(isRight)),-1 * abs(750 - ((rows) * 32)) + person.getWidth() / 2, 750 - person.getWidth() / 2);
+    y = constrain(y + vel *(int(isUp)  - int(isDown)),-1 * abs(500 - ((cols) * 32)) + person.getHeight() / 2, 500 - person.getHeight() / 2);
     moveAll(vel *(int(isLeft) - int(isRight)),vel *(int(isUp)  - int(isDown)));
   }
   

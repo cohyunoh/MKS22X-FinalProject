@@ -89,4 +89,12 @@ class Entity{
   boolean isDead(){
     return hp < 0;
   }
+  
+  float getWidth(){
+    return animLeft.getWidth();
+  }
+  
+  float getHeight(){
+    return animLeft.getHeight();
+  }
 }
