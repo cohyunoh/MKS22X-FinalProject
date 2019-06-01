@@ -1,5 +1,5 @@
 class Player extends Entity{
-  boolean isLeft, isRight, isUp, isDown, wasLeft, wasRight, run, grab, next, prev, swit, attack, die;
+  boolean isLeft, isRight, isUp, isDown, wasLeft, wasRight, grab, next, prev, swit, attack, die;
   int w,l,currentSlot, damage;
   ArrayList<Item> inv;
   Animation attackleft, attackright;
@@ -32,10 +32,10 @@ class Player extends Entity{
     attackright = new Animation(type + "-" + "attack" + "/" + inHand + "-right",8);
   }
   
-  void attack(boolean e, ArrayList<Gorlag> enemies){
+  void attack(boolean e, ArrayList<Enemy> enemies){
      attack = e;
      for(int i = 0; i < enemies.size(); i ++){
-       Gorlag enemy = enemies.get(i);
+       Enemy enemy = enemies.get(i);
        if(dist(enemy.getX(), enemy.getY(),xCor, yCor) < 100){
           enemy.hurt(this);
         }
@@ -105,11 +105,6 @@ class Player extends Entity{
       if(grab){
         grab(items);
       }
-      if(run){
-        vel = 25;
-      }else{
-        vel = 10;
-      }
       if(isLeft){
         animLeft.display(xCor - animLeft.getWidth()/2, yCor - animLeft.getHeight()/2);
         return ;
@@ -167,8 +162,6 @@ class Player extends Entity{
   
   boolean setMove(int k, boolean b) {
     switch (k) {
-      case SHIFT:
-        return run = b;
       case + 'W':
       case 'w':
         return isUp = b;

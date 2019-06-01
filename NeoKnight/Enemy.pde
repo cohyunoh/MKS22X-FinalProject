@@ -1,7 +1,9 @@
-class Gorlag extends Entity{
+
+
+class Enemy extends Entity {
   boolean chase, isLeft, isRight, isUp, isDown, wasLeft, wasRight, attack, die;
   int vel = 5, attackDam;
-  Gorlag(float x, float y, int a){
+  Enemy(float x, float y, int a){
    super("gorlag", 100, 0, 10.00, "gorlag", x, y);
    attackDam = a;
    die = false;

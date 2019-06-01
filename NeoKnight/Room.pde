@@ -9,20 +9,24 @@ class Room implements Moveable{
   float x, y;
   PImage tile = loadImage("floor.png");
   PImage wall = loadImage("wall.png");
+  ArrayList<Enemy> enemies;
+  ArrayList<Item> items;
 
   //********   CONSTRUCTORS THAT CREATE ROOMS DEPENDING ON IF THERE WAS A PREVIOUS DOOR OR NOT ********//
 
-  public Room(int rows, int cols, float x, float y) {
+  public Room(int rows, int cols, float x, float y, ArrayList<Enemy> enemies, ArrayList<Item> items) {
     this.rows = rows;
     this.cols = cols;
     floor = new char[rows][cols];
     initRoom();
     this.x = x;
     this.y = y;
+    this.items = items;
+    this.enemies = enemies;
   }
 
 
-  public Room(int rows, int cols, Door door, float x, float y) {
+  public Room(int rows, int cols, Door door, float x, float y, ArrayList<Enemy> enemies, ArrayList<Item> items) {
     this.rows = rows;
     this.cols = cols;
     floor = new char[rows][cols];
@@ -30,6 +34,8 @@ class Room implements Moveable{
     initRoom(door);
     this.x = x;
     this.y = y;
+    this.items = items;
+    this.enemies = enemies;
   }
 
   //********   METHODS THAT INITALIZE ROOMS DEPENDING ON IF THERE IS A PREVIOUS DOOR OR NOT ********//
@@ -95,6 +101,11 @@ class Room implements Moveable{
   }
   
   void display(){
+    if(run){
+        vel = 25;
+      }else{
+        vel = 10;
+      }
     for(int r = 0; r < floor.length; r++){
       for(int c = 0; c < floor[0].length; c++){
         char slot = floor[r][c];

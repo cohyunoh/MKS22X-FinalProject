@@ -12,7 +12,7 @@ class Screen {
   }
 
   //this prints out the current room 
-  void gameScreen(Room room, Player person, ArrayList<Gorlag> enemies, ArrayList<Item> items) {
+  void gameScreen(Room room, Player person) {
     
     
     /*
@@ -25,6 +25,7 @@ class Screen {
     room.move();
     room.display();
     person.display(items);
+    /*
     for(int i = 0; i < items.size(); i++){
       Item item = items.get(i);
       item.display();
@@ -39,6 +40,7 @@ class Screen {
       }
       enemy.display();
     }
+    */
     
   }
 
