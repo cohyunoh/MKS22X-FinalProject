@@ -5,23 +5,30 @@ class Room {
   char[][] floor;
   char current, next;
   int rows, cols, totaldoors;
+  float x, y;
+  PImage tile = loadImage("floor.png");
+  PImage wall = loadImage("wall.png");
 
   //********   CONSTRUCTORS THAT CREATE ROOMS DEPENDING ON IF THERE WAS A PREVIOUS DOOR OR NOT ********//
 
-  public Room(int rows, int cols) {
+  public Room(int rows, int cols, float x, float y) {
     this.rows = rows;
     this.cols = cols;
     floor = new char[rows][cols];
     initRoom();
+    this.x = x;
+    this.y = y;
   }
 
 
-  public Room(int rows, int cols, Door door) {
+  public Room(int rows, int cols, Door door, float x, float y) {
     this.rows = rows;
     this.cols = cols;
     floor = new char[rows][cols];
     totaldoors = 0;
     initRoom(door);
+    this.x = x;
+    this.y = y;
   }
 
   //********   METHODS THAT INITALIZE ROOMS DEPENDING ON IF THERE IS A PREVIOUS DOOR OR NOT ********//
@@ -85,7 +92,22 @@ class Room {
   void putDoorRight() {
     floor[rows/2][cols] = 'D';
   }
-
+  
+  void display(){
+    for(int r = 0; r < floor.length; r++){
+      for(int c = 0; c < floor[0].length; c++){
+        char slot = floor[r][c];
+        if(slot == '#'){
+          imageMode(CORNER);
+          image(wall, x + (32 * r), y + (32 * c));
+        }else if(slot == ' '){
+          imageMode(CORNER);
+          image(tile, x + (32 * r), y + (32 * c));
+        }
+      }
+    }
+  }
+  
   //generates a string of the room
   String toString() {
     String str = " ";

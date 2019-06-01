@@ -12,12 +12,16 @@ class Screen {
   }
 
   //this prints out the current room 
-  void gameScreen(String str) {
+  void gameScreen(Room room) {
+    
     background(0, 0, 255);
+    /*
     fill(50);
     textSize(10);
     textAlign(LEFT);
     text(str, 0, 10);
+    */
+    room.display();
   }
 
   //after the player dies a death screen comes up

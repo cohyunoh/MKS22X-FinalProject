@@ -7,7 +7,7 @@ int currentRoomRow, currentRoomCol;
 int currentState = 0;
 Room[][] rooms;
 Room current;
-String str;
+//String str;
 Screen screen;
 
 void setup() {
@@ -23,12 +23,13 @@ void setup() {
 
 void draw() {
   if (currentState == 0) screen.startScreen();
-  if (currentState == 1) screen.gameScreen(str);
+  if (currentState == 1) screen.gameScreen(current);
   if (currentState == 2) screen.deathScreen();
 }
 
 void getRoom(){
-  str = rooms[currentRoomRow][currentRoomCol].toString();
+  //str = rooms[currentRoomRow][currentRoomCol].toString();
+  current = rooms[currentRoomRow][currentRoomCol];
 }
 
 void mousePressed() {
