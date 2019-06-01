@@ -164,6 +164,9 @@ class Room implements Moveable{
   }
   
   void move(){
+    if(person.isDead()){
+      return ;
+    }
     x = constrain(x + vel *(int(isLeft) - int(isRight)), -32 * (rows), 32 * (rows));
     y = constrain(y + vel *(int(isUp)  - int(isDown)), -32 * (cols), 32 * (cols));
     moveAll(vel *(int(isLeft) - int(isRight)),vel *(int(isUp)  - int(isDown)));

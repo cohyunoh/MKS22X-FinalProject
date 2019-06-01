@@ -47,6 +47,9 @@ void draw() {
   if (currentState == 0) screen.startScreen();
   if (currentState == 1) screen.gameScreen(current, person);
   if (currentState == 2) screen.deathScreen();
+  if(person.isDead()){
+    currentState = 2;
+  }
   
 }
 
@@ -67,7 +70,11 @@ void keyPressed(){
 
 void mousePressed() {
   if (currentState == 0) currentState = 1;
-  if (currentState == 2) currentState = 0;
+  if (currentState == 2){
+    currentState = 0;
+    setup();
+  }
+  
 }
 
 void mouseReleased(){
@@ -79,7 +86,7 @@ void mouseClicked(){
 }
 
 void createEnemies(){
-  int numEnemies = (int)(Math.random() * (5 + roomNum));
+  int numEnemies = (int)(Math.random() * (5 + roomNum)) + 5;
   for(int i = 0; i < numEnemies; i++){
     Enemy gorlag = new Enemy(0,0,(int)(Math.random() * 15) + 5);
     enemies.add(gorlag);

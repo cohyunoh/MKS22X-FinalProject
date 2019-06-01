@@ -85,4 +85,8 @@ class Entity{
   void setItem(Item newItem){
     inHand = newItem;
   }
+  
+  boolean isDead(){
+    return hp < 0;
+  }
 }

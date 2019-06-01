@@ -113,7 +113,6 @@ class Player extends Entity{
       if(attackFrames >= 8){
         attack = false;
       }
-      attack = false;
     }else{
     
       if(grab){
