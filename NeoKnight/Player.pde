@@ -18,6 +18,7 @@ class Player extends Entity{
     attack = false;
     attackleft = new Animation(type + "-" + "attack" + "/" + inHand + "-left",8);
     attackright = new Animation(type + "-" + "attack" + "/" + inHand + "-right",8);
+    wasRight = true;
   }
   
   

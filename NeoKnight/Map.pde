@@ -17,7 +17,7 @@ class Map {
 
   //This creates a map where the starting room is always 50x50 and then creates four rooms in every direction
   void createMap() {
-    rooms[startRow][startCol] = new Room(50, 50, 0, 0);
+    rooms[startRow][startCol] = new Room(50, 70, 0, 0);
     //initilaizes all rooms
     for (int i = 0; i < 4; i++) {
       if (Math.random() < .5) {

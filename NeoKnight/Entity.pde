@@ -38,11 +38,11 @@ class Entity{
   }
   
   void setX(float x){
-    xCor = x;
+    xCor += x;
   }
   
   void setY(float y){
-    yCor = y;
+    yCor += y;
   }
   
   float getX(){

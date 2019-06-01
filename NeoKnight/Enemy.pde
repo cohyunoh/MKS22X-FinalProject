@@ -3,11 +3,14 @@
 class Enemy extends Entity {
   boolean chase, isLeft, isRight, isUp, isDown, wasLeft, wasRight, attack, die;
   int vel = 5, attackDam;
+  float lowX,lowY, highX, highY;
   Enemy(float x, float y, int a){
    super("gorlag", 100, 0, 10.00, "gorlag", x, y);
    attackDam = a;
    die = false;
   }
+  
+  
   
   int getDamage(){
     return attackDam;
@@ -83,12 +86,34 @@ class Enemy extends Entity {
     }
   }
   
+  void addConstrainX(float low, float high){
+    lowX = low;
+    highX = high;
+  }
+  
+  void addConstrainY(float low, float high){
+    lowY = low;
+    highY = high;
+  }
+  
+  void changeConstX(float x){
+    lowX += x;
+    highX += x;
+  }
+  
+  void changeConstY(float y){
+    lowY += y;
+    highY += y;
+  }
+  
+    
+  
   void move(){
     if(die){
       return ;
     }
-    xCor = xCor + vel *(int(isRight) - int(isLeft));
-    yCor = yCor + vel *(int(isDown)  - int(isUp));
+    xCor = constrain(xCor + vel *(int(isRight) - int(isLeft)), lowX, highX) ;
+    yCor = constrain(yCor + vel *(int(isDown)  - int(isUp)), lowY, highY);
   }
   void setMove(Player person){
     if(dist(person.getX(), person.getY(),xCor, yCor) < 300 && person.getHealth() > 0){
@@ -138,5 +163,13 @@ class Enemy extends Entity {
     }else{
       yCor += 10;
     }
+  }
+  
+  void changeX(float x){
+    xCor = constrain(xCor + x, lowX, highX);;
+  }
+  
+  void changeY(float y){
+    yCor = constrain(yCor + y, lowY, highY);
   }
 }

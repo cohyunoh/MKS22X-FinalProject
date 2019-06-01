@@ -43,6 +43,8 @@ class Room implements Moveable{
       Enemy enemy = enemies.get(i);
       enemy.setX((float)(32 + abs((float)(Math.random() * (32 * rows - 2)))));
       enemy.setY((float)(32 + abs((float)(Math.random() * (32 * cols - 2)))));
+      enemy.addConstrainX(0, 32 * (rows));
+      enemy.addConstrainY(0, 32 * (cols)); 
     }
   }
   
@@ -167,28 +169,43 @@ class Room implements Moveable{
     if(person.isDead()){
       return ;
     }
-    x = constrain(x + vel *(int(isLeft) - int(isRight)),-1 * abs(750 - ((rows) * 32)) + person.getWidth() / 2, 750 - person.getWidth() / 2);
-    y = constrain(y + vel *(int(isUp)  - int(isDown)),-1 * abs(500 - ((cols) * 32)) + person.getHeight() / 2, 500 - person.getHeight() / 2);
-    moveAll(vel *(int(isLeft) - int(isRight)),vel *(int(isUp)  - int(isDown)));
+    float newX = constrain(x + vel *(int(isLeft) - int(isRight)),-1 * abs(750 - ((rows) * 32)) + person.getWidth() / 2, 750 - person.getWidth() / 2);
+    float newY = constrain(y + vel *(int(isUp)  - int(isDown)),-1 * abs(500 - ((cols) * 32)) + person.getHeight() / 2, 500 - person.getHeight() / 2);
+    moveAll(vel *(int(isLeft) - int(isRight)),vel *(int(isUp)  - int(isDown)), newX, newY, x,y);
+    x = newX;
+    y = newY;
   }
   
-  void moveAll(float x, float y){
-    if(items != null){
-      for(int i = 0; i < items.size(); i++){
-        Item item = items.get(i);
-        item.setX(item.getX() - x);
-        item.setY(item.getY() - y);
+  void moveAll(float x, float y, float newX, float newY, float oldX, float oldY){
+      if(items != null){
+        for(int i = 0; i < items.size(); i++){
+          Item item = items.get(i);
+          if(oldX != newX){
+            item.setX(item.getX() - x);
+          }
+          if(oldY != newY){
+            item.setY(item.getY() - y);
+          }
+          
+        }
       }
-    }
-    if(enemies != null){
-      for(int i = 0; i < enemies.size(); i++){
-        
-        Enemy enemy = enemies.get(i);
-        enemy.setX(enemy.getX() + x);
-        enemy.setY(enemy.getY() + y);
-        enemy.move();
+      if(enemies != null){
+        for(int i = 0; i < enemies.size(); i++){
+          Enemy enemy = enemies.get(i);
+          if(oldX != newX){
+            enemy.changeX(x);
+            enemy.changeConstX(x);
+          }
+          if (oldY != newY){
+            enemy.changeY(y);
+            enemy.changeConstY(y);
+          }
+         
+          
+          enemy.move();
+          
+        }
       }
-    }
   }
   
   boolean setMove(int k, boolean b) {
