@@ -104,3 +104,11 @@ Connor:
 After merging the previous branches, the room is now able to be displayed
 Camera moves with player
 Failed to implement player
+
+Day 14 6/1
+Connor:
+Successfully displayed player in the middle of the screen
+Successfully displayed enemies as they move with the room
+Everything bounces back when hit
+Successfully throws splashscreen
+Somewhat the map to work at all times although it does take a bit sometimes
