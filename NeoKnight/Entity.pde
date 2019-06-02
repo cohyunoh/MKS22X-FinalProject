@@ -87,7 +87,7 @@ class Entity {
   }
 
   boolean isDead() {
-    return hp < 0;
+    return hp <= 0;
   }
 
   float getWidth() {

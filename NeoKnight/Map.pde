@@ -10,8 +10,8 @@ class Map {
     this.rows = rows;
     this.cols = cols;
     rooms = new Room[rows][cols];
-    startRow = (int)abs((float)(Math.random() * rows));
-    startCol = (int)abs((float)(Math.random() * cols));
+    startRow = 0; //(int)abs((float)(Math.random() * rows));
+    startCol = 0 ;//(int)abs((float)(Math.random() * cols));
     //maxRooms = (int)abs((float)(Math.random() * 5));
     numRooms = 0;
     createMap();
@@ -38,14 +38,16 @@ class Map {
       if (door.isRight()) {
         c = 3;
       }
+      /*
       int changeRow = moves[c][0];
       int changeCol = moves[c][1];
       if (inBounds(startRow + changeRow, startCol + changeCol)) {
         createRooms(startRow+changeRow, startCol+changeCol, door);
       }
+      */
     }
   }
-
+   /*
   //recursively initalizes every room in the array 
   void createRooms(int row, int col, Door door) {
    // if (numRooms >= maxRooms) {
@@ -80,6 +82,7 @@ class Map {
       }
     }
   }
+  */
 
 
 

@@ -10,14 +10,13 @@ int currentRoomRow, currentRoomCol;
 int currentState = 0;
 Room[][] rooms;
 Room current;
-int roomNum = 0;
+int roomNum = 1;
 //String str;
 Screen screen;
 
 void setup() {
   size(1500, 1000);
   items = new ArrayList<Item>();
-  enemies = new ArrayList<Enemy>();
   doors = new ArrayList<Door>();
   createEnemies();
   map = new Map(2, 1);
@@ -44,21 +43,47 @@ void setup() {
 }
 
 
+void newSetup(){
+  items = new ArrayList<Item>();
+  enemies = new ArrayList<Enemy>();
+  doors = new ArrayList<Door>();
+  createEnemies();
+  getRoom();
+  smooth(3);
+  frameRate(10);
+  current.addEnemies(enemies);
+  current.addPlayer(person);
+  person.addEnemies(enemies);
+}
+
 void draw() {
   background(0, 0, 255);
   if (currentState == 0) screen.startScreen();
-  if (currentState == 1) screen.gameScreen(current, person);
+  if (currentState == 1){
+    screen.gameScreen(current, person);
+    nextRoom();
+    getRoom();
+  }
   if (currentState == 2) screen.deathScreen();
   if (person.isDead()) {
     currentState = 2;
   }
-  nextRoom();
-  getRoom();
+  
 }
 
 void getRoom() {
-  current = rooms[currentRoomRow][currentRoomCol];
+  current = rooms[currentRoomRow][currentRoomCol];  
   doors = current.getDoors();
+  
+}
+
+void createNextRoom(Door door){
+  int rows = (int)(abs((float)(Math.random() * 20))) + 30;
+  int cols = (int)(abs((float)(Math.random() * 20))) + 30;
+  rooms[currentRoomRow][currentRoomCol] = new Room(rows, cols, door, 0,0); 
+  rooms[currentRoomRow][currentRoomCol].addPlayer(person);
+  createEnemies();
+  rooms[currentRoomRow][currentRoomCol].addEnemies(enemies);
 }
 
 void keyReleased() {
@@ -86,17 +111,32 @@ void mouseReleased() {
 
 void nextRoom(){
   for (Door door : doors){
-    if (dist(door.x,door.y,person.xCor,person.yCor) < 10){
-      if (door.up) currentRoomCol++;
-      if (door.down) currentRoomCol--;
-      if (door.left) currentRoomRow--;
-      if (door.right) currentRoomRow++;
+    if (dist(door.x,door.y,person.xCor,person.yCor) < 25){
+      if (door.up){
+        currentRoomCol++;
+        createNextRoom(door);
+        return ;
+      }else if (door.down){
+        currentRoomCol--;
+        createNextRoom(door);
+        return ;
+      }else if (door.left){
+        currentRoomRow--;
+        createNextRoom(door);
+        return ;
+      }else if (door.right){
+        currentRoomRow++;
+        createNextRoom(door);
+        return ;
+      }
+      roomNum ++;
     }
   }
 }
 
 
 void createEnemies() {
+  enemies = new ArrayList<Enemy>();
   int numEnemies = (int)(Math.random() * (5 + roomNum)) + 5;
   for (int i = 0; i < numEnemies; i++) {
     Enemy gorlag = new Enemy(0, 0, (int)(Math.random() * 15) + 5);
