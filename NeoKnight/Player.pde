@@ -1,5 +1,5 @@
 class Player extends Entity{
-  boolean isLeft, isRight, isUp, isDown, wasLeft, wasRight, grab, next, prev, swit, attack, die;
+  boolean isLeft, isRight, isUp, isDown, wasLeft, wasRight, grab, next, prev, swit, attack, die, hurt;
   int w,l,currentSlot, damage, attackFrames;
   ArrayList<Item> inv;
   ArrayList<Enemy> enemies;
@@ -55,16 +55,15 @@ class Player extends Entity{
   
   void hurt(Enemy enemy){
     hp -= enemy.getDamage();
-    if(enemy.getX() > xCor){
-      xCor -= 10;
-    }else{
-      xCor += 10;
-    }
-    if(enemy.getY() > yCor){
-      yCor -= 10;
-    }else{
-      yCor += 10;
-    }
+    hurt = true;
+  }
+  
+  boolean isHurt(){
+    return hurt;
+  }
+  
+  void notHurt(){
+    hurt =  false;
   }
   
   void display(ArrayList<Item> items){

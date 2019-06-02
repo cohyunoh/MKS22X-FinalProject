@@ -3,7 +3,7 @@ class Door {
   //coordinates of the Door
   float x, y;
   int row, col;
-  PImage sprite = loadImage("door.png");
+  PImage sprite;
   boolean up, down, right, left;
   //creates door
   public Door(float x, float y, int row, int col, String direction) {
@@ -11,8 +11,10 @@ class Door {
     this.col = col;
     this.x = x;
     this.y = y;
+    sprite = loadImage("door-" + direction + ".png");
     if(direction.equals("up")){
       up = true;
+      
     }
     if(direction.equals("down")){
       down = true;
@@ -50,22 +52,16 @@ class Door {
   }
   
   void display(){
-    translate(x,y);
-    if(up){
-      rotate(PI);
-    }
-    if(down){
-      rotate(0);
-    }
-    if(left){
-      rotate(3 * PI / 2);
-    }
-    if(right){
-      rotate(PI / 2);
-    }
     imageMode(CENTER);
     image(sprite, x,y);
   }
   
+  void changeX(float x){
+    this.x += x;
+  }
+  
+  void changeY(float y){
+    this.y += y;
+  }
   
 }

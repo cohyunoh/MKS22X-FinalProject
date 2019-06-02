@@ -18,7 +18,7 @@ void setup() {
   items = new ArrayList<Item>();
   enemies = new ArrayList<Enemy>();
   createEnemies();
-  map = new Map(width, height);
+  map = new Map(50, 50);
   currentRoomRow = map.getStartRow();
   currentRoomCol = map.getStartCol();
   rooms = map.getMap();

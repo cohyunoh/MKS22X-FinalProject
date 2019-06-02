@@ -23,6 +23,7 @@ class Room implements Moveable{
     initRoom();
     this.x = x;
     this.y = y;
+    addDoors();
   }
 
 
@@ -34,6 +35,7 @@ class Room implements Moveable{
     initRoom(door);
     this.x = x;
     this.y = y;
+    addDoors();
   }
 
   //********   METHODS THAT INITALIZE ROOMS DEPENDING ON IF THERE IS A PREVIOUS DOOR OR NOT ********//
@@ -42,8 +44,8 @@ class Room implements Moveable{
     this.enemies = enemies;
     for(int i = 0; i < enemies.size(); i++){
       Enemy enemy = enemies.get(i);
-      enemy.setX((float)(32 + abs((float)(Math.random() * (32 * rows - 2)))));
-      enemy.setY((float)(32 + abs((float)(Math.random() * (32 * cols - 2)))));
+      enemy.setX(constrain( 32 + (int)(abs((float)(Math.random() * (32 * rows)))), 32, 32 * (rows - 2)));
+      enemy.setY(constrain( 32 + (int)(abs((float)(Math.random() * (32 * cols)))), 32, 32 * (cols - 2)));
       enemy.addConstrainX(0, 32 * (rows));
       enemy.addConstrainY(0, 32 * (cols)); 
     }
@@ -63,10 +65,20 @@ class Room implements Moveable{
         floor[r][c] = isWall(r, c) ? '#' : ' ';
       }
     }
-    if (door.isUp()) putDoorDown(door.getCol());
-    else if (door.isDown()) putDoorUp(door.getCol());
-    else if (door.isLeft()) putDoorLeft();
-    else putDoorRight();
+    if (door.isUp()){
+      putDoorDown(door.getCol() % cols);
+      hasDown = true;
+    }else if (door.isDown()){
+      putDoorUp(door.getCol() % cols);
+      hasUp = true;
+    }else if (door.isRight()){
+      putDoorLeft(door.getRow() % rows);
+      hasLeft= true;
+    }else{
+      putDoorRight(door.getRow() % rows);
+      hasRight = true;
+    }
+    generateRandomDoor();
   }
 
 
@@ -97,8 +109,8 @@ class Room implements Moveable{
 
   void generateRandomDoor() {
     int doors = (int)abs((float)(Math.random() * 4)) + 1;
-    int randomRow = (int)abs((float)(Math.random() * rows - 1)) + 2;
-    int randomCol = (int)abs((float)(Math.random() * cols - 1)) + 2;
+    int randomRow = constrain(2 + (int)abs((float)(Math.random() * (rows - 2))), 2, rows - 3);
+    int randomCol = constrain(2 + (int)abs((float)(Math.random() * (cols - 2))), 2, cols - 3);
     int currentNum = 0;
     //keep going until there is the correct specified number of doors
     while(currentNum != doors){
@@ -136,12 +148,12 @@ class Room implements Moveable{
     floor[0][c] = 'D';
   }
 
-  void putDoorLeft() {
-    floor[rows/2][0] = 'D';
+  void putDoorLeft(int r) {
+    floor[r][0] = 'D';
   }
 
-  void putDoorRight() {
-    floor[rows/2][cols] = 'D';
+  void putDoorRight(int r) {
+    floor[r][cols - 2] = 'D';
   }
   
   void display(){
@@ -163,6 +175,7 @@ class Room implements Moveable{
       }
     }
     
+    
     for(int i = 0; i < doors.size(); i++){
       Door door = doors.get(i);
       door.display();
@@ -180,8 +193,42 @@ class Room implements Moveable{
         enemy.setMove(person);
         if(dist(person.getX(), person.getY(),enemy.getX(), enemy.getY()) < 50){
           enemy.attack(person);
+          if(person.isHurt()){
+            float newX = 0;
+            float newY = 0;
+            float addX = 0;
+            float addY = 0;
+            if(enemy.getX() > x){
+              newX = constrain(x + 30,-1 * abs(750 - ((rows) * 32)) + person.getWidth() / 2, 750 - person.getWidth() / 2);
+              addX = 30;
+            }else{
+              newX = constrain(x - 30 ,-1 * abs(750 - ((rows) * 32)) + person.getWidth() / 2, 750 - person.getWidth() / 2);
+              addX = -30;
+            }
+            if(enemy.getY() > y){
+              newY = constrain(y + 30 ,-1 * abs(500 - ((cols) * 32)) + person.getHeight() / 2, 500 - person.getHeight() / 2);
+              addY = 30;
+            }else{
+              newY = constrain(y - 30 ,-1 * abs(500 - ((cols) * 32)) + person.getHeight() / 2, 500 - person.getHeight() / 2);
+              addY = -30;
+            }
+            
+            moveAll(addX, addY,newX,newY,x,y);
+            x = newX;
+            y = newY;
+            
+            person.notHurt();
+          }
         }
         enemy.display();
+      }
+    }
+    
+   
+    if(doors != null){
+      for(int i = 0; i < doors.size(); i++){
+        Door door =  doors.get(i);
+        door.display();
       }
     }
   }
@@ -223,6 +270,18 @@ class Room implements Moveable{
           
         }
       }
+      if(doors != null){
+        for(int i = 0; i < doors.size(); i++){
+          Door newdoor = doors.get(i);
+          if(oldX != newX){
+            newdoor.changeX(x);
+          }
+          if (oldY != newY){
+            newdoor.changeY(y);
+          }
+        }
+      }
+        
       if(enemies != null){
         for(int i = 0; i < enemies.size(); i++){
           Enemy enemy = enemies.get(i);
@@ -234,8 +293,6 @@ class Room implements Moveable{
             enemy.changeY(y);
             enemy.changeConstY(y);
           }
-         
-          
           enemy.move();
           
         }
@@ -279,8 +336,26 @@ class Room implements Moveable{
     for(int r = 0; r < floor.length; r++){
       for(int c = 0; c < floor[0].length; c++){
         char slot = floor[r][c];
+        
         if(slot == 'D'){
-          Door door =  new Door(32 * (r + 1), 32 * c + 12, r, c);
+          String dir = "down";
+          Door door =  new Door(32 * (r + 1), 32 * c + 12, r, c, dir); 
+          if(r == 1){
+            dir = "up";
+            door =  new Door(32 * (r - 1), 32 * c - 12, r, c, dir); 
+          }
+          if(r == floor.length - 2){
+            dir = "down";
+          }
+          if(c == 1){
+            dir = "left";
+            door =  new Door(32 * r + 12 , 32 * (c + 1), r, c, dir); 
+          }
+          if(c == floor[0].length - 2){
+            dir = "right";
+            door =  new Door(32 * r - 12 , 32 * (c + 1), r, c, dir); 
+          }
+          
           doors.add(door);
         }
       }
