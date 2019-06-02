@@ -54,7 +54,6 @@ void draw() {
 }
 
 void getRoom(){
-  //str = rooms[currentRoomRow][currentRoomCol].toString();
   current = rooms[currentRoomRow][currentRoomCol];
 }
 

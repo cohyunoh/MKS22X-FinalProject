@@ -4,7 +4,7 @@ class Door {
   float x, y;
   int row, col;
   PImage sprite;
-  boolean up, down, right, left;
+  boolean up, down, right, left,isLocked;
   //creates door
   public Door(float x, float y, int row, int col, String direction) {
     this.row = row;
