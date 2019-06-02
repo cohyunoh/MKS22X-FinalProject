@@ -12,7 +12,7 @@ class Map {
     rooms = new Room[rows][cols];
     startRow = (int)abs((float)(Math.random() * rows));
     startCol = (int)abs((float)(Math.random() * cols));
-    maxRooms = (int)abs((float)(Math.random() * 5));
+    //maxRooms = (int)abs((float)(Math.random() * 5));
     numRooms = 0;
     createMap();
   }
@@ -48,9 +48,9 @@ class Map {
 
   //recursively initalizes every room in the array 
   void createRooms(int row, int col, Door door) {
-    if (numRooms >= maxRooms) {
-      return ;
-    }
+   // if (numRooms >= maxRooms) {
+   //   return ;
+   // }
     if (rooms[row][col] == null) {
       int roomRows = (int)abs((float)(Math.random() * 50)) + 30;
       int roomCols = (int)abs((float)(Math.random() * 50)) + 30;

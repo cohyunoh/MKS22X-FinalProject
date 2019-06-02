@@ -4,6 +4,7 @@ import java.io.*;
 Player person;
 ArrayList<Item> items;
 ArrayList<Enemy> enemies;
+ArrayList<Door> doors;
 Map map;
 int currentRoomRow, currentRoomCol;
 int currentState = 0;
@@ -17,8 +18,9 @@ void setup() {
   size(1500, 1000);
   items = new ArrayList<Item>();
   enemies = new ArrayList<Enemy>();
+  doors = new ArrayList<Door>();
   createEnemies();
-  map = new Map(50, 50);
+  map = new Map(2, 1);
   currentRoomRow = map.getStartRow();
   currentRoomCol = map.getStartCol();
   rooms = map.getMap();
@@ -50,10 +52,13 @@ void draw() {
   if (person.isDead()) {
     currentState = 2;
   }
+  nextRoom();
+  getRoom();
 }
 
 void getRoom() {
   current = rooms[currentRoomRow][currentRoomCol];
+  doors = current.getDoors();
 }
 
 void keyReleased() {
@@ -79,6 +84,16 @@ void mouseReleased() {
   person.setAttack(false);
 }
 
+void nextRoom(){
+  for (Door door : doors){
+    if (dist(door.x,door.y,person.xCor,person.yCor) < 10){
+      if (door.up) currentRoomCol++;
+      if (door.down) currentRoomCol--;
+      if (door.left) currentRoomRow--;
+      if (door.right) currentRoomRow++;
+    }
+  }
+}
 
 
 void createEnemies() {
