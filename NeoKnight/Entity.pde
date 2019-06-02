@@ -1,6 +1,6 @@
-class Entity{
+class Entity {
   int hp, armor;
-  float xCor, yCor,money;
+  float xCor, yCor, money;
   Item inHand;
   String name;
   String type;
@@ -9,7 +9,7 @@ class Entity{
   Animation current;
   PImage right, left;
 
-  Entity(String startname, int health, int armor, float money, String type, float xCor, float yCor){
+  Entity(String startname, int health, int armor, float money, String type, float xCor, float yCor) {
     this.xCor = xCor;
     this.yCor = yCor;
     name = startname;
@@ -24,77 +24,77 @@ class Entity{
     right = loadImage (type + "-" + inHand + "/" + type + "-walk-right7.png");
     left = loadImage (type + "-" + inHand + "/" + type + "-walk-left7.png");
   }
-  
-  void display(String direction){
-      if(direction.equals("left")){
-        animLeft.display(xCor, yCor);
-      }else if(direction.equals("right")){
-        animRight.display(xCor, yCor);
-      }else if(direction.equals("idleRight")){
-       image(right, xCor, yCor);
-      }else if(direction.equals("idleLeft")){
-       image(left, xCor, yCor);
-      }
+
+  void display(String direction) {
+    if (direction.equals("left")) {
+      animLeft.display(xCor, yCor);
+    } else if (direction.equals("right")) {
+      animRight.display(xCor, yCor);
+    } else if (direction.equals("idleRight")) {
+      image(right, xCor, yCor);
+    } else if (direction.equals("idleLeft")) {
+      image(left, xCor, yCor);
+    }
   }
-  
-  void setX(float x){
+
+  void setX(float x) {
     xCor += x;
   }
-  
-  void setY(float y){
+
+  void setY(float y) {
     yCor += y;
   }
-  
-  float getX(){
+
+  float getX() {
     return xCor;
   }
-  
-  float getY(){
+
+  float getY() {
     return yCor;
   }
 
-  
-  int getHealth(){
+
+  int getHealth() {
     return hp;
   }
-  
-  void setHealth(int newHP){
+
+  void setHealth(int newHP) {
     hp = newHP;
   }
-  
-  int getArmor(){
+
+  int getArmor() {
     return armor;
   }
-  
-  void setArmor(int newArmor){
+
+  void setArmor(int newArmor) {
     armor = newArmor;
   }
-  
-  float getMoney(){
+
+  float getMoney() {
     return money;
   }
-  
-  void setMoney(float newBalance){
+
+  void setMoney(float newBalance) {
     money = newBalance;
   }
-  
-  Item getItem(){
+
+  Item getItem() {
     return inHand;
   }
-  
-  void setItem(Item newItem){
+
+  void setItem(Item newItem) {
     inHand = newItem;
   }
-  
-  boolean isDead(){
+
+  boolean isDead() {
     return hp < 0;
   }
-  
-  float getWidth(){
+
+  float getWidth() {
     return animLeft.getWidth();
   }
-  
-  float getHeight(){
+
+  float getHeight() {
     return animLeft.getHeight();
   }
 }

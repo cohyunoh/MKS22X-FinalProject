@@ -34,5 +34,4 @@ class Screen {
   }
 
   //after the player dies a death screen comes up
-  
 }

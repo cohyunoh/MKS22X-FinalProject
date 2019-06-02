@@ -4,25 +4,46 @@ class Door {
   float x, y;
   int row, col;
   PImage sprite;
-  boolean up, down, right, left,isLocked;
+  boolean up, down, right, left, isLocked;
   //creates door
   public Door(float x, float y, int row, int col, String direction) {
     this.row = row;
     this.col = col;
     this.x = x;
     this.y = y;
+    this.isLocked = false;
     sprite = loadImage("door-" + direction + ".png");
-    if(direction.equals("up")){
+    if (direction.equals("up")) {
       up = true;
-      
     }
-    if(direction.equals("down")){
+    if (direction.equals("down")) {
       down = true;
     }
-    if(direction.equals("left")){
+    if (direction.equals("left")) {
       left = true;
     }
-    if(direction.equals("right")){
+    if (direction.equals("right")) {
+      right = true;
+    }
+  }
+
+  public Door(float x, float y, int row, int col, String direction, boolean isLocked) {
+    this.row = row;
+    this.col = col;
+    this.x = x;
+    this.y = y;
+    this.isLocked = isLocked;
+    sprite = loadImage("lockTest.png");
+    if (direction.equals("up")) {
+      up = true;
+    }
+    if (direction.equals("down")) {
+      down = true;
+    }
+    if (direction.equals("left")) {
+      left = true;
+    }
+    if (direction.equals("right")) {
       right = true;
     }
   }
@@ -34,34 +55,33 @@ class Door {
   int getCol() {
     return col;
   }
-  
-  boolean isUp(){
+
+  boolean isUp() {
     return up;
   }
-  
-  boolean isDown(){
+
+  boolean isDown() {
     return down;
   }
-  
-  boolean isLeft(){
+
+  boolean isLeft() {
     return left;
   }
-  
-  boolean isRight(){
+
+  boolean isRight() {
     return right;
   }
-  
-  void display(){
+
+  void display() {
     imageMode(CENTER);
-    image(sprite, x,y);
+    image(sprite, x, y);
   }
-  
-  void changeX(float x){
+
+  void changeX(float x) {
     this.x += x;
   }
-  
-  void changeY(float y){
+
+  void changeY(float y) {
     this.y += y;
   }
-  
 }

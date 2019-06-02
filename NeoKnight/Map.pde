@@ -24,17 +24,18 @@ class Map {
     numRooms ++;
     ArrayList<Door> doors = rooms[startRow][startCol].getDoors();
     for (int i = 0; i < doors.size(); i++) {
-      Door door = doors.get(i);int c = 0;
-      if(door.isUp()){
+      Door door = doors.get(i);
+      int c = 0;
+      if (door.isUp()) {
         c = 0;
       }
-      if(door.isDown()){
+      if (door.isDown()) {
         c = 1;
       }
-      if(door.isLeft()){
+      if (door.isLeft()) {
         c = 2;
       }
-      if(door.isRight()){
+      if (door.isRight()) {
         c = 3;
       }
       int changeRow = moves[c][0];
@@ -47,40 +48,40 @@ class Map {
 
   //recursively initalizes every room in the array 
   void createRooms(int row, int col, Door door) {
-    if(numRooms >= maxRooms){
+    if (numRooms >= maxRooms) {
       return ;
     }
     if (rooms[row][col] == null) {
       int roomRows = (int)abs((float)(Math.random() * 50)) + 30;
       int roomCols = (int)abs((float)(Math.random() * 50)) + 30;
-      rooms[row][col] = new Room(roomRows, roomCols, door, 0 ,0);
+      rooms[row][col] = new Room(roomRows, roomCols, door, 0, 0);
       numRooms ++;
       ArrayList<Door> doors = rooms[row][col].getDoors();
       for (int i = 0; i < doors.size(); i++) {
         Door newdoor = doors.get(i);
         int c = 0;
-        if(door.isUp()){
+        if (door.isUp()) {
           c = 0;
         }
-        if(door.isDown()){
+        if (door.isDown()) {
           c = 1;
         }
-        if(door.isLeft()){
+        if (door.isLeft()) {
           c = 2;
         }
-        if(door.isRight()){
+        if (door.isRight()) {
           c = 3;
         }
         int changeRow = moves[c][0];
         int changeCol = moves[c][1];
-        if (inBounds(row+changeRow,col+changeCol) && rooms[row+changeRow][col+changeCol] == null ) {
+        if (inBounds(row+changeRow, col+changeCol) && rooms[row+changeRow][col+changeCol] == null ) {
           createRooms(row+changeRow, col+changeCol, newdoor);
         }
       }
     }
   }
-  
-  
+
+
 
   int getStartRow() {
     return startRow;
