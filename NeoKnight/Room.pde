@@ -23,7 +23,7 @@ class Room implements Moveable {
     this.x = x;
     this.y = y;
     floor = new char[rows][cols];
-    lowX = -1 * ((rows - 1) * 32 - 750) + person.getWidth() / 4;
+    lowX = -1 * ((rows - 1) * 32 - 750) + person.getWidth() / 6;
     lowY = -1 * ((cols - 1) * 32 - 500) + person.getHeight() / 4;
     highX = 750 - (x + 32) - person.getWidth() / 4;
     highY = 500 - (y + 32) - person.getHeight() / 4;
@@ -103,7 +103,7 @@ class Room implements Moveable {
     int numDoors = (int)(abs((float)(Math.random() * (4 - totaldoors)))) + 1;
     //keeps track of how many times it tries to make a door
     int tries = 0;
-    while(totaldoors != numDoors){
+    while(totaldoors != numDoors && tries < 5){
       int randomRow = constrain((int)abs((float)(Math.random() * rows)), 2, rows - 3);
       int randomCol = constrain((int)abs((float)(Math.random() * cols)), 2, cols - 3);
       if(hasUp == false && currentRoomRow - 1 >= 0 && abs((float)Math.random()) < .5){
@@ -148,31 +148,31 @@ class Room implements Moveable {
         hasRight = true;
       }
       tries ++;
-//IF TOO MANY TRIES
-      if(tries > 5){
-        for(int i = totaldoors; i <= numDoors; i++){
-          if(hasUp == false && currentRoomRow - 1 >= 0){
-            floor[1][randomCol] = 'D';  
-            totaldoors ++;
-            hasUp = true;
-          }
-          if(hasDown == false && currentRoomRow + 1 < rooms.length){
-            floor[floor.length - 2][randomCol] = 'D';  
-            totaldoors ++;
-            hasDown = true;
-          }
-          if(hasLeft == false && currentRoomCol - 1 >= 0){
-            floor[randomRow][1] = 'D';  
-            totaldoors ++;
-            hasLeft = true;
-          }
-          if(hasRight == false && currentRoomCol + 1 < rooms[0].length){
-            floor[randomRow][floor[0].length - 2] = 'D';  
-            totaldoors ++;
-            hasRight = true;
-          }
+    }
+    if(tries >= 5){
+      for(int i = totaldoors; i <= numDoors; i++){
+        int randomRow = constrain((int)abs((float)(Math.random() * rows)), 2, rows - 3);
+        int randomCol = constrain((int)abs((float)(Math.random() * cols)), 2, cols - 3);
+        if(hasUp == false && currentRoomRow - 1 >= 0){
+          floor[1][randomCol] = 'D';  
+          totaldoors ++;
+          hasUp = true;
         }
-        
+        if(hasDown == false && currentRoomRow + 1 < rooms.length){
+          floor[floor.length - 2][randomCol] = 'D';  
+          totaldoors ++;
+          hasDown = true;
+        }
+        if(hasLeft == false && currentRoomCol - 1 >= 0){
+          floor[randomRow][1] = 'D';  
+          totaldoors ++;
+          hasLeft = true;
+        }
+        if(hasRight == false && currentRoomCol + 1 < rooms[0].length){
+          floor[randomRow][floor[0].length - 2] = 'D';  
+          totaldoors ++;
+          hasRight = true;
+        }
       }
     }
   }
@@ -210,12 +210,12 @@ class Room implements Moveable {
 
   void putDoorUp() {
     int randomCol = constrain((int)abs((float)(Math.random() * cols)), 2, cols - 3);
-    floor[0][randomCol] = 'D';
+    floor[1][randomCol] = 'D';
   }
 
   void putDoorLeft() {
     int randomRow = constrain((int)abs((float)(Math.random() * rows)), 2, rows - 3);
-    floor[randomRow][0] = 'D';
+    floor[randomRow][1] = 'D';
   }
 
   void putDoorRight() {

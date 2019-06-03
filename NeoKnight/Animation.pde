@@ -24,7 +24,7 @@ class Animation {
     imageMode(CENTER);
     pushMatrix();
     translate(xpos, ypos);
-    rotate(rotation + PI);
+    rotate(rotation);
     image(frames[frame], (xpos + getWidth() / 2), ypos + (getHeight() / 2));
     popMatrix();
   }
