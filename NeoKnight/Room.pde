@@ -367,11 +367,13 @@ class Room implements Moveable {
     if (person.isDead()) {
       return ;
     }
-    if(person.attack){
-      return ;
+    float newX = x;
+    float newY = y;
+    if(!person.attack){
+      newX = constrain(x + vel *(int(isLeft) - int(isRight)),  lowX, highX);
+      newY = constrain(y + vel *(int(isUp)  - int(isDown)), lowY, highY);
     }
-    float newX = constrain(x + vel *(int(isLeft) - int(isRight)),  lowX, highX);
-    float newY = constrain(y + vel *(int(isUp)  - int(isDown)), lowY, highY);
+     
     moveAll(newX, newY, x, y);
     x = newX;
     y = newY;

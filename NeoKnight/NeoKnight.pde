@@ -78,9 +78,7 @@ void mousePressed() {
   
 }
 
-void mouseReleased() {
-  person.setAttack(false);
-}
+
 
 
 
