@@ -5,8 +5,8 @@ class Arrow{
   Animation arrow = new Animation("projectile/arrow", 3);
   Arrow(){
     //places the arrow in the middle of the room
-    this.x = 750;
-    this.y = 500;
+    this.x = width / 2;
+    this.y = height/ 2;
     //this checks the angle
     oldPosX = mouseX;
     oldPosY = mouseY;
@@ -16,19 +16,22 @@ class Arrow{
   }
   
   void display() {
-    //move the bullet
-    x = x + cos(rotation/180*PI)*speed;
-    y = y + sin(rotation/180*PI)*speed;
     rect(x, y, 50, 50);
     //removes the bullet from the arrayList if it is off the room
   }
   
+  void move(){
+    //move the bullet
+    x = constrain(x + cos(rotation/180*PI)*speed, lowX, highX);
+    y = constrain(y + sin(rotation/180*PI)*speed, lowY, highY);
+  }
+  
   void changeX(float x) {
-    this.x += x;
+    this.x = constrain(this.x + x, lowX, highX);
   }
 
   void changeY(float y) {
-    this.y += y;
+    this.y = constrain(this.y + y, lowY, highY);
   }
   
   void addConstrainX(float low, float high) {

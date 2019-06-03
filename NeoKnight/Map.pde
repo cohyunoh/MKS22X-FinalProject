@@ -10,8 +10,8 @@ class Map {
     this.rows = rows;
     this.cols = cols;
     rooms = new Room[rows][cols];
-    startRow = 0; //(int)abs((float)(Math.random() * rows));
-    startCol = 0 ;//(int)abs((float)(Math.random() * cols));
+    startRow = (int)abs((float)(Math.random() * rows));
+    startCol = (int)abs((float)(Math.random() * cols));
     //maxRooms = (int)abs((float)(Math.random() * 5));
     numRooms = 0;
     createMap();
@@ -19,7 +19,7 @@ class Map {
 
   //This creates a map where the starting room is always 50x50 and then creates four rooms in every direction
   void createMap() {
-    rooms[startRow][startCol] = new Room(50, 70, 0, 0);
+    rooms[startRow][startCol] = new Room(50, 70, 0, 0, startRow - 1 >= 0, startRow + 1 < rooms.length, startCol + 1 < rooms[0].length, startCol - 1 >= 0);
     //initilaizes all rooms
     numRooms ++;
     ArrayList<Door> doors = rooms[startRow][startCol].getDoors();

@@ -28,45 +28,21 @@ void setup() {
   currentRoomCol = map.getStartCol();
   rooms = map.getMap();
   screen = new Screen();
-  getRoom();
   smooth(3);
   frameRate(10);
+  current = rooms[currentRoomRow][currentRoomCol];
   current.addEnemies(enemies);
-
-  /*
-  Item item =  new Item(1, 320, 180);
-   items.add(item);
-   */
   person = new Player("bob", "knight", 750, 500);
   current.addPlayer(person);
   person.addEnemies(enemies);
-  /*
-  Gorlag enemy = new Gorlag(400, 200, (int)(Math.random() * 10));
-   enemies.add(enemy);
-   */
 }
 
-
-void newSetup(){
-  items = new ArrayList<Item>();
-  enemies = new ArrayList<Enemy>();
-  doors = new ArrayList<Door>();
-  createEnemies();
-  getRoom();
-  smooth(3);
-  frameRate(10);
-  current.addEnemies(enemies);
-  current.addPlayer(person);
-  person.addEnemies(enemies);
-}
 
 void draw() {
   background(0, 0, 255);
   if (currentState == 0) screen.startScreen();
   if (currentState == 1){
     screen.gameScreen(current, person);
-    nextRoom();
-    getRoom();
   }
   if (currentState == 2) screen.deathScreen();
   if (person.isDead()) {
@@ -75,20 +51,6 @@ void draw() {
   
 }
 
-void getRoom() {
-  current = rooms[currentRoomRow][currentRoomCol];  
-
-}
-
-void createNextRoom(Door door){
-  int rows = (int)(abs((float)(Math.random() * 20))) + 30;
-  int cols = (int)(abs((float)(Math.random() * 20))) + 30;
-  rooms[currentRoomRow][currentRoomCol] = new Room(rows, cols, door, 0,0); 
-  rooms[currentRoomRow][currentRoomCol].addPlayer(person);
-  createEnemies();
-  rooms[currentRoomRow][currentRoomCol].addEnemies(enemies);
-  doors = rooms[currentRoomRow][currentRoomCol].getDoors();
-}
 
 void keyReleased() {
   current.setMove(keyCode, false); 
@@ -118,30 +80,6 @@ void mouseClicked(){
   person.shoot();
 }
 
-void nextRoom(){
-  for (Door door : doors){
-    if (dist(door.x,door.y,person.xCor,person.yCor) < 30){
-      if (door.up){
-        currentRoomCol++;
-        createNextRoom(door);
-        return ;
-      }else if (door.down){
-        currentRoomCol--;
-        createNextRoom(door);
-        return ;
-      }else if (door.left){
-        currentRoomRow--;
-        createNextRoom(door);
-        return ;
-      }else if (door.right){
-        currentRoomRow++;
-        createNextRoom(door);
-        return ;
-      }
-      roomNum ++;
-    }
-  }
-}
 
 
 void createEnemies() {

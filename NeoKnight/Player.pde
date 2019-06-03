@@ -1,9 +1,14 @@
 class Player extends Entity{
+  
+//INSTANCE VARIABLES=========================================================================================
   boolean isLeft, isRight, isUp, isDown, wasLeft, wasRight, grab, next, prev, swit, attack, die, hurt, shoot;
   int w,l,currentSlot, damage, attackFrames;
   ArrayList<Item> inv;
   ArrayList<Enemy> enemies;
   Animation attackleft, attackright;
+//===========================================================================================================  
+
+//Constructors===============================================================================================
   Player(String startname, String type, float xCor, float yCor){
     super(startname, 100, 100, 1.00, type, xCor, yCor);
     w = animLeft.getWidth();
@@ -20,24 +25,83 @@ class Player extends Entity{
     attackright = new Animation(type + "-" + "attack" + "/" + inHand + "-right",8);
     wasRight = true;
   }
+//=============================================================================================================  
   
   
-  Player(String startname, String type, float xCor, float yCor, ArrayList<Item> inv, int slot){
-    super(startname, 100, 100, 1.00, type, xCor, yCor);
-    w = animLeft.getWidth();
-    l = animLeft.getHeight();
-    this.inv = inv;
-    currentSlot = slot;
-    inHand = inv.get(currentSlot);
-    damage = inHand.getVal();
-    swit = false;
-    attack = false;
-    attackleft = new Animation(type + "-" + "attack" + "/" + inHand + "-left",8);
-    attackright = new Animation(type + "-" + "attack" + "/" + inHand + "-right",8);
-  }
-  
+//ADD METHODS==============================================  
   void addEnemies(ArrayList<Enemy> enemies){
     this.enemies = enemies;
+  }
+//=========================================================  
+  int getDamage(){
+   return damage;
+  }
+  
+  
+  
+  boolean isHurt(){
+    return hurt;
+  }
+  
+  
+  
+  void notHurt(){
+    hurt =  false;
+  }
+  
+  void die(){
+    if(hp <= 0){
+      die =  true;
+    }
+  }
+  
+//ACTIONS (INPUT)==================================================================  
+  
+  void switchItem(float e){
+    if(inv.size()>1){
+      if(e < 0){
+        prev = true;
+        next = false;
+        swit = true;
+      }else if(e > 0){
+        prev = false;
+        next = true;
+        swit = true;
+      }
+    }
+    
+  }
+  
+  void switchSlot(){
+    inHand = inv.get(currentSlot);
+    animLeft = new Animation(type + "-" + inHand + "/" + type + "-walk-left", 8);
+    animRight = new Animation(type + "-" + inHand + "/" + type + "-walk-right", 8);
+    right = loadImage (type + "-" + inHand + "/" + type + "-walk-right7.png");
+    left = loadImage (type + "-" + inHand + "/" + type + "-walk-left7.png");
+    attackleft = new Animation(type + "-" + "attack" + "/" + inHand + "-left",8);
+    attackright = new Animation(type + "-" + "attack" + "/" + inHand + "-right",8);
+    swit = false;
+  }
+  
+  ArrayList<Item> grab(ArrayList<Item> items){
+    for(int i = 0; i < items.size(); i ++){
+      Item item = items.get(i);
+      if(dist(item.getX(),item.getY(),xCor,yCor) <= 20){
+        item.setX(24);
+        item.setY(height - 30);        
+        inv.add(item);
+        items.remove(i);
+      }
+    }
+    return items;
+  }
+  
+  void setAttack(boolean attack){
+    this.attack = attack;
+  }
+  
+  void shoot(){
+    shoot = true;
   }
   
   void attack(){
@@ -47,24 +111,14 @@ class Player extends Entity{
      }
   }
   
-  int getDamage(){
-   return damage;
-  }
-  
   void hurt(Enemy enemy){
     hp -= enemy.getDamage();
     hurt = true;
   }
   
-  boolean isHurt(){
-    return hurt;
-  }
+//======================================================================================
   
-  void notHurt(){
-    hurt =  false;
-  }
-  
-  void display(ArrayList<Item> items){
+  void display(){
     die();
     if(die){
       fill(50);
@@ -115,8 +169,9 @@ class Player extends Entity{
     }else{
       
       if (shoot) {
-        // this regulates the shooting speed
+
         Arrow arrow = new Arrow();
+        
         arrows.add(arrow);
         shoot = false;
       }
@@ -165,18 +220,7 @@ class Player extends Entity{
     }
   }
   
-  ArrayList<Item> grab(ArrayList<Item> items){
-    for(int i = 0; i < items.size(); i ++){
-      Item item = items.get(i);
-      if(dist(item.getX(),item.getY(),xCor,yCor) <= 20){
-        item.setX(24);
-        item.setY(height - 30);        
-        inv.add(item);
-        items.remove(i);
-      }
-    }
-    return items;
-  }
+  
   
   boolean setMove(int k, boolean b) {
     switch (k) {
@@ -204,37 +248,7 @@ class Player extends Entity{
       }
   }
   
-   void die(){
-    if(hp <= 0){
-      die =  true;
-    }
-  }
   
-  void switchItem(float e){
-    if(inv.size()>1){
-      if(e < 0){
-        prev = true;
-        next = false;
-        swit = true;
-      }else if(e > 0){
-        prev = false;
-        next = true;
-        swit = true;
-      }
-    }
-    
-  }
-  
-  void switchSlot(){
-    inHand = inv.get(currentSlot);
-    animLeft = new Animation(type + "-" + inHand + "/" + type + "-walk-left", 8);
-    animRight = new Animation(type + "-" + inHand + "/" + type + "-walk-right", 8);
-    right = loadImage (type + "-" + inHand + "/" + type + "-walk-right7.png");
-    left = loadImage (type + "-" + inHand + "/" + type + "-walk-left7.png");
-    attackleft = new Animation(type + "-" + "attack" + "/" + inHand + "-left",8);
-    attackright = new Animation(type + "-" + "attack" + "/" + inHand + "-right",8);
-    swit = false;
-  }
   
   String stringInv(){
     String ans = "";
@@ -248,11 +262,5 @@ class Player extends Entity{
     return ans;
   }
   
-  void setAttack(boolean attack){
-    this.attack = attack;
-  }
   
-  void shoot(){
-    shoot = true;
-  }
 }

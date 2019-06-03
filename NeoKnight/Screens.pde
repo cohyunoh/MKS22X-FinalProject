@@ -25,7 +25,7 @@ class Screen {
   void gameScreen(Room room, Player person) {
     room.move();
     room.display();
-    person.display(items);
+    person.display();
     
     fill(50);
     textSize(20);
