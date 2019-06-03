@@ -1,5 +1,5 @@
 class Door {
-
+  Room room;
   //coordinates of the Door
   float x, y;
   int row, col;
@@ -27,7 +27,11 @@ class Door {
       right = true;
     }
   }
-
+  
+  void addRoom(Room newRoom){
+    room = newRoom;
+  }
+  
   public Door(float x, float y, int row, int col, String direction, boolean isLocked) {
     this.row = row;
     this.col = col;
@@ -85,4 +89,6 @@ class Door {
   void changeY(float y) {
     this.y += y;
   }
+  
+  
 }

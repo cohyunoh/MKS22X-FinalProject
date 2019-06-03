@@ -19,7 +19,7 @@ void setup() {
   items = new ArrayList<Item>();
   doors = new ArrayList<Door>();
   createEnemies();
-  map = new Map(2, 1);
+  map = new Map(15, 15);
   currentRoomRow = map.getStartRow();
   currentRoomCol = map.getStartCol();
   rooms = map.getMap();
@@ -73,8 +73,7 @@ void draw() {
 
 void getRoom() {
   current = rooms[currentRoomRow][currentRoomCol];  
-  doors = current.getDoors();
-  
+
 }
 
 void createNextRoom(Door door){
@@ -84,6 +83,7 @@ void createNextRoom(Door door){
   rooms[currentRoomRow][currentRoomCol].addPlayer(person);
   createEnemies();
   rooms[currentRoomRow][currentRoomCol].addEnemies(enemies);
+  doors = rooms[currentRoomRow][currentRoomCol].getDoors();
 }
 
 void keyReleased() {
@@ -111,7 +111,7 @@ void mouseReleased() {
 
 void nextRoom(){
   for (Door door : doors){
-    if (dist(door.x,door.y,person.xCor,person.yCor) < 25){
+    if (dist(door.x,door.y,person.xCor,person.yCor) < 30){
       if (door.up){
         currentRoomCol++;
         createNextRoom(door);
