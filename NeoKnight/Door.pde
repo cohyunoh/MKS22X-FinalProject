@@ -96,9 +96,8 @@ class Door {
     int rows = (int)(abs((float)(Math.random() * 20))) + 30;
     int cols = (int)(abs((float)(Math.random() * 20))) + 30;
     rooms[currentRoomRow][currentRoomCol] = new Room(rows, cols, this, 0,0, currentRoomRow - 1 < 0, currentRoomRow + 1 >= rooms.length, currentRoomCol + 1 >= rooms[0].length, currentRoomCol - 1 < 0); 
-    rooms[currentRoomRow][currentRoomCol].addPlayer(person);
     createEnemies();
-    rooms[currentRoomRow][currentRoomCol].addEnemies(enemies);
+    current.addEnemies();
     doors = rooms[currentRoomRow][currentRoomCol].getDoors();
     current = rooms[currentRoomRow][currentRoomCol]; 
   }

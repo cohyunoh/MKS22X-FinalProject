@@ -7,32 +7,32 @@ class Room implements Moveable {
   char[][] floor;
   char current, next;
   int rows, cols, totaldoors;
-  float x, y;
+  float x, y, lowX, lowY, highX, highY;
   int locked = 0;
   PImage tile = loadImage("floor.png");
-  PImage wall = loadImage("wall.png");
-  PImage keyy = loadImage("key0.png");
-  ArrayList<Enemy> enemies;
-  ArrayList<Item> items;
+  PImage wall = loadImage("wall.png");  
   ArrayList<Door> doors = new ArrayList<Door>();
-  Player person;
 //==============================================
 
 //Constructors====================================
   public Room(int rows, int cols, float x, float y, boolean up, boolean down, boolean right, boolean left) {
     this.rows = rows;
     this.cols = cols;
-    floor = new char[rows][cols];
-    initRoom();
     this.x = x;
     this.y = y;
+    floor = new char[rows][cols];
+    lowX = -1 * ((rows - 1) * 32 - 750);
+    lowY = -1 * ((cols - 1) * 32 - 500);
+    highX = 750 - (x + 32);
+    highY = 500 - (y + 32);
+    initRoom();
     addDoors();
     hasUp = up;
     hasDown = down;
     hasRight = right;
     hasLeft = left;
     totaldoors = 0;
-    placeKeys();
+    //placeKeys();
   }
 
 
@@ -47,15 +47,15 @@ class Room implements Moveable {
   
   void placeKeys(){
     for (int i = 0; i < locked; i++){
-      int randomRow = (int)(abs((float)(Math.random() * rows)));
-      int randomCol = (int)(abs((float)(Math.random() * cols)));
-      floor[randomRow][randomCol] = 'K';
+      float randomX = (abs((float)(Math.random() * (rows * 32))));
+      float randomY = (abs((float)(Math.random() * (cols * 32))));
+      Item keyy = new Item(5,randomX, randomY);
+      items.add(keyy);
     }
   }
 
 //ADD METHODS=====================================================
-  void addEnemies(ArrayList<Enemy> enemies) {
-    this.enemies = enemies;
+  void addEnemies() {
     for (int i = 0; i < enemies.size(); i++) {
       Enemy enemy = enemies.get(i);
       enemy.setX(constrain( 32 + (int)(abs((float)(Math.random() * (32 * rows)))), 32, 32 * (rows - 2)));
@@ -63,14 +63,6 @@ class Room implements Moveable {
       enemy.addConstrainX(0, 32 * (rows));
       enemy.addConstrainY(0, 32 * (cols));
     }
-  }
-
-  void addItems(ArrayList<Item> items) {
-    this.items = items;
-  }
-
-  void addPlayer(Player person) {
-    this.person = person;
   }
 //=================================================================
 
@@ -326,13 +318,9 @@ class Room implements Moveable {
         if (slot == '#') {
           imageMode(CORNER);
           image(wall, x + (32 * r), y + (32 * c));
-        } else if (slot == ' ' || slot == 'D') {
+        } else if (slot == ' ' || slot == 'D' || slot == 'L') {
           imageMode(CORNER);
           image(tile, x + (32 * r), y + (32 * c));
-        }
-        else if (slot == 'K'){
-          imageMode(CORNER);
-          image(keyy, x + (32 * r), y + (32 * c));
         }
       }
     }
@@ -369,8 +357,8 @@ class Room implements Moveable {
     if (person.isDead()) {
       return ;
     }
-    float newX = constrain(x + vel *(int(isLeft) - int(isRight)), -1 * abs(750 - ((rows) * 32)) + person.getWidth() / 2, 750 - person.getWidth() / 2);
-    float newY = constrain(y + vel *(int(isUp)  - int(isDown)), -1 * abs(500 - ((cols) * 32)) + person.getHeight() / 2, 500 - person.getHeight() / 2);
+    float newX = constrain(x + vel *(int(isLeft) - int(isRight)),  lowX, highX);
+    float newY = constrain(y + vel *(int(isUp)  - int(isDown)), lowY, highY);
     moveAll(newX, newY, x, y);
     x = newX;
     y = newY;

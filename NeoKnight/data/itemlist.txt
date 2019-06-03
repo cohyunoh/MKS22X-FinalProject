@@ -4,3 +4,4 @@ id name price type frames damage heal armorHeal
 2 shield 35.00 block 8 0 0 0
 3 health+ 5.00 heal 8 5 10 0
 4 armor+ 5.00 heal 8 5 0 10
+5 key 0.00 key 6 0 0 0

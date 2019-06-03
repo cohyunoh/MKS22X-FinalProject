@@ -4,10 +4,10 @@ class Entity {
   Item inHand;
   String name;
   String type;
-  Animation animLeft;
-  Animation animRight;
+  Animation animLeft, animlegL;
+  Animation animRight, animlegR;
   Animation current;
-  PImage right, left;
+  PImage right, left, legL, legR;
 
   Entity(String startname, int health, int armor, float money, String type, float xCor, float yCor) {
     this.xCor = xCor;
@@ -18,22 +18,30 @@ class Entity {
     this.money = money;
     this.type = type;
     inHand = new Item(0);
-    animLeft = new Animation(type + "-" + inHand + "/" + type + "-walk-left", 8);
-    animRight = new Animation(type + "-" + inHand + "/" + type + "-walk-right", 8);
+    animLeft = new Animation(type + "/" + inHand + "-left", 8);
+    animRight = new Animation(type + "/" + inHand + "-right", 8);
+    animlegR = new Animation("legs/right", 8);
+    animlegL = new Animation("legs/left", 8);
     current = animRight;
-    right = loadImage (type + "-" + inHand + "/" + type + "-walk-right7.png");
-    left = loadImage (type + "-" + inHand + "/" + type + "-walk-left7.png");
+    right = loadImage (type + "/" + inHand + "-right7.png");
+    left = loadImage (type + "/" + inHand + "-left7.png");
+    legR = loadImage ("legs/right7.png");
+    legL = loadImage ("legs/left7.png");
   }
 
   void display(String direction) {
     if (direction.equals("left")) {
       animLeft.display(xCor, yCor);
+      animlegL.display(xCor, yCor);
     } else if (direction.equals("right")) {
       animRight.display(xCor, yCor);
+      animlegR.display(xCor, yCor);
     } else if (direction.equals("idleRight")) {
       image(right, xCor, yCor);
+      image(legR, xCor, yCor);
     } else if (direction.equals("idleLeft")) {
       image(left, xCor, yCor);
+      image(legL, xCor, yCor);
     }
   }
 

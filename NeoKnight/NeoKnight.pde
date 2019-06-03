@@ -23,9 +23,9 @@ void setup() {
   doors = new ArrayList<Door>();
   arrows = new ArrayList<Arrow>();
   createEnemies();
-
   if(roomNum == 1){
-  map = new Map(15, 15);
+    person = new Player("bob", "knight", 750, 500);
+    map = new Map(15, 15);
     currentRoomRow = map.getStartRow();
     currentRoomCol = map.getStartCol();
     rooms = map.getMap();
@@ -35,10 +35,8 @@ void setup() {
 
   smooth(3);
   frameRate(10);
-  current.addEnemies(enemies);
-  person = new Player("bob", "knight", 750, 500);
-  current.addPlayer(person);
-  person.addEnemies(enemies);
+  current.addEnemies();
+  
 }
 
 

@@ -4,7 +4,6 @@ class Player extends Entity{
   boolean isLeft, isRight, isUp, isDown, wasLeft, wasRight, grab, next, prev, swit, attack, die, hurt, shoot, useDoor;
   int w,l,currentSlot, damage, attackFrames;
   ArrayList<Item> inv;
-  ArrayList<Enemy> enemies;
   Animation attackleft, attackright;
 //===========================================================================================================  
 
@@ -27,12 +26,6 @@ class Player extends Entity{
   }
 //=============================================================================================================  
   
-  
-//ADD METHODS==============================================  
-  void addEnemies(ArrayList<Enemy> enemies){
-    this.enemies = enemies;
-  }
-//=========================================================  
   int getDamage(){
    return damage;
   }
@@ -178,43 +171,52 @@ class Player extends Entity{
       }
       if(isLeft){
         animLeft.display(xCor - animLeft.getWidth()/2, yCor - animLeft.getHeight()/2);
+        animlegL.display(xCor - animLeft.getWidth()/2, yCor - animLeft.getHeight()/2);
         return ;
       }
       if(isRight){
-        animRight.display(xCor - animRight.getWidth()/2, yCor - animRight.getHeight()/2);
+        animRight.display(xCor - animLeft.getWidth()/2, yCor - animLeft.getHeight()/2);
+        animlegR.display(xCor - animLeft.getWidth()/2, yCor - animLeft.getHeight()/2);
         return ;
       }
       if(isUp) {
         if(wasLeft){
           animLeft.display(xCor - animLeft.getWidth()/2, yCor - animLeft.getHeight()/2);
+          animlegL.display(xCor - animLeft.getWidth()/2, yCor - animLeft.getHeight()/2);  
           return ;
         }
         if (wasRight){
-          animRight.display(xCor - animRight.getWidth()/2, yCor - animRight.getHeight()/2);
+          animRight.display(xCor - animLeft.getWidth()/2, yCor - animLeft.getHeight()/2);
+          animlegR.display(xCor - animLeft.getWidth()/2, yCor - animLeft.getHeight()/2);
           return ;
         }
       }
       if(isDown) {
         if(wasLeft){
           animLeft.display(xCor - animLeft.getWidth()/2, yCor - animLeft.getHeight()/2);
+          animlegL.display(xCor - animLeft.getWidth()/2, yCor - animLeft.getHeight()/2);
           return ;
         }
         if (wasRight){
-          animRight.display(xCor - animRight.getWidth()/2, yCor - animRight.getHeight()/2);
+          animRight.display(xCor - animLeft.getWidth()/2, yCor - animLeft.getHeight()/2);
+          animlegR.display(xCor - animLeft.getWidth()/2, yCor - animLeft.getHeight()/2);
           return ;
         }
       }
       if(!isDown && !isUp && !isRight && !isLeft){
         if(wasLeft){
           image(left, xCor, yCor);
+          image(legL, xCor, yCor);
           return ;
         }
         if (wasRight){
           image(right, xCor, yCor);
+          image(legR, xCor, yCor);
           return ;
         }
       }
       image(right, xCor, yCor);
+      image(legR, xCor, yCor);
     }
   }
   
