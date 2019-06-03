@@ -4,7 +4,7 @@ class Door {
   float x, y;
   int row, col;
   PImage sprite;
-  //PImage lock = loadImage("lock.png");
+  PImage lock = loadImage("lock.png");
   boolean up, down, right, left, isLocked;
 
 
@@ -14,7 +14,7 @@ class Door {
     this.x = x;
     this.y = y;
     this.isLocked = isLocked;
-    if (isLocked) sprite = loadImage("lockTest.png");
+    if (isLocked) sprite = lock;
     else sprite = loadImage("door-" + direction + ".png");
     if (direction.equals("up")) {
       up = true;

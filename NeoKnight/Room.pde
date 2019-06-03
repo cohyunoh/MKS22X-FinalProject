@@ -10,7 +10,7 @@ class Room implements Moveable {
   int locked = 0;
   PImage tile = loadImage("floor.png");
   PImage wall = loadImage("wall.png");
-  PImage keyy = loadImage("key.png");
+  PImage keyy = loadImage("key0.png");
   ArrayList<Enemy> enemies;
   ArrayList<Item> items;
   ArrayList<Door> doors = new ArrayList<Door>();
@@ -25,6 +25,7 @@ class Room implements Moveable {
     this.x = x;
     this.y = y;
     addDoors();
+    placeKeys();
   }
 
 
@@ -125,7 +126,7 @@ class Room implements Moveable {
       int side = (int)abs((float)(Math.random() * 101));
       //left side
       if (side<=25 && !hasLeft) {
-        if (Math.random() < 1 && currentLocked < lockedDoors ) {
+        if (Math.random() < .3 && currentLocked < lockedDoors ) {
           floor[randomRow][1] = 'L';
           hasLeft = true;
           currentLocked++;
@@ -138,7 +139,7 @@ class Room implements Moveable {
         }
         //right side
       } else if (side > 25 && side <= 50 && !hasRight) {
-        if (Math.random() < 1 && currentLocked < lockedDoors) {
+        if (Math.random() < .3 && currentLocked < lockedDoors) {
           floor[randomRow][cols - 2] = 'L';
           hasRight = true;
           currentLocked++;
@@ -151,7 +152,7 @@ class Room implements Moveable {
         }
         //top side
       } else if (side > 50 && side <= 75 && !hasUp) {
-        if (Math.random() < 1 && currentLocked < lockedDoors) 
+        if (Math.random() < .3 && currentLocked < lockedDoors) 
         {
           floor[1][randomCol] = 'L';
           hasUp = true;
@@ -165,7 +166,7 @@ class Room implements Moveable {
         }
         //bottom side
       } else if (side > 75 && !hasDown) {
-        if (Math.random() < 1 && currentLocked < lockedDoors) 
+        if (Math.random() < .3 && currentLocked < lockedDoors) 
         {
           floor[rows - 2][randomCol] = 'L';
           hasDown = true;

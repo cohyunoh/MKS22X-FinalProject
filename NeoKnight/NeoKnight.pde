@@ -78,12 +78,14 @@ void getRoom() {
 }
 
 void createNextRoom(Door door){
+  if(!door.isLocked){
   int rows = (int)(abs((float)(Math.random() * 20))) + 30;
   int cols = (int)(abs((float)(Math.random() * 20))) + 30;
   rooms[currentRoomRow][currentRoomCol] = new Room(rows, cols, door, 0,0); 
   rooms[currentRoomRow][currentRoomCol].addPlayer(person);
   createEnemies();
   rooms[currentRoomRow][currentRoomCol].addEnemies(enemies);
+  }
 }
 
 void keyReleased() {
