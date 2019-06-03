@@ -11,6 +11,8 @@ class Room implements Moveable {
   int locked = 0;
   PImage tile = loadImage("floor.png");
   PImage wall = loadImage("wall.png");  
+  ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+  ArrayList<Item> items = new ArrayList<Item>();
   ArrayList<Door> doors = new ArrayList<Door>();
 //==============================================
 
@@ -21,10 +23,10 @@ class Room implements Moveable {
     this.x = x;
     this.y = y;
     floor = new char[rows][cols];
-    lowX = -1 * ((rows - 1) * 32 - 750);
-    lowY = -1 * ((cols - 1) * 32 - 500);
-    highX = 750 - (x + 32);
-    highY = 500 - (y + 32);
+    lowX = -1 * ((rows - 1) * 32 - 750) + person.getWidth() / 2;
+    lowY = -1 * ((cols - 1) * 32 - 500) + person.getHeight() / 2;
+    highX = 750 - (x + 32) - person.getWidth() / 4;
+    highY = 500 - (y + 32) - person.getHeight() / 4;
     initRoom();
     addDoors();
     hasUp = up;
