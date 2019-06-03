@@ -17,14 +17,14 @@ class Arrow{
   
   void display() {
     move();
-    arrow.display(x,y, rotation / (PI * 180));
+    arrow.display(x,y);
     //removes the bullet from the arrayList if it is off the room
   }
   
   void move(){
     //move the bullet
-    x = x + cos(rotation/180*PI)*speed;
-    y = y + sin(rotation/180*PI)*speed;
+    x = constrain(x + cos(rotation/180*PI)*speed, lowX, highX);
+    y = constrain(y + sin(rotation/180*PI)*speed, lowY, highY);
   }
   
   void changeX(float x) {

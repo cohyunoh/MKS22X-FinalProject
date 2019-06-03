@@ -163,6 +163,8 @@ class Player extends Entity{
       
       if (shoot) {
         Arrow arrow = new Arrow(xCor, yCor);
+        arrow.addConstrainX(rooms[currentRoomRow][currentRoomCol].getX() + 32, rooms[currentRoomRow][currentRoomCol].getX() + current.getWidth() - 32);
+        arrow.addConstrainY(rooms[currentRoomRow][currentRoomCol].getY() + 32, rooms[currentRoomRow][currentRoomCol].getY() + current.getLength() - 32);
         arrows.add(arrow);
         shoot = false;
       }

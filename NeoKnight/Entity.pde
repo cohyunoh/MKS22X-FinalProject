@@ -6,7 +6,6 @@ class Entity {
   String type;
   Animation animLeft, animlegL;
   Animation animRight, animlegR;
-  Animation current;
   PImage right, left, legL, legR;
 
   Entity(String startname, int health, int armor, float money, String type, float xCor, float yCor) {
@@ -22,7 +21,6 @@ class Entity {
     animRight = new Animation(type + "/" + inHand + "-right", 8);
     animlegR = new Animation("legs/right", 8);
     animlegL = new Animation("legs/left", 8);
-    current = animRight;
     right = loadImage (type + "/" + inHand + "-right7.png");
     left = loadImage (type + "/" + inHand + "-left7.png");
     legR = loadImage ("legs/right7.png");

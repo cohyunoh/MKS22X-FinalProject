@@ -7,7 +7,7 @@ class Room implements Moveable {
   char[][] floor;
   char current, next;
   int rows, cols, totaldoors;
-  float x, y, lowX, lowY, highX, highY;
+  float x, y, lowX, lowY, highX, highY, w, l;
   int locked = 0;
   PImage tile = loadImage("floor.png");
   PImage wall = loadImage("wall.png");  
@@ -27,6 +27,8 @@ class Room implements Moveable {
     lowY = -1 * ((cols - 1) * 32 - 500) + person.getHeight() / 4;
     highX = 750 - (x + 32) - person.getWidth() / 4;
     highY = 500 - (y + 32) - person.getHeight() / 4;
+    w = rows * 32;
+    l = cols * 32;
     initRoom();
     addDoors();
     totaldoors = 0;
@@ -249,6 +251,14 @@ class Room implements Moveable {
   float getY() {
     return y;
   } 
+  
+  float getWidth(){
+    return w;
+  }
+  
+  float getLength(){
+    return l;
+  }
 
   ArrayList<Door> getDoors() {
     return doors;
@@ -412,7 +422,6 @@ class Room implements Moveable {
         enemy.move();
       }
     }
-    /*
      if(arrows != null){
       for (int i = 0; i < arrows.size(); i++) {
         Arrow arrow = arrows.get(i);
@@ -426,9 +435,7 @@ class Room implements Moveable {
         }
         arrow.move();
       }
-      
-    }
-    */
+     }
   }
 
   boolean setMove(int k, boolean b) {
