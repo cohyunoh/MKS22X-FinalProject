@@ -3,13 +3,15 @@ import java.util.*;
 class Room implements Moveable {
 //Instance Variables ========================
   int vel = 5;
-  boolean isLeft, isRight, isUp, isDown, wasLeft, wasRight, run, hasLeft, hasRight, hasUp, hasDown, origD, origU, origL, origR;
+  boolean isLeft, isRight, isUp, isDown, wasLeft, wasRight, run, hasLeft, hasRight, hasUp, hasDown;
   char[][] floor;
   char current, next;
   int rows, cols, totaldoors;
   float x, y;
+  int locked = 0;
   PImage tile = loadImage("floor.png");
   PImage wall = loadImage("wall.png");
+  PImage keyy = loadImage("key0.png");
   ArrayList<Enemy> enemies;
   ArrayList<Item> items;
   ArrayList<Door> doors = new ArrayList<Door>();
@@ -30,6 +32,7 @@ class Room implements Moveable {
     hasRight = right;
     hasLeft = left;
     totaldoors = 0;
+    placeKeys();
   }
 
 
@@ -39,7 +42,16 @@ class Room implements Moveable {
     initRoom(door);
     addDoors();
   }
+
 //================================================================
+  
+  void placeKeys(){
+    for (int i = 0; i < locked; i++){
+      int randomRow = (int)(abs((float)(Math.random() * rows)));
+      int randomCol = (int)(abs((float)(Math.random() * cols)));
+      floor[randomRow][randomCol] = 'K';
+    }
+  }
 
 //ADD METHODS=====================================================
   void addEnemies(ArrayList<Enemy> enemies) {
@@ -70,19 +82,15 @@ class Room implements Moveable {
       }
     }
     if (door.isUp()) {
-      origD = true;
       putDoorDown();
       hasDown = true;
     } else if (door.isDown()) {
-      origU = true;
       putDoorUp();
       hasUp = true;
     } else if (door.isRight()) {
-      origL = true;
       putDoorLeft();
       hasLeft= true;
     } else {
-      origR = true;
       putDoorRight();
       hasRight = true;
     }
@@ -100,9 +108,9 @@ class Room implements Moveable {
 
   void generateRandomDoor() {
     int doors = (int)abs((float)(Math.random() * 4)) + 1;
-    int lockedDoors = (doors > 1) ? (int)abs((float)(Math.random() * doors)) - 1 : 0;
     int randomRow = constrain((int)abs((float)(Math.random() * rows)), 2, rows - 3);
     int randomCol = constrain((int)abs((float)(Math.random() * cols)), 2, cols - 3);
+    int lockedDoors = (doors > 1) ? (int)abs((float)(Math.random() * doors)): 0;
     int currentNum = 0;
     int currentLocked = 0;
     //keep going until there is the correct specified number of doors
@@ -111,11 +119,12 @@ class Room implements Moveable {
       int side = (int)abs((float)(Math.random() * 101));
       //left side
       if (side<=25 && !hasLeft) {
-        if (Math.random() < .9 && currentLocked < lockedDoors ) {
+        if (Math.random() < .3 && currentLocked < lockedDoors ) {
           floor[randomRow][1] = 'L';
           hasLeft = true;
           currentLocked++;
           currentNum++;
+          locked++;
         } else {
           floor[randomRow][1] =  'D';
           hasLeft = true;
@@ -123,11 +132,12 @@ class Room implements Moveable {
         }
         //right side
       } else if (side > 25 && side <= 50 && !hasRight) {
-        if (Math.random() < .88 && currentLocked < lockedDoors) {
+        if (Math.random() < .3 && currentLocked < lockedDoors) {
           floor[randomRow][cols - 2] = 'L';
           hasRight = true;
           currentLocked++;
           currentNum++;
+          locked++;
         } else {
           floor[randomRow][cols - 2] =  'D';
           hasRight = true;
@@ -135,11 +145,13 @@ class Room implements Moveable {
         }
         //top side
       } else if (side > 50 && side <= 75 && !hasUp) {
-        if (Math.random() < .9 && currentLocked < lockedDoors) {
+        if (Math.random() < .3 && currentLocked < lockedDoors) 
+        {
           floor[1][randomCol] = 'L';
           hasUp = true;
           currentLocked++;
           currentNum++;
+          locked++;
         } else {
           floor[1][randomCol] =  'D';
           hasUp = true;
@@ -147,11 +159,13 @@ class Room implements Moveable {
         }
         //bottom side
       } else if (side > 75 && !hasDown) {
-        if (Math.random() < .9 && currentLocked < lockedDoors) {
+        if (Math.random() < .3 && currentLocked < lockedDoors) 
+        {
           floor[rows - 2][randomCol] = 'L';
           hasDown = true;
           currentLocked++;
           currentNum++;
+          locked++;
         } else {
           floor[rows - 2][randomCol] =  'D';
           hasDown = true;
@@ -167,18 +181,18 @@ class Room implements Moveable {
         char slot = floor[r][c];
         if (slot == 'D' || slot == 'L') {
           String dir = "down";
-          Door door =  new Door((c - 1) * 32, r * 32, r, c, dir, slot == 'L', origD); 
+          Door door =  new Door((c - 1) * 32, r * 32, r, c, dir, slot == 'L'); 
           if (r == 1) {
             dir = "up";
-            door =  new Door(32 * (c - 1), 32 * r, r, c, dir, slot == 'L', origU);
+            door =  new Door(32 * (c - 1), 32 * r, r, c, dir, slot == 'L');
           }
           if (c == 1) {
             dir = "left";
-            door =  new Door(32 * c, 32 * (r - 1), r, c, dir, slot == 'L', origL);
+            door =  new Door(32 * c, 32 * (r - 1), r, c, dir, slot == 'L');
           }
           if (c == floor[0].length - 2) {
             dir = "right";
-            door =  new Door(32 * c, 32 * (r - 1), r, c, dir, slot == 'L', origR);
+            door =  new Door(32 * c, 32 * (r - 1), r, c, dir, slot == 'L');
           }
 
           doors.add(door);
@@ -238,6 +252,10 @@ class Room implements Moveable {
 
   ArrayList<Door> getDoors() {
     return doors;
+  }
+  
+   int numLockedDoors(){
+    return locked;
   }
 // =================================================================
   
@@ -311,6 +329,10 @@ class Room implements Moveable {
         } else if (slot == ' ' || slot == 'D') {
           imageMode(CORNER);
           image(tile, x + (32 * r), y + (32 * c));
+        }
+        else if (slot == 'K'){
+          imageMode(CORNER);
+          image(keyy, x + (32 * r), y + (32 * c));
         }
       }
     }
@@ -436,6 +458,8 @@ class Room implements Moveable {
     }
   }
 
-  
+ 
+ 
+
   
 }

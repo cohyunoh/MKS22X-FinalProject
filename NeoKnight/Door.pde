@@ -5,20 +5,21 @@ class Door {
   int row, col;
   PImage sprite;
   PImage lock = loadImage("lock.png");
-  boolean up, down, right, left, isLocked, transport, original;
+  boolean up, down, right, left, isLocked, transport;
   //creates door
   void addRoom(Room newRoom){
     room = newRoom;
   }
   
-  public Door(float x, float y, int row, int col, String direction, boolean isLocked, boolean original) {
+  public Door(float x, float y, int row, int col, String direction, boolean isLocked) {
     this.row = row;
     this.col = col;
     this.x = x;
     this.y = y;
     this.isLocked = isLocked;
-    this.original = original;
     sprite = loadImage("door-" + direction + ".png");
+    if (isLocked) sprite = lock;
+    else sprite = loadImage("door-" + direction + ".png");
     if (direction.equals("up")) {
       up = true;
     }
@@ -65,11 +66,12 @@ class Door {
     if(transport){
       currentRoomRow += (int(down) - int(up));
       currentRoomCol += (int(right) - int(left));
-      if(!original){
+      if(isNew(currentRoomRow, currentRoomCol)){
         createNextRoom();
         roomNum ++;
       }else{
-        roomNum --;
+        current = rooms[currentRoomRow][currentRoomCol]; 
+        roomNum ++;
       }
       setup();
       transport = false;
@@ -93,11 +95,15 @@ class Door {
   void createNextRoom(){
     int rows = (int)(abs((float)(Math.random() * 20))) + 30;
     int cols = (int)(abs((float)(Math.random() * 20))) + 30;
-    rooms[currentRoomRow][currentRoomCol] = new Room(rows, cols, this, 0,0, currentRoomRow - 1 >= 0, currentRoomRow + 1 < rooms.length, currentRoomCol + 1 < rooms[0].length, currentRoomCol - 1 >= 0); 
+    rooms[currentRoomRow][currentRoomCol] = new Room(rows, cols, this, 0,0, currentRoomRow - 1 < 0, currentRoomRow + 1 >= rooms.length, currentRoomCol + 1 >= rooms[0].length, currentRoomCol - 1 < 0); 
     rooms[currentRoomRow][currentRoomCol].addPlayer(person);
     createEnemies();
     rooms[currentRoomRow][currentRoomCol].addEnemies(enemies);
     doors = rooms[currentRoomRow][currentRoomCol].getDoors();
     current = rooms[currentRoomRow][currentRoomCol]; 
+  }
+  
+  boolean isNew(int r, int c){
+    return rooms[r][c] == null;
   }
 }

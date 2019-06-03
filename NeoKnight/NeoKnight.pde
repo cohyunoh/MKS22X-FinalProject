@@ -23,6 +23,7 @@ void setup() {
   doors = new ArrayList<Door>();
   arrows = new ArrayList<Arrow>();
   createEnemies();
+
   if(roomNum == 1){
   map = new Map(15, 15);
     currentRoomRow = map.getStartRow();
@@ -31,6 +32,7 @@ void setup() {
     screen = new Screen();
     current = rooms[currentRoomRow][currentRoomCol];
   }
+
   smooth(3);
   frameRate(10);
   current.addEnemies(enemies);
@@ -52,6 +54,10 @@ void draw() {
   }
   
 }
+
+
+
+
 
 
 void keyReleased() {
