@@ -5,18 +5,19 @@ class Door {
   int row, col;
   PImage sprite;
   PImage lock = loadImage("lock.png");
-  boolean up, down, right, left, isLocked;
+  boolean up, down, right, left, isLocked, transport, original;
   //creates door
   void addRoom(Room newRoom){
     room = newRoom;
   }
   
-  public Door(float x, float y, int row, int col, String direction, boolean isLocked) {
+  public Door(float x, float y, int row, int col, String direction, boolean isLocked, boolean original) {
     this.row = row;
     this.col = col;
     this.x = x;
     this.y = y;
     this.isLocked = isLocked;
+    this.original = original;
     sprite = loadImage("door-" + direction + ".png");
     if (direction.equals("up")) {
       up = true;
@@ -57,8 +58,22 @@ class Door {
   }
 
   void display() {
-    imageMode(CENTER);
+    imageMode(CORNER);
+    text(x + ", " + y, x, y + 10);
     image(sprite, x, y);
+    transport();
+    if(transport){
+      currentRoomRow += (int(down) - int(up));
+      currentRoomCol += (int(right) - int(left));
+      if(!original){
+        createNextRoom();
+        roomNum ++;
+      }else{
+        roomNum --;
+      }
+      setup();
+      transport = false;
+    }
   }
 
   void changeX(float x) {
@@ -70,10 +85,8 @@ class Door {
   }
   
   void transport(){
-    if(dist(x,y,person.xCor,person.yCor) < 30){
-      currentRoomRow = int(up) + int(down);
-      currentRoomRow = int(left) + int(right);
-      createNextRoom();
+    if(dist(x,y,person.xCor,person.yCor) < 60 && person.useDoor == true){
+      transport = true;
     }
   }
   

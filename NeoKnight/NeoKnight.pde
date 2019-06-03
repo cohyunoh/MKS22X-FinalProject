@@ -10,7 +10,7 @@ Map map;
 int currentRoomRow, currentRoomCol;
 int currentState = 0;
 Room[][] rooms;
-Room current;
+Room current; //<>//
 int roomNum = 1;
 //String str;
 Screen screen;
@@ -23,14 +23,16 @@ void setup() {
   doors = new ArrayList<Door>();
   arrows = new ArrayList<Arrow>();
   createEnemies();
+  if(roomNum == 1){
   map = new Map(15, 15);
-  currentRoomRow = map.getStartRow();
-  currentRoomCol = map.getStartCol();
-  rooms = map.getMap();
-  screen = new Screen();
+    currentRoomRow = map.getStartRow();
+    currentRoomCol = map.getStartCol();
+    rooms = map.getMap();
+    screen = new Screen();
+    current = rooms[currentRoomRow][currentRoomCol];
+  }
   smooth(3);
   frameRate(10);
-  current = rooms[currentRoomRow][currentRoomCol];
   current.addEnemies(enemies);
   person = new Player("bob", "knight", 750, 500);
   current.addPlayer(person);
@@ -77,7 +79,7 @@ void mouseReleased() {
 }
 
 void mouseClicked(){
-  person.shoot();
+  //person.shoot();
 }
 
 

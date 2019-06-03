@@ -1,7 +1,7 @@
 class Player extends Entity{
   
 //INSTANCE VARIABLES=========================================================================================
-  boolean isLeft, isRight, isUp, isDown, wasLeft, wasRight, grab, next, prev, swit, attack, die, hurt, shoot;
+  boolean isLeft, isRight, isUp, isDown, wasLeft, wasRight, grab, next, prev, swit, attack, die, hurt, shoot, useDoor;
   int w,l,currentSlot, damage, attackFrames;
   ArrayList<Item> inv;
   ArrayList<Enemy> enemies;
@@ -169,9 +169,7 @@ class Player extends Entity{
     }else{
       
       if (shoot) {
-
-        Arrow arrow = new Arrow();
-        
+        Arrow arrow = new Arrow(xCor, yCor);
         arrows.add(arrow);
         shoot = false;
       }
@@ -242,6 +240,7 @@ class Player extends Entity{
         return isRight = b;
       case + 'E':
       case + 'e':
+        useDoor = b;
         return grab = b;
       default:
         return b;

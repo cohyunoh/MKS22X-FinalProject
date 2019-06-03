@@ -20,6 +20,7 @@ class Map {
   //This creates a map where the starting room is always 50x50 and then creates four rooms in every direction
   void createMap() {
     rooms[startRow][startCol] = new Room(50, 70, 0, 0, startRow - 1 >= 0, startRow + 1 < rooms.length, startCol + 1 < rooms[0].length, startCol - 1 >= 0);
+    /*
     //initilaizes all rooms
     numRooms ++;
     ArrayList<Door> doors = rooms[startRow][startCol].getDoors();
@@ -38,6 +39,7 @@ class Map {
       if (door.isRight()) {
         c = 3;
       }
+      */
       /*
       int changeRow = moves[c][0];
       int changeCol = moves[c][1];
@@ -45,8 +47,7 @@ class Map {
         createRooms(startRow+changeRow, startCol+changeCol, door);
       }
       */
-    }
-  }
+   }
    /*
   //recursively initalizes every room in the array 
   void createRooms(int row, int col, Door door) {

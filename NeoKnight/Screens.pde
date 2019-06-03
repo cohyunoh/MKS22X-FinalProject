@@ -32,6 +32,7 @@ class Screen {
     textAlign(LEFT);
     text("Room X: " + room.getX(), 0, 500);
     text("Room Y: " + room.getY(), 0, 530);
+    text("NUMDOORS: " + doors.size(), 0, 560);
   }
 
   //after the player dies a death screen comes up

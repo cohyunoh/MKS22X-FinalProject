@@ -3,10 +3,10 @@ class Arrow{
   //vars used to check the angle between location and the mouse
   float oldPosX, oldPosY, rotation, speed, lowX, lowY, highX, highY, x, y;
   Animation arrow = new Animation("projectile/arrow", 3);
-  Arrow(){
+  Arrow(float x, float y){
     //places the arrow in the middle of the room
-    this.x = width / 2;
-    this.y = height/ 2;
+    this.x = x;
+    this.y = y;
     //this checks the angle
     oldPosX = mouseX;
     oldPosY = mouseY;
