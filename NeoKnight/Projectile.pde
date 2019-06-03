@@ -1,7 +1,7 @@
 class Arrow{
   //standard PVector used for the location of the bullet
   //vars used to check the angle between location and the mouse
-  float oldPosX, oldPosY, rotation, speed, lowX, lowY, highX, highY, x, y;
+  float oldPosX, oldPosY, rotation, speed, lowX, lowY, highX, highY, x, y, newX, newY;
   Animation arrow = new Animation("projectile/arrow", 4);
   Arrow(float x, float y){
     //places the arrow in the middle of the room
@@ -12,19 +12,24 @@ class Arrow{
     oldPosY = mouseY;
     rotation = atan2(oldPosY - this.y, oldPosX - this.x) / PI * 180;
     //arrow speed
-    speed = 10;//change this number to change the speed
+    speed = 25;//change this number to change the speed
   }
   
   void display() {
     move();
-    arrow.display(x,y);
+    attack();
+    arrow.display(x,y, rotation);
     //removes the bullet from the arrayList if it is off the room
   }
   
   void move(){
     //move the bullet
-    x = constrain(x + cos(rotation/180*PI)*speed, lowX, highX);
-    y = constrain(y + sin(rotation/180*PI)*speed, lowY, highY);
+    newX = constrain(x + cos(rotation/180*PI)*speed, lowX, highX);
+    newY = constrain(y + sin(rotation/180*PI)*speed, lowY, highY);
+    if(x != newX && y != newY){
+      x = newX;
+      y = newY;
+    }
   }
   
   void changeX(float x) {
@@ -53,5 +58,15 @@ class Arrow{
   void changeConstY(float y) {
     lowY += y;
     highY += y;
+  }
+  
+  void attack(){
+    for(Enemy enemy : enemies){
+      if(dist(enemy.getX(), enemy.getY(), x,y) < 20){
+        enemy.hp -= 10;
+        enemy.xCor += 30 * int(x < enemy.getX()) - int(x > enemy.getX()) ; 
+        enemy.yCor += 30 * int(y < enemy.getY()) - int(y > enemy.getY()) ; 
+      }
+    }
   }
 }
