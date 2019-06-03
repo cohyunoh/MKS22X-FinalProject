@@ -5,6 +5,7 @@ Player person;
 ArrayList<Item> items;
 ArrayList<Enemy> enemies;
 ArrayList<Door> doors;
+ArrayList<Arrow> arrows;
 Map map;
 int currentRoomRow, currentRoomCol;
 int currentState = 0;
@@ -13,11 +14,15 @@ Room current;
 int roomNum = 1;
 //String str;
 Screen screen;
+int i;
+boolean canShoot = true;
+float canShootCounter;
 
 void setup() {
   size(1500, 1000);
   items = new ArrayList<Item>();
   doors = new ArrayList<Door>();
+  arrows = new ArrayList<Arrow>();
   createEnemies();
   map = new Map(15, 15);
   currentRoomRow = map.getStartRow();
@@ -102,11 +107,18 @@ void mousePressed() {
     currentState = 0;
     setup();
   }
+  /*
   person.setAttack(true);
+  */
+  
 }
 
 void mouseReleased() {
   person.setAttack(false);
+}
+
+void mouseClicked(){
+  person.setShoot(true);
 }
 
 void nextRoom(){

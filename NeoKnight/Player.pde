@@ -1,5 +1,5 @@
 class Player extends Entity{
-  boolean isLeft, isRight, isUp, isDown, wasLeft, wasRight, grab, next, prev, swit, attack, die, hurt;
+  boolean isLeft, isRight, isUp, isDown, wasLeft, wasRight, grab, next, prev, swit, attack, die, hurt, shoot;
   int w,l,currentSlot, damage, attackFrames;
   ArrayList<Item> inv;
   ArrayList<Enemy> enemies;
@@ -115,7 +115,11 @@ class Player extends Entity{
         attack = false;
       }
     }else{
-    
+      
+      if (shoot) {
+        // this regulates the shooting speed
+        arrows.add(new Arrow());
+      }
       if(grab){
         grab(items);
       }
@@ -246,5 +250,9 @@ class Player extends Entity{
   
   void setAttack(boolean attack){
     this.attack = attack;
+  }
+  
+  void setShoot(boolean shoot){
+    this.shoot = shoot;
   }
 }
