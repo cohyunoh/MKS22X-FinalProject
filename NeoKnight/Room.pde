@@ -114,7 +114,7 @@ class Room implements Moveable {
 
   void generateRandomDoor() {
     int doors = (int)abs((float)(Math.random() * 4)) + 1;
-    int lockedDoors = (doors > 1) ? (int)abs((float)(Math.random() * doors)) - 1 : 0;
+    int lockedDoors = (doors > 1) ? (int)abs((float)(Math.random() * doors)): 0;
     int randomRow = constrain(2 + (int)abs((float)(Math.random() * (rows - 2))), 2, rows - 3);
     int randomCol = constrain(2 + (int)abs((float)(Math.random() * (cols - 2))), 2, cols - 3);
     int currentNum = 0;
@@ -151,7 +151,7 @@ class Room implements Moveable {
         }
         //top side
       } else if (side > 50 && side <= 75 && !hasUp) {
-        if (true)//Math.random() < 1 && currentLocked < lockedDoors) 
+        if (Math.random() < 1 && currentLocked < lockedDoors) 
         {
           floor[1][randomCol] = 'L';
           hasUp = true;
@@ -165,7 +165,7 @@ class Room implements Moveable {
         }
         //bottom side
       } else if (side > 75 && !hasDown) {
-        if (true)//Math.random() < 1 && currentLocked < lockedDoors) 
+        if (Math.random() < 1 && currentLocked < lockedDoors) 
         {
           floor[rows - 2][randomCol] = 'L';
           hasDown = true;
@@ -380,7 +380,7 @@ class Room implements Moveable {
       for (int c = 0; c < floor[0].length; c++) {
         char slot = floor[r][c];
 
-        if (slot == 'D') {
+        if (slot == 'D' || slot == 'L') {
           String dir = "down";
           Door door =  new Door(32 * (r + 1), 32 * c + 12, r, c, dir, slot == 'L'); 
           if (r == 1) {
