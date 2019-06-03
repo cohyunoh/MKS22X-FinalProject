@@ -7,8 +7,10 @@ class Room implements Moveable {
   char current, next;
   int rows, cols, totaldoors;
   float x, y;
+  int locked = 0;
   PImage tile = loadImage("floor.png");
   PImage wall = loadImage("wall.png");
+  PImage keyy = loadImage("key.png");
   ArrayList<Enemy> enemies;
   ArrayList<Item> items;
   ArrayList<Door> doors = new ArrayList<Door>();
@@ -35,6 +37,14 @@ class Room implements Moveable {
     this.x = x;
     this.y = y;
     addDoors();
+  }
+  
+  void placeKeys(){
+    for (int i = 0; i < locked; i++){
+      int randomRow = (int)(abs((float)(Math.random() * rows)));
+      int randomCol = (int)(abs((float)(Math.random() * cols)));
+      floor[randomRow][randomCol] = 'K';
+    }
   }
 
   void addEnemies(ArrayList<Enemy> enemies) {
@@ -115,11 +125,12 @@ class Room implements Moveable {
       int side = (int)abs((float)(Math.random() * 101));
       //left side
       if (side<=25 && !hasLeft) {
-        if (Math.random() < .9 && currentLocked < lockedDoors ) {
+        if (Math.random() < 1 && currentLocked < lockedDoors ) {
           floor[randomRow][1] = 'L';
           hasLeft = true;
           currentLocked++;
           currentNum++;
+          locked++;
         } else {
           floor[randomRow][1] =  'D';
           hasLeft = true;
@@ -127,11 +138,12 @@ class Room implements Moveable {
         }
         //right side
       } else if (side > 25 && side <= 50 && !hasRight) {
-        if (Math.random() < .88 && currentLocked < lockedDoors) {
+        if (Math.random() < 1 && currentLocked < lockedDoors) {
           floor[randomRow][cols - 2] = 'L';
           hasRight = true;
           currentLocked++;
           currentNum++;
+          locked++;
         } else {
           floor[randomRow][cols - 2] =  'D';
           hasRight = true;
@@ -139,11 +151,13 @@ class Room implements Moveable {
         }
         //top side
       } else if (side > 50 && side <= 75 && !hasUp) {
-        if (Math.random() < .9 && currentLocked < lockedDoors) {
+        if (true)//Math.random() < 1 && currentLocked < lockedDoors) 
+        {
           floor[1][randomCol] = 'L';
           hasUp = true;
           currentLocked++;
           currentNum++;
+          locked++;
         } else {
           floor[1][randomCol] =  'D';
           hasUp = true;
@@ -151,11 +165,13 @@ class Room implements Moveable {
         }
         //bottom side
       } else if (side > 75 && !hasDown) {
-        if (Math.random() < .9 && currentLocked < lockedDoors) {
+        if (true)//Math.random() < 1 && currentLocked < lockedDoors) 
+        {
           floor[rows - 2][randomCol] = 'L';
           hasDown = true;
           currentLocked++;
           currentNum++;
+          locked++;
         } else {
           floor[rows - 2][randomCol] =  'D';
           hasDown = true;
@@ -196,6 +212,10 @@ class Room implements Moveable {
         } else if (slot == ' ' || slot == 'D') {
           imageMode(CORNER);
           image(tile, x + (32 * r), y + (32 * c));
+        }
+        else if (slot == 'K'){
+          imageMode(CORNER);
+          image(keyy, x + (32 * r), y + (32 * c));
         }
       }
     }
@@ -362,42 +382,21 @@ class Room implements Moveable {
 
         if (slot == 'D') {
           String dir = "down";
-          Door door =  new Door(32 * (r + 1), 32 * c + 12, r, c, dir); 
+          Door door =  new Door(32 * (r + 1), 32 * c + 12, r, c, dir, slot == 'L'); 
           if (r == 1) {
             dir = "up";
-            door =  new Door(32 * (r - 1), 32 * c - 12, r, c, dir);
+            door =  new Door(32 * (r - 1), 32 * c - 12, r, c, dir,slot == 'L');
           }
           if (r == floor.length - 2) {
             dir = "down";
           }
           if (c == 1) {
             dir = "left";
-            door =  new Door(32 * r + 12, 32 * (c + 1), r, c, dir);
+            door =  new Door(32 * r + 12, 32 * (c + 1), r, c, dir,slot == 'L');
           }
           if (c == floor[0].length - 2) {
             dir = "right";
-            door =  new Door(32 * r - 12, 32 * (c + 1), r, c, dir);
-          }
-
-          doors.add(door);
-        }
-        if (slot == 'L') {
-          String dir = "down";
-          Door door =  new Door(32 * (r + 1), 32 * c + 12, r, c, dir, true); 
-          if (r == 1) {
-            dir = "up";
-            door =  new Door(32 * (r - 1), 32 * c - 12, r, c, dir, true);
-          }
-          if (r == floor.length - 2) {
-            dir = "down";
-          }
-          if (c == 1) {
-            dir = "left";
-            door =  new Door(32 * r + 12, 32 * (c + 1), r, c, dir, true);
-          }
-          if (c == floor[0].length - 2) {
-            dir = "right";
-            door =  new Door(32 * r - 12, 32 * (c + 1), r, c, dir, true);
+            door =  new Door(32 * r - 12, 32 * (c + 1), r, c, dir,slot == 'L');
           }
 
           doors.add(door);
@@ -409,4 +408,9 @@ class Room implements Moveable {
   ArrayList<Door> getDoors() {
     return doors;
   }
+  
+  int numLockedDoors(){
+    return locked;
+  }
+  
 }
