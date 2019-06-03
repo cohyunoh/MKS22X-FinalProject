@@ -2,7 +2,7 @@ class Arrow{
   //standard PVector used for the location of the bullet
   //vars used to check the angle between location and the mouse
   float oldPosX, oldPosY, rotation, speed, lowX, lowY, highX, highY, x, y;
-  Animation arrow = new Animation("projectile/arrow", 3);
+  Animation arrow = new Animation("projectile/arrow", 4);
   Arrow(float x, float y){
     //places the arrow in the middle of the room
     this.x = x;
@@ -16,14 +16,15 @@ class Arrow{
   }
   
   void display() {
-    rect(x, y, 50, 50);
+    move();
+    arrow.display(x,y, rotation / (PI * 180));
     //removes the bullet from the arrayList if it is off the room
   }
   
   void move(){
     //move the bullet
-    x = constrain(x + cos(rotation/180*PI)*speed, lowX, highX);
-    y = constrain(y + sin(rotation/180*PI)*speed, lowY, highY);
+    x = x + cos(rotation/180*PI)*speed;
+    y = y + sin(rotation/180*PI)*speed;
   }
   
   void changeX(float x) {

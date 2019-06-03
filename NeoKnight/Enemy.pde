@@ -4,6 +4,7 @@ class Enemy extends Entity {
   boolean chase, isLeft, isRight, isUp, isDown, wasLeft, wasRight, attack, die;
   int vel = 5, attackDam;
   float lowX, lowY, highX, highY;
+  
   Enemy(float x, float y, int a) {
     super("gorlag", 100, 0, 10.00, "gorlag", x, y);
     attackDam = a;
@@ -42,47 +43,6 @@ class Enemy extends Entity {
       }
       rectMode(CENTER);
       rect(xCor, yCor, 50, 50);
-      /*
-      if(isLeft){
-       animLeft.display(xCor - animLeft.getWidth()/2, yCor - animLeft.getHeight()/2);
-       return ;
-       }
-       if(isRight){
-       animRight.display(xCor - animRight.getWidth()/2, yCor - animRight.getHeight()/2);
-       return ;
-       }
-       if(isUp) {
-       if(wasLeft){
-       animLeft.display(xCor - animLeft.getWidth()/2, yCor - animLeft.getHeight()/2);
-       return ;
-       }
-       if (wasRight){
-       animRight.display(xCor - animRight.getWidth()/2, yCor - animRight.getHeight()/2);
-       return ;
-       }
-       }
-       if(isDown) {
-       if(wasLeft){
-       animLeft.display(xCor - animLeft.getWidth()/2, yCor - animLeft.getHeight()/2);
-       return ;
-       }
-       if (wasRight){
-       animRight.display(xCor - animRight.getWidth()/2, yCor - animRight.getHeight()/2);
-       return ;
-       }
-       }
-       if(!isDown && !isUp && !isRight && !isLeft){
-       if(wasLeft){
-       image(left, xCor, yCor);
-       return ;
-       }
-       if (wasRight){
-       image(right, xCor, yCor);
-       return ;
-       }
-       }
-       image(right, xCor, yCor);
-       */
     }
   }
 

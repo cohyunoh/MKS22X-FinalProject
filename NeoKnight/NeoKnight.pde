@@ -23,19 +23,17 @@ void setup() {
   doors = new ArrayList<Door>();
   arrows = new ArrayList<Arrow>();
   createEnemies();
-  if(roomNum == 1){
+ if(roomNum == 1){
     person = new Player("bob", "knight", 750, 500);
     map = new Map(15, 15);
     currentRoomRow = map.getStartRow();
     currentRoomCol = map.getStartCol();
-    rooms = map.getMap();
-    screen = new Screen();
     current = rooms[currentRoomRow][currentRoomCol];
+    current.addEnemies();
+    screen = new Screen();
   }
-
   smooth(3);
   frameRate(10);
-  current.addEnemies();
   
 }
 
@@ -44,6 +42,7 @@ void draw() {
   background(0, 0, 255);
   if (currentState == 0) screen.startScreen();
   if (currentState == 1){
+    
     screen.gameScreen(current, person);
   }
   if (currentState == 2) screen.deathScreen();
@@ -83,7 +82,7 @@ void mouseReleased() {
 }
 
 void mouseClicked(){
-  //person.shoot();
+  person.shoot();
 }
 
 

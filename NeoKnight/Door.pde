@@ -18,8 +18,7 @@ class Door {
     this.y = y;
     this.isLocked = isLocked;
     sprite = loadImage("door-" + direction + ".png");
-    if (isLocked) sprite = lock;
-    else sprite = loadImage("door-" + direction + ".png");
+    
     if (direction.equals("up")) {
       up = true;
     }
@@ -60,8 +59,12 @@ class Door {
 
   void display() {
     imageMode(CORNER);
-    text(x + ", " + y, x, y + 10);
+    text(x + ", " + y, x, y + 25);
     image(sprite, x, y);
+    if(isLocked){
+      imageMode(CENTER);
+      image(lock,x,y);
+    }
     transport();
     if(transport){
       currentRoomRow += (int(down) - int(up));
@@ -87,7 +90,7 @@ class Door {
   }
   
   void transport(){
-    if(dist(x,y,person.xCor,person.yCor) < 60 && person.useDoor == true){
+    if((dist(x,y,person.xCor,person.yCor) < 60 && person.useDoor == true) && (!isLocked) ){
       transport = true;
     }
   }
@@ -95,7 +98,7 @@ class Door {
   void createNextRoom(){
     int rows = (int)(abs((float)(Math.random() * 20))) + 30;
     int cols = (int)(abs((float)(Math.random() * 20))) + 30;
-    rooms[currentRoomRow][currentRoomCol] = new Room(rows, cols, this, 0,0, currentRoomRow - 1 < 0, currentRoomRow + 1 >= rooms.length, currentRoomCol + 1 >= rooms[0].length, currentRoomCol - 1 < 0); 
+    rooms[currentRoomRow][currentRoomCol] = new Room(rows, cols, this, 0,0); 
     createEnemies();
     current.addEnemies();
     doors = rooms[currentRoomRow][currentRoomCol].getDoors();
@@ -104,5 +107,9 @@ class Door {
   
   boolean isNew(int r, int c){
     return rooms[r][c] == null;
+  }
+  
+  void setLocked(boolean locked){
+    isLocked = locked;
   }
 }

@@ -22,10 +22,11 @@ class Animation {
   void display(float xpos, float ypos, float rotation) {
     frame = (frame+1) % totalFrames;
     imageMode(CENTER);
-    translate((xpos + getWidth() / 2), ypos + (getHeight() / 2));
-    rotate((rotation) + (PI));
+    pushMatrix();
+    translate(xpos, ypos);
+    rotate(rotation + PI);
     image(frames[frame], (xpos + getWidth() / 2), ypos + (getHeight() / 2));
-    rotate(-1 * ((rotation) + (PI)));
+    popMatrix();
   }
 
   int getWidth() {

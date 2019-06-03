@@ -1,15 +1,12 @@
 class Map {
-
-  Room[][] rooms;
+  Room[][] maprooms;
   int rows, cols, startRow, startCol, numRooms, maxRooms;
-  int[][] moves = {
-    {0, 1}, {0, -1}, {1, 0}, {-1, 0}
-  };
 
   Map(int rows, int cols) {
     this.rows = rows;
     this.cols = cols;
-    rooms = new Room[rows][cols];
+    maprooms = new Room[rows][cols];
+    rooms = maprooms;
     startRow = (int)abs((float)(Math.random() * rows));
     startCol = (int)abs((float)(Math.random() * cols));
     numRooms = 0;
@@ -18,7 +15,7 @@ class Map {
 
   //This creates a map where the starting room is always 50x50 and then creates four rooms in every direction
   void createMap() {
-    rooms[startRow][startCol] = new Room(50, 70, 0, 0, startRow - 1 < 0, startRow + 1 >= rooms.length, startCol + 1 >= rooms[0].length, startCol - 1 < 0);
+    maprooms[startRow][startCol] = new Room(50, 70, 0, 0);
    }
 
   int getStartRow() {
@@ -36,7 +33,7 @@ class Map {
   }
 
   Room[][] getMap() {
-    return this.rooms;
+    return maprooms;
   }
 
   String toString() {
