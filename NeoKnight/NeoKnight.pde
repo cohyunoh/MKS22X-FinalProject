@@ -29,12 +29,12 @@ void setup() {
     currentRoomRow = map.getStartRow();
     currentRoomCol = map.getStartCol();
     current = rooms[currentRoomRow][currentRoomCol];
-    current.addEnemies();
-    screen = new Screen();
+    
   }
+  screen = new Screen();
   smooth(3);
   frameRate(10);
-  
+  current.addEnemies();
 }
 
 

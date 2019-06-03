@@ -29,14 +29,15 @@ class Room implements Moveable {
     highY = 500 - (y + 32) - person.getHeight() / 4;
     w = cols * 32;
     l = rows * 32;
+    totaldoors = 0;
     initRoom();
     addDoors();
-    totaldoors = 0;
+    
     //placeKeys();
   }
 
 
-  public Room(int rows, int cols, Door door, float x, float y) {
+  public Room(int rows, int cols, String door, float x, float y) {
     this(rows, cols, x, y);
     totaldoors = 1;
     initRoom(door);
@@ -68,19 +69,19 @@ class Room implements Moveable {
 //=================================================================
 
 //Initialize Room methods==========================================
-  void initRoom(Door door) {
+  void initRoom(String door) {
     for (int r = 0; r < rows; r++) {
       for (int c = 0; c < cols; c++) {
         floor[r][c] = isWall(r, c) ? '#' : ' ';
       }
     }
-    if (door.isUp()) {
+    if (door.equals("up")) {
       putDoorDown();
       hasDown = true;
-    } else if (door.isDown()) {
+    } else if (door.equals("down")) {
       putDoorUp();
       hasUp = true;
-    } else if (door.isRight()) {
+    } else if (door.equals("right")) {
       putDoorLeft();
       hasLeft= true;
     } else {
@@ -106,8 +107,8 @@ class Room implements Moveable {
     while(totaldoors != numDoors && tries < 5){
       int randomRow = constrain((int)abs((float)(Math.random() * rows)), 2, rows - 3);
       int randomCol = constrain((int)abs((float)(Math.random() * cols)), 2, cols - 3);
-      if(hasUp == false && currentRoomRow - 1 >= 0 && abs((float)Math.random()) < .5){
-        if(abs((float)Math.random()) < .5){
+      if(hasUp == false && currentRoomRow - 1 >= 0 && abs((float)Math.random()) >= .5){
+        if(abs((float)Math.random()) >= .5){
           floor[1][randomCol] = 'L';  
           locked ++;
         }else{
@@ -124,8 +125,8 @@ class Room implements Moveable {
         }
         totaldoors ++;
         hasDown = true;
-      }else if(hasLeft == false && currentRoomCol - 1 >= 0 && abs((float)Math.random()) < .5){
-        if(abs((float)Math.random()) < .5){
+      }else if(hasLeft == false && currentRoomCol - 1 >= 0 && abs((float)Math.random()) >= .5){
+        if(abs((float)Math.random()) >= .5){
           floor[randomRow][1] = 'L';  
           locked ++;
         }else{
@@ -178,13 +179,13 @@ class Room implements Moveable {
         if (slot == 'D' || slot == 'L') {
           Door door = new Door(0,0,r,c, "up",true);
           if(r==1){
-            door = new Door(32, (c + 1) * 32,r,c, "up",slot=='L');
+            door = new Door((c-1) * 32, 32,r,c, "up",slot=='L');
           }else if( r == floor.length - 2){
-            door = new Door(r * 32 + 12, (c + 1) * 32,r,c,"down",slot == 'L');
+            door = new Door((c+1) * 32, r * 32 + 12,r,c,"down",slot == 'L');
           }else if( c == 1){
-            door = new Door(r * 32, c * 32,r,c, "left", slot == 'L');
+            door = new Door(32, 32 * (r - 1),r,c, "left", slot == 'L');
           }else if( c == floor[0].length - 2){
-            door = new Door(r * 32, c * 32 + 12,r,c, "right", slot == 'L');
+            door = new Door(c * 32 + 12, (r+1)  * 32,r,c, "right", slot == 'L');
           }
           roomdoors.add(door);
           doors = roomdoors;

@@ -5,6 +5,7 @@ class Door {
   PImage sprite;
   PImage lock = loadImage("lock.png");
   boolean up, down, right, left, isLocked, transport;
+  String dir;
   //creates door
   
   public Door(float x, float y, int row, int col, String direction, boolean isLocked) {
@@ -12,6 +13,7 @@ class Door {
     this.col = col;
     this.x = x;
     this.y = y;
+    dir= direction;
     this.isLocked = isLocked;
     sprite = loadImage("door-" + direction + ".png");
     if (direction.equals("up")) {
@@ -53,7 +55,7 @@ class Door {
   }
 
   void display() {
-    imageMode(CORNER);
+    imageMode(CENTER);
     text(x + ", " + y, x, y + 25);
     image(sprite, x, y);
     if(isLocked){
@@ -91,12 +93,10 @@ class Door {
   }
   
   void createNextRoom(){
+    roomNum ++;
     int rows = (int)(abs((float)(Math.random() * 20))) + 30;
     int cols = (int)(abs((float)(Math.random() * 20))) + 30;
-    rooms[currentRoomRow][currentRoomCol] = new Room(rows, cols, this, 0,0); 
-    createEnemies();
-    current.addEnemies();
-    doors = rooms[currentRoomRow][currentRoomCol].getDoors();
+    rooms[currentRoomRow][currentRoomCol] = new Room(rows, cols, dir , 0,0); 
     current = rooms[currentRoomRow][currentRoomCol]; 
   }
   
