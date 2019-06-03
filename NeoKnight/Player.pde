@@ -5,6 +5,8 @@ class Player extends Entity{
   int w,l,currentSlot, damage, attackFrames;
   ArrayList<Item> inv;
   Animation attackleft, attackright;
+  boolean canShoot = true;
+  float canShootCounter;
 //===========================================================================================================  
 
 //Constructors===============================================================================================
@@ -161,12 +163,21 @@ class Player extends Entity{
       }
     }else{
       
-      if (shoot) {
+      if (shoot && canShoot) {
         Arrow arrow = new Arrow(xCor, yCor);
         arrow.addConstrainX(rooms[currentRoomRow][currentRoomCol].getX() + 32, rooms[currentRoomRow][currentRoomCol].getX() + current.getWidth() - 32);
         arrow.addConstrainY(rooms[currentRoomRow][currentRoomCol].getY() + 32, rooms[currentRoomRow][currentRoomCol].getY() + current.getLength() - 32);
         arrows.add(arrow);
+        canShoot = false;
+        canShootCounter = 0;
         shoot = false;
+      }
+      if(canShoot == false){
+        canShootCounter ++;
+        //if the right amount of time has passed. make canShoot true
+        if (canShootCounter == 5)/*change this number to change the duration*/{
+          canShoot = true;
+        }
       }
       if(grab){
         grab(items);

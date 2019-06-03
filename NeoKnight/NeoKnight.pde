@@ -39,7 +39,7 @@ void setup() {
 
 
 void draw() {
-  background(0, 0, 255);
+  background(0);
   if (currentState == 0) screen.startScreen();
   if (currentState == 1){
     
@@ -74,6 +74,7 @@ void mousePressed() {
     setup();
   }
   person.setAttack(true);
+  person.shoot();
   
 }
 
@@ -81,9 +82,7 @@ void mouseReleased() {
   person.setAttack(false);
 }
 
-void mouseClicked(){
-  person.shoot();
-}
+
 
 
 

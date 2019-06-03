@@ -18,7 +18,14 @@ class Arrow{
   void display() {
     move();
     attack();
-    arrow.display(x,y, rotation);
+
+    pushMatrix();
+    translate(x, y);
+    rotate(rotation);
+
+    arrow.display(x,y);
+    popMatrix();
+ 
     //removes the bullet from the arrayList if it is off the room
   }
   
@@ -62,10 +69,11 @@ class Arrow{
   
   void attack(){
     for(Enemy enemy : enemies){
-      if(dist(enemy.getX(), enemy.getY(), x,y) < 20){
+      if(dist(enemy.getX(), enemy.getY(), x,y) < 50){
         enemy.hp -= 10;
         enemy.xCor += 30 * int(x < enemy.getX()) - int(x > enemy.getX()) ; 
         enemy.yCor += 30 * int(y < enemy.getY()) - int(y > enemy.getY()) ; 
+        arrows.remove(this);
       }
     }
   }

@@ -19,15 +19,7 @@ class Animation {
     image(frames[frame], (xpos + getWidth() / 2), ypos + (getHeight() / 2));
   }
   
-  void display(float xpos, float ypos, float rotation) {
-    frame = (frame+1) % totalFrames;
-    imageMode(CENTER);
-    pushMatrix();
-    translate(xpos, ypos);
-    rotate(rotation);
-    image(frames[frame], (xpos + getWidth() / 2), ypos + (getHeight() / 2));
-    popMatrix();
-  }
+
 
   int getWidth() {
     return frames[0].width;

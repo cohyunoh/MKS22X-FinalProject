@@ -22,18 +22,22 @@ class Screen {
   }
 
   //this prints out the current room 
-  void gameScreen(Room room, Player person) {
+  void gameScreen(Room room, Player person){
     room.move();
+    
     room.display();
     person.display();
-    
-    fill(50);
+    fill(255);
     textSize(20);
     textAlign(LEFT);
+    text(room.toString(),room.getX(), room.getY());
     text("Room X: " + room.getX(), 0, 500);
     text("Room Y: " + room.getY(), 0, 530);
     text("NUMDOORS: " + doors.size(), 0, 560);
+    text("UP: " + room.hasUp, 0, 590);
+    text("DOWN: " + room.hasDown, 0, 620);
+    text("LEFT: " + room.hasLeft, 0, 650);
+    text("RIGHT: " + room.hasRight, 0, 680);
   }
-
-  //after the player dies a death screen comes up
 }
+//after the player dies a death screen comes up

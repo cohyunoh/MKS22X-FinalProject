@@ -115,14 +115,14 @@ class Enemy extends Entity {
     if(dist(person.getX(), person.getY(),xCor, yCor) < 100){
       hp -= person.getDamage();
       if (person.getX() > xCor) {
-        xCor -= 10;
+        xCor = constrain(xCor - 10,lowX,highX);
       } else {
-        xCor += 10;
+        xCor = constrain(xCor + 10,lowX,highX);
       }
       if (person.getY() > yCor) {
-        yCor -= 10;
+        yCor = constrain(yCor - 10,lowY,highY);
       } else {
-        yCor += 10;
+        yCor = constrain(yCor + 10,lowY,highY);
       }
     }
   }

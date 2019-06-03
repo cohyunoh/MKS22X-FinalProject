@@ -1,5 +1,4 @@
 class Door {
-  Room room;
   //coordinates of the Door
   float x, y;
   int row, col;
@@ -7,9 +6,6 @@ class Door {
   PImage lock = loadImage("lock.png");
   boolean up, down, right, left, isLocked, transport;
   //creates door
-  void addRoom(Room newRoom){
-    room = newRoom;
-  }
   
   public Door(float x, float y, int row, int col, String direction, boolean isLocked) {
     this.row = row;
@@ -18,7 +14,6 @@ class Door {
     this.y = y;
     this.isLocked = isLocked;
     sprite = loadImage("door-" + direction + ".png");
-    
     if (direction.equals("up")) {
       up = true;
     }
