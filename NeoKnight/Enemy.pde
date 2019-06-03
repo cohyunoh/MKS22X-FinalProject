@@ -151,23 +151,24 @@ class Enemy extends Entity {
     }
   }
 
-  void hurt(Player enemy) {
-    hp -= enemy.getDamage();
-    if (enemy.getX() > xCor) {
-      xCor -= 10;
-    } else {
-      xCor += 10;
-    }
-    if (enemy.getY() > yCor) {
-      yCor -= 10;
-    } else {
-      yCor += 10;
+  void hurt() {
+    if(dist(person.getX(), person.getY(),xCor, yCor) < 100){
+      hp -= person.getDamage();
+      if (person.getX() > xCor) {
+        xCor -= 10;
+      } else {
+        xCor += 10;
+      }
+      if (person.getY() > yCor) {
+        yCor -= 10;
+      } else {
+        yCor += 10;
+      }
     }
   }
 
   void changeX(float x) {
     xCor = constrain(xCor + x, lowX, highX);
-    ;
   }
 
   void changeY(float y) {

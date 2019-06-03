@@ -26,13 +26,7 @@ class Screen {
     room.move();
     room.display();
     person.display(items);
-    if(arrows != null){
-      for (i = arrows.size()-1; i >= 0; i--) {
-        //you need a seperate var to get the object from the bullets arraylist then use that variable to call the functions
-        Arrow arrow = arrows.get(i);
-        arrow.display();
-      }
-    }
+    
     fill(50);
     textSize(20);
     textAlign(LEFT);

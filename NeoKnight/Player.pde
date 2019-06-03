@@ -43,9 +43,7 @@ class Player extends Entity{
   void attack(){
      for(int i = 0; i < enemies.size(); i ++){
        Enemy enemy = enemies.get(i);
-       if(dist(enemy.getX(), enemy.getY(),xCor, yCor) < 100){
-          enemy.hurt(this);
-        }
+       enemy.hurt();
      }
   }
   
@@ -118,7 +116,9 @@ class Player extends Entity{
       
       if (shoot) {
         // this regulates the shooting speed
-        arrows.add(new Arrow());
+        Arrow arrow = new Arrow();
+        arrows.add(arrow);
+        shoot = false;
       }
       if(grab){
         grab(items);
@@ -252,7 +252,7 @@ class Player extends Entity{
     this.attack = attack;
   }
   
-  void setShoot(boolean shoot){
-    this.shoot = shoot;
+  void shoot(){
+    shoot = true;
   }
 }

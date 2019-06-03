@@ -14,9 +14,8 @@ Room current;
 int roomNum = 1;
 //String str;
 Screen screen;
-int i;
-boolean canShoot = true;
-float canShootCounter;
+
+
 
 void setup() {
   size(1500, 1000);
@@ -107,9 +106,7 @@ void mousePressed() {
     currentState = 0;
     setup();
   }
-  /*
   person.setAttack(true);
-  */
   
 }
 
@@ -118,7 +115,7 @@ void mouseReleased() {
 }
 
 void mouseClicked(){
-  person.setShoot(true);
+  person.shoot();
 }
 
 void nextRoom(){

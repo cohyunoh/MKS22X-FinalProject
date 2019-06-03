@@ -212,6 +212,19 @@ class Room implements Moveable {
         item.display();
       }
     }
+    
+    if(arrows != null){
+      for (int i = arrows.size()-1; i >= 0; i--) {
+        //you need a seperate var to get the object from the bullets arraylist then use that variable to call the functions
+        Arrow arrow = arrows.get(i);
+        /*
+        arrow.addConstrainX(750 - (x + 32), 750 + (x - 32));
+        arrow.addConstrainY(500 - (y + 32), 500 + (y - 32));
+        */
+        arrow.display();
+      }
+    }
+    
     if (enemies != null) {
       for (int i = 0; i < enemies.size(); i++) {
         Enemy enemy = enemies.get(i);
@@ -320,6 +333,20 @@ class Room implements Moveable {
         enemy.move();
       }
     }
+    
+     if(arrows != null){
+      for (int i = arrows.size()-1; i >= 0; i--) {
+        Arrow arrow = arrows.get(i);
+        if (oldX != newX) {
+          arrow.changeX(x);
+          arrow.changeConstX(x);
+        }
+        if (oldY != newY) {
+          arrow.changeY(y);
+          arrow.changeConstY(y);
+        }
+      }
+    }
   }
 
   boolean setMove(int k, boolean b) {
@@ -409,4 +436,5 @@ class Room implements Moveable {
   ArrayList<Door> getDoors() {
     return doors;
   }
+  
 }
