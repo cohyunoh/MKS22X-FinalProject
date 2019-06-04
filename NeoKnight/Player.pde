@@ -15,7 +15,7 @@ class Player extends Entity{
     w = animLeft.getWidth();
     l = animLeft.getHeight();
     inv = new ArrayList<Item>();
-    Item hand = new Item(0, 29, height - 30);
+    Item hand = new Item(6, 29, height - 30);
     damage = hand.getDamage();
     inv.add(hand);
     inHand = inv.get(0);
@@ -150,6 +150,7 @@ class Player extends Entity{
     Arrow arrow = new Arrow(xCor, yCor);
     arrow.addConstrainX(rooms[currentRoomRow][currentRoomCol].getX() + 32, rooms[currentRoomRow][currentRoomCol].getX() + current.getWidth() - 32);
     arrow.addConstrainY(rooms[currentRoomRow][currentRoomCol].getY() + 32, rooms[currentRoomRow][currentRoomCol].getY() + current.getLength() - 32);
+    current.roomarrows.add(arrow);
     arrows.add(arrow);
     canShoot = false;
     canShootCounter = 0;
@@ -248,7 +249,7 @@ class Player extends Entity{
     }else{
       
       if (shoot && canShoot) {
-        
+        shoot();
       }
       if(canShoot == false){
         canShootCounter ++;

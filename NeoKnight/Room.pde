@@ -16,6 +16,7 @@ class Room implements Moveable {
   ArrayList<Item> roomitems;
   ArrayList<Enemy> roomenemies;
   ArrayList<Door> doors;
+  ArrayList<Arrow> roomarrows;
   
 
 //==============================================
@@ -25,6 +26,7 @@ class Room implements Moveable {
     doors = new ArrayList<Door>();
     roomenemies = new ArrayList<Enemy>();
     roomitems = items;
+    roomarrows = arrows;
     this.num = num;
     this.rows = rows;
     this.cols = cols;
@@ -379,9 +381,6 @@ class Room implements Moveable {
     }
     if (items != null) {
       displayItems();
-    }
-    if(arrows != null){
-      displayArrows();
     }
     if (enemies != null) {
       displayEnemies();

@@ -10,28 +10,26 @@ class Arrow{
     //this checks the angle
     oldPosX = mouseX;
     oldPosY = mouseY;
-    rotation = atan2(oldPosY - this.y, oldPosX - this.x) / PI * 180;
+    rotation = atan2(oldPosY - this.y, oldPosX - this.x);
     //arrow speed
     speed = 25;//change this number to change the speed
   }
   
   void display() {
-    
     pushMatrix();
     translate(x, y);
     rotate(rotation);
-    arrow.display(x,y);
+    arrow.display(0,0);
     popMatrix();
-    move();
     attack();
- 
+    move();
     //removes the bullet from the arrayList if it is off the room
   }
   
   void move(){
     //move the bullet
-    newX = constrain(x + cos(rotation/180*PI)*speed, lowX, highX);
-    newY = constrain(y + sin(rotation/180*PI)*speed, lowY, highY);
+    newX = constrain(x + cos(rotation)*speed, lowX, highX);
+    newY = constrain(y + sin(rotation)*speed, lowY, highY);
     if(x != newX && y != newY){
       x = newX;
       y = newY;
