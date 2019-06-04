@@ -89,6 +89,7 @@ void createEnemies() {
   int numEnemies = (int)(Math.random() * (5 + roomNum)) + 5;
   for (int i = 0; i < numEnemies; i++) {
     Enemy gorlag = new Enemy(0, 0, (int)(Math.random() * 15) + 5);
+    gorlag.num = roomNum;
     enemies.add(gorlag);
   }
 }

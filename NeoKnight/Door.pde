@@ -70,8 +70,10 @@ class Door {
         roomNum ++;
         currentRoomRow = newRow;
         currentRoomCol = newCol;
-        setup();
         map.createNextRoom(dir);
+        createEnemies();
+        current.addEnemies();
+        current.addKeys();
       }else{
         currentRoomRow = newRow;
         currentRoomCol = newCol;
@@ -90,12 +92,27 @@ class Door {
   }
   
   void transport(){
-    if((dist(x,y,person.xCor,person.yCor) < 60 && person.useDoor == true) && (!isLocked) ){
-      transport = true;
+    if(dist(x,y,person.xCor,person.yCor) < 60 && person.useDoor == true){
+      if(!isLocked){
+        transport = true;
+      }else{
+        if(hasKey(person)){
+          isLocked = false;
+          transport = true;
+        }
+      }
     }
   }
   
-  
+  boolean hasKey(Player person){
+    for(int i = 0; i < person.inv.size(); i++){
+      Item item = person.inv.get(i);
+      if(item.getName().equals("key")){
+        return true;
+      }
+    }
+    return false;
+  }
   
   boolean isNew(int r, int c){
     return rooms[r][c] == null;

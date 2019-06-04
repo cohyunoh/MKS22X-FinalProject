@@ -218,11 +218,11 @@ class Room implements Moveable {
           if(r==1){
             door = new Door((c-1) * 32, 32,r,c, "up",slot=='L');
           }else if( r == floor.length - 2){
-            door = new Door((c+1) * 32, r * 32 + 12,r,c,"down",slot == 'L');
+            door = new Door((c+2) * 32, r * 32 + 12,r,c,"down",slot == 'L');
           }else if( c == 1){
             door = new Door(32, 32 * (r - 1),r,c, "left", slot == 'L');
           }else if( c == floor[0].length - 2){
-            door = new Door(c * 32 + 12, (r+1)  * 32,r,c, "right", slot == 'L');
+            door = new Door(c * 32 + 12, (r+2)  * 32,r,c, "right", slot == 'L');
           }
           doors.add(door);
         }

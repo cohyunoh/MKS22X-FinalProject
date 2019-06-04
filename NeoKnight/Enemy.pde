@@ -2,7 +2,7 @@
 
 class Enemy extends Entity {
   boolean chase, isLeft, isRight, isUp, isDown, wasLeft, wasRight, attack, die, hasKey;
-  int vel = 5, attackDam;
+  int vel = 5, attackDam, num;
   float lowX, lowY, highX, highY;
   ArrayList<Item>inv;
   Enemy(float x, float y, int a) {
@@ -65,8 +65,12 @@ class Enemy extends Entity {
       }else {
         fill(0, 225, 225);
       }
+      
       rectMode(CENTER);
       rect(xCor, yCor, 50, 50);
+      fill(255);
+      textSize(20);
+      text(num,xCor, yCor);
     }
   }
 

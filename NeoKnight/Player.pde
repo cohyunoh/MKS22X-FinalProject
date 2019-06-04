@@ -82,7 +82,7 @@ class Player extends Entity{
   ArrayList<Item> grab(ArrayList<Item> items){
     for(int i = 0; i < items.size(); i ++){
       Item item = items.get(i);
-      if(dist(item.getX(),item.getY(),xCor,yCor) <= 20){
+      if(dist(item.getX(),item.getY(),xCor,yCor) <= 50){
         item.setX(24);
         item.setY(height - 30);        
         inv.add(item);
@@ -116,6 +116,7 @@ class Player extends Entity{
     }
     hurt = true;
   }
+  
   
 //======================================================================================
   
