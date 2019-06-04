@@ -18,10 +18,10 @@ class Map {
     maprooms[startRow][startCol] = new Room(50, 70, 0, 0, roomNum);
    }
   
-  void createNextRoom(String dir){
+  void createNextRoom(Door door){
     int rows = (int)(abs((float)(Math.random() * 20))) + 30;
     int cols = (int)(abs((float)(Math.random() * 20))) + 30;
-    rooms[currentRoomRow][currentRoomCol] = new Room(rows, cols, dir , 0,0, roomNum); 
+    rooms[currentRoomRow][currentRoomCol] = new Room(rows, cols, door , 0,0, roomNum); 
     current = rooms[currentRoomRow][currentRoomCol]; 
   }
 

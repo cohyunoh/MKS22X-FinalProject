@@ -70,14 +70,16 @@ class Door {
         roomNum ++;
         currentRoomRow = newRow;
         currentRoomCol = newCol;
-        map.createNextRoom(dir);
+        map.createNextRoom(this);
         createEnemies();
         current.addEnemies();
         current.addKeys();
+        items = current.roomitems;
       }else{
         currentRoomRow = newRow;
         currentRoomCol = newCol;
         current = rooms[currentRoomRow][currentRoomCol];
+        items = current.roomitems;
       }
       transport = false;
     }

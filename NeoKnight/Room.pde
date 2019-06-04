@@ -21,9 +21,7 @@ class Room implements Moveable {
 
 //Constructors====================================
   public Room(int rows, int cols, float x, float y, int num) {
-    items = new ArrayList<Item>();
     doors = new ArrayList<Door>();
-    arrows = new ArrayList<Arrow>();
     roomenemies = new ArrayList<Enemy>();
     roomitems = items;
     this.num = num;
@@ -44,7 +42,7 @@ class Room implements Moveable {
   }
 
 
-  public Room(int rows, int cols, String door, float x, float y, int num) {
+  public Room(int rows, int cols, Door door, float x, float y, int num) {
     items = new ArrayList<Item>();
     doors = new ArrayList<Door>();
     arrows = new ArrayList<Arrow>();
@@ -103,19 +101,19 @@ class Room implements Moveable {
 //=================================================================
 
 //Initialize Room methods==========================================
-  void initRoom(String door) {
+  void initRoom(Door door) {
     for (int r = 0; r < rows; r++) {
       for (int c = 0; c < cols; c++) {
         floor[r][c] = isWall(r, c) ? '#' : ' ';
       }
     }
-    if (door.equals("up")) {
+    if (door.isUp()) {
       putDoorDown();
       hasDown = true;
-    } else if (door.equals("down")) {
+    } else if (door.isDown()) {
       putDoorUp();
       hasUp = true;
-    } else if (door.equals("right")) {
+    } else if (door.isRight()) {
       putDoorLeft();
       hasLeft= true;
     } else {

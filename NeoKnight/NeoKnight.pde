@@ -19,6 +19,8 @@ Screen screen;
 void setup() {
   size(1500, 1000);
   createEnemies();
+  arrows = new ArrayList<Arrow>();
+  items = new ArrayList<Item>();
  if(roomNum == 1){
     person = new Player("bob", "knight", 750, 500);
     map = new Map(15, 15);
