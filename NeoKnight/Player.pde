@@ -2,7 +2,7 @@ class Player extends Entity{
   
 //INSTANCE VARIABLES=========================================================================================
   boolean isLeft, isRight, isUp, isDown, wasLeft, wasRight, grab, next, prev, swit, attack, die, hurt, shoot, useKey, use, block, heal, useDoor;
-  int w,l,currentSlot, damage, useFrames;
+  int w,l,currentSlot, damage, useFrames, amountOfArrows;
   ArrayList<Item> inv;
   Animation useleft, useright;
   boolean canShoot = true;
@@ -28,6 +28,7 @@ class Player extends Entity{
     oldX = mouseX;
     oldY = mouseY;
     rotation = atan2(oldY - this.yCor, oldX - this.xCor);
+    amountOfArrows = 0;
   }
 //=============================================================================================================  
   
@@ -50,6 +51,12 @@ class Player extends Entity{
   void die(){
     if(hp <= 0){
       die =  true;
+    }
+  }
+  
+  void removeArrows(){
+    for(int i = 0; i < inv.size(); i++){
+      
     }
   }
   
@@ -144,8 +151,13 @@ class Player extends Entity{
   
   void hurt(Enemy enemy){
     if(armor > 0){
-      armor -= (int)(enemy.getDamage() * 0.75);
-      hp -= (int)(enemy.getDamage() * 0.25);
+      if(inHand.type.equals("block")){
+        armor -= (int)(enemy.getDamage() * 0.25);
+        hp -= (int)(enemy.getDamage() * 0.25);
+      }else{
+        armor -= (int)(enemy.getDamage() * 0.75);
+        hp -= (int)(enemy.getDamage() * 0.25);
+      }
     }else{
       hp -= enemy.getDamage();
     }
