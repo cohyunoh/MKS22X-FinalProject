@@ -95,7 +95,12 @@ Got the character to switch items
 Made a sample enemy that chases the player while in radius
 
 Day 12 5/30:
+<<<<<<< HEAD
 Samson: Continued working on yesterday's work
+=======
+Samson: 
+Finished displaaying rooms and placing doors
+>>>>>>> combineDev
 Connor:
 Polished the chasing enemy making it stop while not in pursuit
 Worked on the attack feature
