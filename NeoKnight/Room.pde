@@ -12,11 +12,20 @@ class Room implements Moveable {
   int num;
   PImage tile = loadImage("floor.png");
   PImage wall = loadImage("wall.png");  
-  ArrayList<Door> roomDoors = new ArrayList<Door>();
+  ArrayList<Item> roomitems;
+  ArrayList<Enemy> roomenemies;
+  ArrayList<Door> doors;
+  
+
 //==============================================
 
 //Constructors====================================
   public Room(int rows, int cols, float x, float y, int num) {
+    items = new ArrayList<Item>();
+    doors = new ArrayList<Door>();
+    arrows = new ArrayList<Arrow>();
+    roomenemies = new ArrayList<Enemy>();
+    roomitems = items;
     this.num = num;
     this.rows = rows;
     this.cols = cols;
@@ -32,24 +41,51 @@ class Room implements Moveable {
     totaldoors = 0;
     initRoom();
     addDoors();
-    
-    //placeKeys();
   }
 
 
   public Room(int rows, int cols, String door, float x, float y, int num) {
-    this(rows, cols, x, y, num);
+    items = new ArrayList<Item>();
+    doors = new ArrayList<Door>();
+    arrows = new ArrayList<Arrow>();
+    roomenemies = new ArrayList<Enemy>();
+    roomitems = items;
+    this.num = num;
+    this.rows = rows;
+    this.cols = cols;
+    this.x = x;
+    this.y = y;
+    floor = new char[rows][cols];
+    lowX = -1 * ((cols - 1) * 32 - 750) + person.getWidth() / 6;
+    lowY = -1 * ((rows - 1) * 32 - 500) + person.getHeight() / 4;
+    highX = 750 - (x + 32) - person.getWidth() / 4;
+    highY = 500 - (y + 32) - person.getHeight() / 4;
+    w = cols * 32;
+    l = rows * 32;
+    totaldoors = 0;
     initRoom(door);
   }
 
 //================================================================
   
-  void placeKeys(){
+  void update(){
+    roomitems = items;
+  }
+  
+  void updateConstrains(){
+    lowX = -1 * ((cols - 1) * 32 - 750) + person.getWidth() / 6;
+    lowY = -1 * ((rows - 1) * 32 - 500) + person.getHeight() / 4;
+    highX = 750 - (x + 32) - person.getWidth() / 4;
+    highY = 500 - (y + 32) - person.getHeight() / 4;
+  }
+  
+  void addKeys(){
     for (int i = 0; i < locked; i++){
-      float randomX = (abs((float)(Math.random() * (rows * 32))));
-      float randomY = (abs((float)(Math.random() * (cols * 32))));
-      Item keyy = new Item(5,randomX, randomY);
-      items.add(keyy);
+      Enemy enemy = roomenemies.get(i);
+      Item keyy = new Item(5,0,0);
+      keyy.show();
+      enemy.addItem(keyy);
+      enemy.hasKey = true;
     }
   }
 
@@ -61,6 +97,7 @@ class Room implements Moveable {
       enemy.setY(constrain(abs((float)(Math.random() * (rows * 32))), 32, 32 * (rows - 2)));
       enemy.addConstrainX(32, 32 * (cols - 2));
       enemy.addConstrainY(32, 32 * (rows - 2));
+      roomenemies.add(enemy);
     }
   }
 //=================================================================
@@ -187,11 +224,10 @@ class Room implements Moveable {
           }else if( c == floor[0].length - 2){
             door = new Door(c * 32 + 12, (r+1)  * 32,r,c, "right", slot == 'L');
           }
-          roomDoors.add(door);
+          doors.add(door);
         }
       }
     }
-    doors  = roomDoors;
   }
 
   void putDoorDown() {
@@ -255,6 +291,14 @@ class Room implements Moveable {
     return doors;
   }
   
+  ArrayList<Item> getItems() {
+    return roomitems;
+  }
+  
+  ArrayList<Enemy> getEnemies() {
+    return roomenemies;
+  }
+  
    int numLockedDoors(){
     return locked;
   }
@@ -263,11 +307,11 @@ class Room implements Moveable {
 //DISPLAY =============================================================
 
   void displayEnemies(){
-    for (int i = 0; i < enemies.size(); i++) {
-      Enemy enemy = enemies.get(i);
+    for (int i = 0; i < roomenemies.size(); i++) {
+      Enemy enemy = roomenemies.get(i);
       enemy.setMove(person);
       if (dist(person.getX(), person.getY(), enemy.getX(), enemy.getY()) < 50) {
-        enemy.attack(person);
+        enemy.attack();
         if (person.isHurt()) {
           float newX = 0;
           float newY = 0;
@@ -309,8 +353,8 @@ class Room implements Moveable {
   }
   
   void displayItems(){
-    for (int i = 0; i < items.size(); i++) {
-      Item item = items.get(i);
+    for (int i = 0; i < roomitems.size(); i++) {
+      Item item = roomitems.get(i);
       item.display();
     }
   }
@@ -387,10 +431,10 @@ class Room implements Moveable {
       for (int i = 0; i < items.size(); i++) {
         Item item = items.get(i);
         if (oldX != newX) {
-          item.setX(item.getX() - moveX);
+          item.setX(item.getX() + moveX);
         }
         if (oldY != newY) {
-          item.setY(item.getY() - moveY);
+          item.setY(item.getY() + moveY);
         }
       }
     }

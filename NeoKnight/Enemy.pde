@@ -1,20 +1,35 @@
 
 
 class Enemy extends Entity {
-  boolean chase, isLeft, isRight, isUp, isDown, wasLeft, wasRight, attack, die;
+  boolean chase, isLeft, isRight, isUp, isDown, wasLeft, wasRight, attack, die, hasKey;
   int vel = 5, attackDam;
   float lowX, lowY, highX, highY;
-  
+  ArrayList<Item>inv;
   Enemy(float x, float y, int a) {
     super("gorlag", 100, 0, 10.00, "gorlag", x, y);
     attackDam = a;
     die = false;
+    inv = new ArrayList<Item>();
   }
 
 
+  void drop(){
+    for(int i = 0; i < inv.size(); i++){
+      Item item = inv.get(i);
+      item.setX(xCor + (float)Math.random() * 8);
+      item.setY(yCor + (float)Math.random() * 8);
+      item.show();
+      items.add(item);
+      inv.remove(item);
+    }
+  }
 
   int getDamage() {
     return attackDam;
+  }
+
+  void addItem(Item item){
+    inv.add(item);
   }
 
   void attack(Player person) {
@@ -22,9 +37,14 @@ class Enemy extends Entity {
       person.hurt(this);
     }
   }
+  
+  void attack(){
+    attack = true;
+  }
 
   void die() {
     if (hp <= 0) {
+      drop();
       die =  true;
     }
   }
@@ -38,7 +58,11 @@ class Enemy extends Entity {
     } else {
       if (attack) {
         fill(225, 0, 0);
-      } else {
+        attack(person);
+        attack = false;
+      }else if(hasKey){
+        fill(0,225,0);
+      }else {
         fill(0, 225, 225);
       }
       rectMode(CENTER);

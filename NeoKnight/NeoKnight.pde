@@ -2,16 +2,15 @@ import java.util.*;
 import java.io.*;
 
 Player person;
-ArrayList<Item> items;
 ArrayList<Enemy> enemies;
-ArrayList<Door> doors;
 ArrayList<Arrow> arrows;
+ArrayList<Item> items;
 Map map;
 int currentRoomRow, currentRoomCol;
 int currentState = 0;
 Room[][] rooms;
-Room current; //<>// //<>//
-int roomNum = 1;
+Room current; //<>//
+int roomNum = 1; //<>//
 //String str;
 Screen screen;
 
@@ -19,9 +18,6 @@ Screen screen;
 
 void setup() {
   size(1500, 1000);
-  items = new ArrayList<Item>();
-  doors = new ArrayList<Door>();
-  arrows = new ArrayList<Arrow>();
   createEnemies();
  if(roomNum == 1){
     person = new Player("bob", "knight", 750, 500);
@@ -31,10 +27,10 @@ void setup() {
     current = rooms[currentRoomRow][currentRoomCol];
     screen = new Screen();
   }
-  
   smooth(3);
   frameRate(10);
   current.addEnemies();
+  current.addKeys();
 }
 
 
@@ -80,7 +76,10 @@ void mousePressed() {
 }
 
 
-
+void update(){
+  items = current.getItems();
+  enemies = current.getEnemies();
+}
 
 
 

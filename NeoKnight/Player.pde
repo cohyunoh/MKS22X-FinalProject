@@ -16,6 +16,7 @@ class Player extends Entity{
     l = animLeft.getHeight();
     inv = new ArrayList<Item>();
     Item hand = new Item(0, 29, height - 30);
+    
     damage = hand.getVal();
     inv.add(hand);
     inHand = inv.get(0);

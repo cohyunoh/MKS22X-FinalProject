@@ -23,7 +23,6 @@ class Map {
     int cols = (int)(abs((float)(Math.random() * 20))) + 30;
     rooms[currentRoomRow][currentRoomCol] = new Room(rows, cols, dir , 0,0, roomNum); 
     current = rooms[currentRoomRow][currentRoomCol]; 
-    doors = current.roomDoors;
   }
 
   int getStartRow() {

@@ -75,7 +75,7 @@ class Door {
       }else{
         currentRoomRow = newRow;
         currentRoomCol = newCol;
-        current = rooms[currentRoomRow][currentRoomCol]; 
+        current = rooms[currentRoomRow][currentRoomCol];
       }
       transport = false;
     }
