@@ -15,14 +15,13 @@ class Map {
 
   //This creates a map where the starting room is always 50x50 and then creates four rooms in every direction
   void createMap() {
-    maprooms[startRow][startCol] = new Room(50, 70, 0, 0);
+    maprooms[startRow][startCol] = new Room(50, 70, 0, 0, roomNum);
    }
   
   void createNextRoom(String dir){
-    roomNum ++;
     int rows = (int)(abs((float)(Math.random() * 20))) + 30;
     int cols = (int)(abs((float)(Math.random() * 20))) + 30;
-    rooms[currentRoomRow][currentRoomCol] = new Room(rows, cols, dir , 0,0); 
+    rooms[currentRoomRow][currentRoomCol] = new Room(rows, cols, dir , 0,0, roomNum); 
     current = rooms[currentRoomRow][currentRoomCol]; 
     doors = current.roomDoors;
   }

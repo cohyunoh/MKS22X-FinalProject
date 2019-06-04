@@ -38,6 +38,8 @@ class Screen {
     text("DOWN: " + room.hasDown, 0, 620);
     text("LEFT: " + room.hasLeft, 0, 650);
     text("RIGHT: " + room.hasRight, 0, 680);
+    text("CURRENT ROW: " + currentRoomRow, 0, 710);
+    text("CURRENT COL: " + currentRoomCol, 0, 740);
   }
 }
 //after the player dies a death screen comes up

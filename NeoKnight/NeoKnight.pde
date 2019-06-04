@@ -10,7 +10,7 @@ Map map;
 int currentRoomRow, currentRoomCol;
 int currentState = 0;
 Room[][] rooms;
-Room current; //<>//
+Room current; //<>// //<>//
 int roomNum = 1;
 //String str;
 Screen screen;
@@ -20,7 +20,7 @@ Screen screen;
 void setup() {
   size(1500, 1000);
   items = new ArrayList<Item>();
-  doors = new ArrayList<Door>(4);
+  doors = new ArrayList<Door>();
   arrows = new ArrayList<Arrow>();
   createEnemies();
  if(roomNum == 1){

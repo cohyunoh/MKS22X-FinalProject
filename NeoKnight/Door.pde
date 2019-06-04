@@ -64,17 +64,19 @@ class Door {
     }
     transport();
     if(transport){
-      currentRoomRow += (int(down) - int(up));
-      currentRoomCol += (int(right) - int(left));
-      setup();
-      if(isNew(currentRoomRow, currentRoomCol)){
+      int newRow = currentRoomRow + (int(down) - int(up));
+      int newCol = currentRoomCol + (int(right) - int(left));
+      if(isNew(newRow, newCol)){
+        roomNum ++;
+        currentRoomRow = newRow;
+        currentRoomCol = newCol;
+        setup();
         map.createNextRoom(dir);
-        roomNum ++;
       }else{
+        currentRoomRow = newRow;
+        currentRoomCol = newCol;
         current = rooms[currentRoomRow][currentRoomCol]; 
-        roomNum ++;
       }
-      ;
       transport = false;
     }
   }

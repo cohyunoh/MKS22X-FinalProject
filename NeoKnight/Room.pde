@@ -9,13 +9,15 @@ class Room implements Moveable {
   int rows, cols, totaldoors;
   float x, y, lowX, lowY, highX, highY, w, l;
   int locked = 0;
+  int num;
   PImage tile = loadImage("floor.png");
   PImage wall = loadImage("wall.png");  
   ArrayList<Door> roomDoors = new ArrayList<Door>();
 //==============================================
 
 //Constructors====================================
-  public Room(int rows, int cols, float x, float y) {
+  public Room(int rows, int cols, float x, float y, int num) {
+    this.num = num;
     this.rows = rows;
     this.cols = cols;
     this.x = x;
@@ -35,12 +37,8 @@ class Room implements Moveable {
   }
 
 
-  public Room(int rows, int cols, String door, float x, float y) {
-    this(rows, cols, x, y);
-    hasUp = false;
-    hasDown = false;
-    hasLeft = false;
-    hasRight = false;
+  public Room(int rows, int cols, String door, float x, float y, int num) {
+    this(rows, cols, x, y, num);
     initRoom(door);
   }
 
@@ -193,7 +191,7 @@ class Room implements Moveable {
         }
       }
     }
-    doors = roomDoors;
+    doors  = roomDoors;
   }
 
   void putDoorDown() {
