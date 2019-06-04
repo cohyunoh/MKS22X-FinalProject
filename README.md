@@ -95,17 +95,20 @@ Got the character to switch items
 Made a sample enemy that chases the player while in radius
 
 Day 12 5/30:
+Samson: Continued working on yesterday's work
 Connor:
 Polished the chasing enemy making it stop while not in pursuit
 Worked on the attack feature
 
 Day 13 5/31
+Samson: Continued working on randomly displaying rooms and doors
 Connor:
 After merging the previous branches, the room is now able to be displayed
 Camera moves with player
 Failed to implement player
 
 Day 14 6/1
+Samson: Finished placing doors in the map and worked on randomly placing a certain number of doors minimum 
 Connor:
 Successfully displayed player in the middle of the screen
 Successfully displayed enemies as they move with the room
