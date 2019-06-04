@@ -412,7 +412,7 @@ class Room implements Moveable {
     }
     float newX = x;
     float newY = y;
-    if(!person.attack){
+    if(!person.use){
       newX = constrain(x + vel *(int(isLeft) - int(isRight)),  lowX, highX);
       newY = constrain(y + vel *(int(isUp)  - int(isDown)), lowY, highY);
     }

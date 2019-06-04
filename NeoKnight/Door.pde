@@ -97,11 +97,6 @@ class Door {
     if(dist(x,y,person.xCor,person.yCor) < 60 && person.useDoor == true){
       if(!isLocked){
         transport = true;
-      }else{
-        if(hasKey(person)){
-          isLocked = false;
-          transport = true;
-        }
       }
     }
   }

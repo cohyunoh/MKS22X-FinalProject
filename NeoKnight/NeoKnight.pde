@@ -72,9 +72,21 @@ void mousePressed() {
     roomNum = 1;
     setup();
   }
-  person.setAttack(true);
-  person.shoot();
-  
+  if(person.inHand.getType().equals("melee")){
+    person.setAttack();
+  }
+  if(person.inHand.getType().equals("shooting")){
+    person.setShoot();
+  }
+  if(person.inHand.getType().equals("heal")){
+    person.setHeal();
+  }
+  if(person.inHand.getType().equals("block")){
+    person.setBlock();
+  }
+  if(person.inHand.getType().equals("key")){
+    person.setUseKey();
+  }
 }
 
 
@@ -84,7 +96,10 @@ void update(){
 }
 
 
-
+void mouseWheel(MouseEvent event) {
+  float e = event.getCount();
+  person.switchItem(e);
+}
 
 void createEnemies() {
   enemies = new ArrayList<Enemy>();

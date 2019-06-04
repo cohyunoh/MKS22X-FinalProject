@@ -1,10 +1,10 @@
 class Player extends Entity{
   
 //INSTANCE VARIABLES=========================================================================================
-  boolean isLeft, isRight, isUp, isDown, wasLeft, wasRight, grab, next, prev, swit, attack, die, hurt, shoot, useDoor;
-  int w,l,currentSlot, damage, attackFrames;
+  boolean isLeft, isRight, isUp, isDown, wasLeft, wasRight, grab, next, prev, swit, attack, die, hurt, shoot, useKey, use, block, heal, useDoor;
+  int w,l,currentSlot, damage, useFrames;
   ArrayList<Item> inv;
-  Animation attackleft, attackright;
+  Animation useleft, useright;
   boolean canShoot = true;
   float canShootCounter;
 //===========================================================================================================  
@@ -16,15 +16,14 @@ class Player extends Entity{
     l = animLeft.getHeight();
     inv = new ArrayList<Item>();
     Item hand = new Item(0, 29, height - 30);
-    
-    damage = hand.getVal();
+    damage = hand.getDamage();
     inv.add(hand);
     inHand = inv.get(0);
     currentSlot = 0;
     swit = false;
     attack = false;
-    attackleft = new Animation(type + "-" + "attack" + "/" + inHand + "-left",8);
-    attackright = new Animation(type + "-" + "attack" + "/" + inHand + "-right",8);
+    useleft = new Animation("use" + "/" + inHand + "-left",8);
+    useright = new Animation("use" + "/" + inHand + "-right",8);
     wasRight = true;
   }
 //=============================================================================================================  
@@ -70,12 +69,15 @@ class Player extends Entity{
   
   void switchSlot(){
     inHand = inv.get(currentSlot);
-    animLeft = new Animation(type + "-" + inHand + "/" + type + "-walk-left", 8);
-    animRight = new Animation(type + "-" + inHand + "/" + type + "-walk-right", 8);
-    right = loadImage (type + "-" + inHand + "/" + type + "-walk-right7.png");
-    left = loadImage (type + "-" + inHand + "/" + type + "-walk-left7.png");
-    attackleft = new Animation(type + "-" + "attack" + "/" + inHand + "-left",8);
-    attackright = new Animation(type + "-" + "attack" + "/" + inHand + "-right",8);
+    if(inHand.type.equals("melee") || inHand.type.equals("block")) {
+      damage = inHand.getDamage();
+    }
+    animLeft = new Animation(type + "/" + inHand + "-left", 8);
+    animRight = new Animation(type + "/" + inHand + "-right", 8);
+    right = loadImage (type + "/" + inHand + "-right7.png");
+    left = loadImage (type + "/" + inHand + "-left7.png");
+    useleft = new Animation("use"+ "/" + inHand + "-left",8);
+    useright = new Animation("use" + "/" + inHand + "-right",8);
     swit = false;
   }
   
@@ -91,19 +93,36 @@ class Player extends Entity{
     }
     return items;
   }
-  
-  void setAttack(boolean attack){
-    this.attack = attack;
+  //set methods==========================================================================
+  void setAttack(){
+    attack = true;
+    use = true;
   }
   
-  void shoot(){
+  void setShoot(){
     shoot = true;
+    use = true;
   }
   
+  void setHeal(){
+    heal = true;
+    use = true;
+  }
+  
+  void setBlock(){
+    block = true;
+    use = true;
+  }
+  
+  void setUseKey(){
+    useKey = true;
+    use = true;
+  }
+  //==========================================================================================
   void attack(){
      for(int i = 0; i < enemies.size(); i ++){
        Enemy enemy = enemies.get(i);
-       enemy.hurt();
+       enemy.hurt(true);
      }
   }
   
@@ -117,7 +136,41 @@ class Player extends Entity{
     hurt = true;
   }
   
+  void heal(){
+    if(inHand.name.equals("potionH")){
+      hp += inHand.getHeal();
+    }
+    if(inHand.name.equals("potionA")){
+      armor += inHand.getHeal();
+    }
+    
+  }
   
+  void shoot(){
+    Arrow arrow = new Arrow(xCor, yCor);
+    arrow.addConstrainX(rooms[currentRoomRow][currentRoomCol].getX() + 32, rooms[currentRoomRow][currentRoomCol].getX() + current.getWidth() - 32);
+    arrow.addConstrainY(rooms[currentRoomRow][currentRoomCol].getY() + 32, rooms[currentRoomRow][currentRoomCol].getY() + current.getLength() - 32);
+    arrows.add(arrow);
+    canShoot = false;
+    canShootCounter = 0;
+    shoot = false;
+  }
+  
+  void useKey(){
+    for(Door door:current.doors){
+      if(dist(xCor,yCor,door.x,door.y) < 60 && door.isLocked){
+        door.isLocked= false;
+        inv.remove(inHand);
+      }
+    }
+  }
+  
+  void block(){
+    for(int i = 0; i < enemies.size(); i ++){
+       Enemy enemy = enemies.get(i);
+       enemy.hurt(enemy.hp - damage > 0);
+     }
+  }
 //======================================================================================
   
   void display(){
@@ -159,29 +212,39 @@ class Player extends Entity{
         switchSlot();
     }
     
-    if(attack){
+    if(use){
       if(wasLeft){
-        attackleft.display(xCor - animLeft.getWidth()/2, yCor - animLeft.getHeight()/2);
+        useleft.display(xCor - animLeft.getWidth()/2, yCor - animLeft.getHeight()/2);
       }
       if(wasRight) {
-        attackright.display(xCor - animLeft.getWidth()/2, yCor - animLeft.getHeight()/2);
+        useright.display(xCor - animLeft.getWidth()/2, yCor - animLeft.getHeight()/2);
       }
-      attack();
-      attackFrames += 1;
-      if(attackFrames >= 8){
-        attackFrames = 0;
+      if(attack){
+        attack();
+      }
+      if(heal){
+        heal();
+      }
+      if(useKey){
+        useKey();
+      }
+      if(block){
+        block();
+      }
+      
+      useFrames += 1;
+      if(useFrames >= 8){
+        useFrames = 0;
+        use = false;
         attack = false;
+        heal = false;
+        block = false;
+        useKey = false;
       }
     }else{
       
       if (shoot && canShoot) {
-        Arrow arrow = new Arrow(xCor, yCor);
-        arrow.addConstrainX(rooms[currentRoomRow][currentRoomCol].getX() + 32, rooms[currentRoomRow][currentRoomCol].getX() + current.getWidth() - 32);
-        arrow.addConstrainY(rooms[currentRoomRow][currentRoomCol].getY() + 32, rooms[currentRoomRow][currentRoomCol].getY() + current.getLength() - 32);
-        arrows.add(arrow);
-        canShoot = false;
-        canShootCounter = 0;
-        shoot = false;
+        
       }
       if(canShoot == false){
         canShootCounter ++;

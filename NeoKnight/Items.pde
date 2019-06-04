@@ -6,7 +6,7 @@ class Item {
   Animation anim;
   int imageCount;
   int id;
-  int valueUsed;
+  int damage,heal;
 
   Item(int idNum, float xCor, float yCor) {
     String[] itemList = loadStrings("itemlist.txt");
@@ -16,17 +16,29 @@ class Item {
     type = itemInfo[3];
     imageCount = Integer.parseInt(itemInfo[4]);
     display = true;
-    anim = new Animation(name + "/" + name, imageCount);
+    anim = new Animation("items/"+name + "/" + name, imageCount);
     this.xCor = xCor;
     this.yCor = yCor;
     id = idNum;
-    if (type.equals("melee")) {
-      valueUsed = Integer.parseInt(itemInfo[5]);
+    if (type.equals("melee") || type.equals("block")) {
+      damage = Integer.parseInt(itemInfo[5]);
+    }
+    if(type.equals("heal")){
+      if(name.equals("potionH")){
+        heal = Integer.parseInt(itemInfo[6]);
+      }
+      if(name.equals("potionA")){
+        heal = Integer.parseInt(itemInfo[7]);
+      }
     }
   }
 
-  int getVal() {
-    return valueUsed;
+  int getDamage() {
+    return damage;
+  }
+  
+  int getHeal() {
+    return heal;
   }
 
   void display() {
