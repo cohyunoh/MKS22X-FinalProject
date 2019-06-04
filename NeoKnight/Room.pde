@@ -363,6 +363,10 @@ class Room implements Moveable {
     }
   }
   
+  void displayShops(){
+    
+  }
+  
   void displayArrows(){
     for (int i = 0; i < arrows.size(); i++) {
       //you need a seperate var to get the object from the bullets arraylist then use that variable to call the functions

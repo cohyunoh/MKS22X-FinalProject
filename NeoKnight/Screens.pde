@@ -13,6 +13,16 @@ class Screen {
     text("Click to Restart", width/2, height/2 + 10);
   }
 
+  void shopScreen() {
+    background(0);
+    text("Press 1 to buy Health Potion", width/6, (height / 6)-20);
+    text("Press 2 to buy Armor Potion", width/6, (height / 3)-20);
+    text("Press 3 to buy Bow", width/6, (height / 2)-20);
+    text("Press 4 to buy Arrow", width/6, (height * 2 / 3)-20);
+    text("Press 5 to buy Sword", width/6, (height * 5 /6)-20);
+    text("Press 6 to buy Shield", width/6, height -20);
+  }
+
   //This produces a start screen 
   void startScreen() {
     background(0);
@@ -23,17 +33,17 @@ class Screen {
 
   //this prints out the current room 
 
-  void gameScreen(Room room, Player person){
+  void gameScreen(Room room, Player person) {
     room.update();
     update();
     room.move();
-    
+
     room.display();
     person.display();
     fill(255);
     textSize(20);
     textAlign(LEFT);
-    text(room.toString(),room.getX(), room.getY());
+    text(room.toString(), room.getX(), room.getY());
     text("Room X: " + room.getX(), 0, 500);
     text("Room Y: " + room.getY(), 0, 530);
     text("NUMDOORS: " + current.getDoors().size(), 0, 560);
