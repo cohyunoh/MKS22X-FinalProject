@@ -67,7 +67,7 @@ class Door {
       currentRoomRow += (int(down) - int(up));
       currentRoomCol += (int(right) - int(left));
       if(isNew(currentRoomRow, currentRoomCol)){
-        createNextRoom();
+        map.createNextRoom(dir);
         roomNum ++;
       }else{
         current = rooms[currentRoomRow][currentRoomCol]; 
@@ -92,13 +92,7 @@ class Door {
     }
   }
   
-  void createNextRoom(){
-    roomNum ++;
-    int rows = (int)(abs((float)(Math.random() * 20))) + 30;
-    int cols = (int)(abs((float)(Math.random() * 20))) + 30;
-    rooms[currentRoomRow][currentRoomCol] = new Room(rows, cols, dir , 0,0); 
-    current = rooms[currentRoomRow][currentRoomCol]; 
-  }
+  
   
   boolean isNew(int r, int c){
     return rooms[r][c] == null;
