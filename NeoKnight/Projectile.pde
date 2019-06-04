@@ -3,6 +3,8 @@ class Arrow{
   //vars used to check the angle between location and the mouse
   float oldPosX, oldPosY, rotation, speed, lowX, lowY, highX, highY, x, y, newX, newY;
   Animation arrow = new Animation("projectile/arrow", 4);
+  boolean moving;
+  PImage stationary;
   Arrow(float x, float y){
     //places the arrow in the middle of the room
     this.x = x;
@@ -13,13 +15,20 @@ class Arrow{
     rotation = atan2(oldPosY - this.y, oldPosX - this.x);
     //arrow speed
     speed = 25;//change this number to change the speed
+    moving = true;
+    stationary = loadImage("projectile/arrow3.png");
   }
   
   void display() {
     pushMatrix();
     translate(x, y);
     rotate(rotation);
-    arrow.display(0,0);
+    if(moving){
+      arrow.display(0,0);
+    }else{
+      imageMode(CENTER);
+      image(stationary,0,0);
+    }
     popMatrix();
     attack();
     
@@ -34,8 +43,7 @@ class Arrow{
       x = newX;
       y = newY;
     }else{
-      arrows.remove(this);
-      current.roomarrows.remove(this);
+      moving = false;
     }
       x = newX;
       y = newY;

@@ -15,7 +15,7 @@ class Player extends Entity{
     w = animLeft.getWidth();
     l = animLeft.getHeight();
     inv = new ArrayList<Item>();
-    Item hand = new Item(0, 29, height - 30);
+    Item hand = new Item(0, 46, height - 14);
     damage = hand.getDamage();
     inv.add(hand);
     inHand = inv.get(0);
@@ -101,8 +101,8 @@ class Player extends Entity{
     for(int i = 0; i < items.size(); i ++){
       Item item = items.get(i);
       if(dist(item.getX(),item.getY(),xCor,yCor) <= 50){
-        item.setX(24);
-        item.setY(height - 30);        
+        item.setX(46);
+        item.setY(height - 14);        
         inv.add(item);
         items.remove(i);
       }
@@ -195,32 +195,34 @@ class Player extends Entity{
      }
   }
   
-  void followDisplay(Animation anim, boolean direction){
+  void followDisplay(Animation anim){
     oldX = mouseX;
     oldY = mouseY;
     rotation = atan2(oldY - this.yCor, oldX - this.xCor);
-    if(direction){
-     rotation = (rotation + PI) % 2* PI ; 
-    }
     pushMatrix();
-    translate(xCor - anim.getWidth(), yCor - anim.getHeight());
-    rotate(rotation);
-    anim.display(0,0);
+    translate(xCor, yCor);
+    if(rotation < -(PI/2) || rotation >= (PI/2)){
+      rotate((rotation + PI) % (2 * PI));
+    }else{
+      rotate(rotation);
+    }
+    anim.display(0,-25);
     popMatrix();
   }
   
-  void followDisplay(PImage anim, boolean direction){
+  void followDisplay(PImage anim){
     oldX = mouseX;
     oldY = mouseY;
     rotation = atan2(oldY - this.yCor, oldX - this.xCor);
-    if(direction){
-     rotation = (rotation + PI) % 2* PI ; 
-    }
     pushMatrix();
     translate(xCor, yCor);
-    rotate(rotation);
+    if(rotation < -(PI/2) || rotation >= (PI/2)){
+      rotate((rotation + PI) % (2 * PI));
+    }else{
+      rotate(rotation);
+    }
     imageMode(CENTER);
-    image(anim, 0,0);
+    image(anim, 0,-25);
     popMatrix();
   }
 //======================================================================================
@@ -249,7 +251,7 @@ class Player extends Entity{
     fill(50);
     rect(10, height - 50, 40, 40, 7);
     inHand.display();
-    
+    imageMode(CENTER);
     if(swit){
        if(next){
          currentSlot ++;
@@ -274,18 +276,18 @@ class Player extends Entity{
         if(wasLeft){
           image(legL,xCor, yCor);
         }
-        if(rotation > -(PI/2) && rotation < (PI/2)){
-          followDisplay(useright, false);
-        }else if(rotation < -(PI/2) && rotation >= (PI/2)){
-          followDisplay(useleft, true);
+        if(rotation >= -(PI/2) && rotation < (PI/2)){
+          followDisplay(useright);
+        }else if(rotation < -(PI/2) || rotation >= (PI/2)){
+          followDisplay(useleft);
         }
         
       }else{
         if(wasLeft){
-          useleft.display(xCor - animLeft.getWidth()/2, yCor - animLeft.getHeight()/2);
+          useleft.display(xCor, yCor);
         }
         if(wasRight) {
-          useright.display(xCor - animLeft.getWidth()/2, yCor - animLeft.getHeight()/2);
+          useright.display(xCor, yCor);
         }
       }
       if(attack){
@@ -318,85 +320,102 @@ class Player extends Entity{
         grab(items);
       }
       if(isLeft){
-        animlegL.display(xCor - animLeft.getWidth()/2, yCor - animLeft.getHeight()/2);
+        animlegL.display(xCor, yCor);
         if(inHand.type.equals("shooting")){
+           oldX = mouseX;
+           oldY = mouseY;
+           rotation = atan2(oldY - this.yCor, oldX - this.xCor);
            if(rotation >= -(PI/2) && rotation < (PI/2)){
-              followDisplay(animRight, false);
-            }else if(rotation < -(PI/2) && rotation >= (PI/2)){
-              followDisplay(animLeft, true);
+              followDisplay(animRight);
+            }else if(rotation < -(PI/2) || rotation >= (PI/2)){
+              followDisplay(animLeft);
             }
         }else{
-          animLeft.display(xCor - animLeft.getWidth()/2, yCor - animLeft.getHeight()/2);
+          animLeft.display(xCor, yCor);
         }
         
         return ;
       }
       if(isRight){
-        animlegR.display(xCor - animLeft.getWidth()/2, yCor - animLeft.getHeight()/2);
+        animlegR.display(xCor, yCor);
         if(inHand.type.equals("shooting")){
-           if(rotation > -(PI/2) && rotation < (PI/2)){
-              followDisplay(animRight, false);
+           oldX = mouseX;
+           oldY = mouseY;
+           rotation = atan2(oldY - this.yCor, oldX - this.xCor);
+           if(rotation >= -(PI/2) && rotation < (PI/2)){
+              followDisplay(animRight);
             }else{
-              followDisplay(animLeft, true);
+              followDisplay(animLeft);
             }
         }else{
-          animRight.display(xCor - animRight.getWidth()/2, yCor - animRight.getHeight()/2);
+          animRight.display(xCor, yCor);
         }
         return ;
       }
       if(isUp) {
         if(wasLeft){
-          animlegL.display(xCor - animLeft.getWidth()/2, yCor - animLeft.getHeight()/2);  
+          animlegL.display(xCor, yCor);  
           if(inHand.type.equals("shooting")){
-             if(rotation > -(PI/2) && rotation < (PI/2)){
-              followDisplay(animRight, false);
-            }else if(rotation < -(PI/2) && rotation >= (PI/2)){
-              followDisplay(animLeft, true);
+           oldX = mouseX;
+           oldY = mouseY;
+           rotation = atan2(oldY - this.yCor, oldX - this.xCor);
+             if(rotation >= -(PI/2) && rotation < (PI/2)){
+              followDisplay(animRight);
+            }else if(rotation < -(PI/2) || rotation >= (PI/2)){
+              followDisplay(animLeft);
             }
           }else{
-            animLeft.display(xCor - animLeft.getWidth()/2, yCor - animLeft.getHeight()/2);
+            animLeft.display(xCor, yCor);
           }
           return ;
         }
         if (wasRight){
-          animlegR.display(xCor - animLeft.getWidth()/2, yCor - animLeft.getHeight()/2);
+          animlegR.display(xCor, yCor);
           if(inHand.type.equals("shooting")){
-           if(rotation > -(PI/2) && rotation < (PI/2)){
-              followDisplay(animRight, false);
-            }else if(rotation < -(PI/2) && rotation >= (PI/2)){
-              followDisplay(animLeft, true);
+           oldX = mouseX;
+           oldY = mouseY;
+           rotation = atan2(oldY - this.yCor, oldX - this.xCor);
+           if(rotation >= -(PI/2) && rotation < (PI/2)){
+              followDisplay(animRight);
+            }else if(rotation < -(PI/2) || rotation >= (PI/2)){
+              followDisplay(animLeft);
             }
           }else{
-            animRight.display(xCor - animRight.getWidth()/2, yCor - animRight.getHeight()/2);
+            animRight.display(xCor, yCor);
           }
           return ;
         }
       }
       if(isDown) {
         if(wasLeft){
-          animlegL.display(xCor - animLeft.getWidth()/2, yCor - animLeft.getHeight()/2);
+          animlegL.display(xCor, yCor);
           if(inHand.type.equals("shooting")){
-            
-            if(rotation > -(PI/2) && rotation < (PI/2)){
-              followDisplay(animRight, false);
-            }else if(rotation < -(PI/2) && rotation >= (PI/2)){
-              followDisplay(animLeft, true);
+           oldX = mouseX;
+           oldY = mouseY;
+           rotation = atan2(oldY - this.yCor, oldX - this.xCor);
+            if(rotation >= -(PI/2) && rotation < (PI/2)){
+              followDisplay(animRight);
+            }else if(rotation < -(PI/2) || rotation >= (PI/2)){
+              followDisplay(animLeft);
             }
           }else{
-            animLeft.display(xCor - animLeft.getWidth()/2, yCor - animLeft.getHeight()/2);
+            animLeft.display(xCor, yCor);
           }
           return ;
         }
         if (wasRight){
-          animlegR.display(xCor - animLeft.getWidth()/2, yCor - animLeft.getHeight()/2);
+          animlegR.display(xCor, yCor);
           if(inHand.type.equals("shooting")){
-           if(rotation > -(PI/2) && rotation < (PI/2)){
-              followDisplay(animRight, false);
-            }else if(rotation < -(PI/2) && rotation >= (PI/2)){
-              followDisplay(animLeft, true);
+           oldX = mouseX;
+           oldY = mouseY;
+           rotation = atan2(oldY - this.yCor, oldX - this.xCor);
+           if(rotation >= -(PI/2) && rotation < (PI/2)){
+              followDisplay(animRight);
+            }else if(rotation < -(PI/2) || rotation >= (PI/2)){
+              followDisplay(animLeft);
             }
           }else{
-            animRight.display(xCor - animRight.getWidth()/2, yCor - animRight.getHeight()/2);
+            animRight.display(xCor, yCor);
           }
           return ;
         }
@@ -405,10 +424,13 @@ class Player extends Entity{
         if(wasLeft){
           image(legL, xCor, yCor);
           if(inHand.type.equals("shooting")){
-             if(rotation > -(PI/2) && rotation < (PI/2)){
-              followDisplay(right, false);
-              }else if(rotation < -(PI/2) && rotation >= (PI/2)){
-                followDisplay(left, true);
+             oldX = mouseX;
+             oldY = mouseY;
+             rotation = atan2(oldY - this.yCor, oldX - this.xCor);
+             if(rotation >= -(PI/2) && rotation < (PI/2)){
+                followDisplay(right);
+              }else if(rotation < -(PI/2) || rotation >= (PI/2)){
+                followDisplay(left);
               }
           }else{
             image(left, xCor, yCor);
@@ -419,10 +441,13 @@ class Player extends Entity{
         if (wasRight){
           image(legR, xCor, yCor);
           if(inHand.type.equals("shooting")){
-             if(rotation > -(PI/2) && rotation < (PI/2)){
-              followDisplay(right, false);
-            }else if(rotation < -(PI/2) && rotation >= (PI/2)){
-              followDisplay(left, true);
+           oldX = mouseX;
+           oldY = mouseY;
+           rotation = atan2(oldY - this.yCor, oldX - this.xCor);
+             if(rotation >= -(PI/2) && rotation < (PI/2)){
+              followDisplay(right);
+            }else if(rotation < -(PI/2) || rotation >= (PI/2)){
+              followDisplay(left);
             }
           }else{
             image(right, xCor, yCor);

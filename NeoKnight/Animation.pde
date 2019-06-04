@@ -16,7 +16,7 @@ class Animation {
   void display(float xpos, float ypos) {
     frame = (frame+1) % totalFrames;
     imageMode(CENTER);
-    image(frames[frame], (xpos + getWidth() / 2), ypos + (getHeight() / 2));
+    image(frames[frame], xpos, ypos);
   }
   
 

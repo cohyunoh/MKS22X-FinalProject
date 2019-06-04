@@ -147,15 +147,15 @@ class Enemy extends Entity {
         hp -= person.getDamage();
         fill(0);
       }
-      if (person.getX() > xCor && person.isLeft) {
+      if (person.getX() > xCor && person.wasLeft) {
         xCor = constrain(xCor - 10,lowX,highX);
       } else if(person.getX() <= xCor && person.isRight) {
         xCor = constrain(xCor + 10,lowX,highX);
       }
-      if (person.getY() > yCor && person.isDown) {
-        yCor = constrain(yCor - 10,lowY,highY);
+      if (person.getY() > yCor && person.wasLeft) {
+        xCor = constrain(xCor - 10,lowX,highX);
       } else {
-        yCor = constrain(yCor + 10,lowY,highY);
+        xCor = constrain(xCor + 10,lowX,highX);
       }
     }
   }

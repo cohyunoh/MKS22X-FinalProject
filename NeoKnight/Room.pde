@@ -8,7 +8,7 @@ class Room implements Moveable {
   char[][] floor;
   char current, next;
   int rows, cols, totaldoors;
-  float x, y, lowX, lowY, highX, highY, w, l;
+  float x, y, lowX, lowY, highX, highY, w, l, newX, newY;
   int locked = 0;
   int num;
   PImage tile = loadImage("floor.png");
@@ -17,6 +17,7 @@ class Room implements Moveable {
   ArrayList<Enemy> roomenemies;
   ArrayList<Door> doors;
   ArrayList<Arrow> roomarrows;
+  
   
 
 //==============================================
@@ -149,8 +150,8 @@ class Room implements Moveable {
     //keeps track of how many times it tries to make a door
     int tries = 0;
     while(totaldoors != numDoors && tries < 5){
-      int randomRow = constrain((int)abs((float)(Math.random() * rows)), 2, rows - 3);
-      int randomCol = constrain((int)abs((float)(Math.random() * cols)), 2, cols - 3);
+      int randomRow = constrain((int)abs((float)(Math.random() * rows)), 3, rows - 4);
+      int randomCol = constrain((int)abs((float)(Math.random() * cols)), 3, cols - 4);
       if(hasUp == false && currentRoomRow - 1 >= 0 && abs((float)Math.random()) >= .5){
         if(abs((float)Math.random()) >= .5){
           floor[1][randomCol] = 'L';  
@@ -193,8 +194,8 @@ class Room implements Moveable {
     }
     if(tries >= 5){
       for(int i = totaldoors; i <= numDoors; i++){
-        int randomRow = constrain((int)abs((float)(Math.random() * rows)), 2, rows - 3);
-        int randomCol = constrain((int)abs((float)(Math.random() * cols)), 2, cols - 3);
+        int randomRow = constrain((int)abs((float)(Math.random() * rows)), 3, rows - 4);
+        int randomCol = constrain((int)abs((float)(Math.random() * cols)), 3, cols - 4);
         if(hasUp == false && currentRoomRow - 1 >= 0){
           floor[1][randomCol] = 'D';  
           totaldoors ++;
@@ -239,23 +240,31 @@ class Room implements Moveable {
   }
 
   void putDoorDown() {
-    int randomCol = constrain((int)abs((float)(Math.random() * cols)), 2, cols - 3);
+    int randomCol = constrain((int)abs((float)(Math.random() * cols)), 3, cols - 4);
     floor[rows - 2][randomCol] = 'D';
+    newX = (randomCol+2) * 32;
+    newY = rows * 32 + 12;
   }
 
   void putDoorUp() {
-    int randomCol = constrain((int)abs((float)(Math.random() * cols)), 2, cols - 3);
+    int randomCol = constrain((int)abs((float)(Math.random() * cols)), 3, cols - 4);
     floor[1][randomCol] = 'D';
+    newX = (randomCol-1) * 32;
+    newY = 32;
   }
 
   void putDoorLeft() {
-    int randomRow = constrain((int)abs((float)(Math.random() * rows)), 2, rows - 3);
+    int randomRow = constrain((int)abs((float)(Math.random() * rows)), 3, rows - 4);
     floor[randomRow][1] = 'D';
+    newX = 32;
+    newY = 32 * (randomRow - 1);
   }
 
   void putDoorRight() {
-    int randomRow = constrain((int)abs((float)(Math.random() * rows)), 2, rows - 3);
+    int randomRow = constrain((int)abs((float)(Math.random() * rows)), 3, rows - 4);
     floor[randomRow][cols - 2] = 'D';
+    newX = cols * 32 + 12; 
+    newY = (randomRow+2)  * 32;
   }  
   
   
