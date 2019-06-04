@@ -15,25 +15,34 @@ class Screen {
 
   //This produces a start screen 
   void startScreen() {
-    background(0);
+    background(86);
     textAlign(CENTER);
     textSize(50);
-    text("Click the mouse to start", width/2, height/2);
+    int borderStroke = 10;
+    fill(0,0,255);
+    rect(0, 0, width, borderStroke);
+    rect(width-borderStroke, 0, borderStroke, height);
+    rect(0, height-borderStroke, width, borderStroke); 
+    rect(0, 0, borderStroke, height);
+    fill(255,0,0);
+    text("Welcome to THE DEADLY LABYRINTH", width/2, height/4);
+    text("By Samson Badlia & Connor Oh", width/2, height/3);
+    text("Click the mouse to start", width/2, height/1.5);
   }
 
   //this prints out the current room 
 
-  void gameScreen(Room room, Player person){
+  void gameScreen(Room room, Player person) {
     room.update();
     update();
     room.move();
-    
+
     room.display();
     person.display();
     fill(255);
     textSize(20);
     textAlign(LEFT);
-    text(room.toString(),room.getX(), room.getY());
+    text(room.toString(), room.getX(), room.getY());
     text("Room X: " + room.getX(), 0, 500);
     text("Room Y: " + room.getY(), 0, 530);
     text("NUMDOORS: " + current.getDoors().size(), 0, 560);
