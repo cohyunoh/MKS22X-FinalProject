@@ -95,12 +95,8 @@ Got the character to switch items
 Made a sample enemy that chases the player while in radius
 
 Day 12 5/30:
-<<<<<<< HEAD
-Samson: Continued working on yesterday's work
-=======
-Samson: 
-Finished displaaying rooms and placing doors
->>>>>>> combineDev
+Samson:
+Finished displaying rooms and placing doors
 Connor:
 Polished the chasing enemy making it stop while not in pursuit
 Worked on the attack feature
@@ -113,10 +109,25 @@ Camera moves with player
 Failed to implement player
 
 Day 14 6/1
-Samson: Finished placing doors in the map and worked on randomly placing a certain number of doors minimum 
+Samson: Finished placing doors in the map and worked on randomly placing a certain number of doors minimum
 Connor:
 Successfully displayed player in the middle of the screen
 Successfully displayed enemies as they move with the room
 Everything bounces back when hit
 Successfully throws splashscreen
 Somewhat the map to work at all times although it does take a bit sometimes
+
+Day 15 6/2
+Connor:
+Did pair programming to work on locked Doors
+Began work on arrows
+Helped to finish first version of world traversal
+
+Day 16 6/3
+Connor:
+Worked on world traversal to make it actually worked. (SUCCESS)
+Worked on the constrains so everything stayed in bounds (SUCCESS)
+Try to do projectiles and made them hurt enemies (SOMEWHAT SUCCESSFUL)
+Got arrows to stay in bounds but could not rotate them properly
+The Player can now hold and use all items in the game, just needs animations
+Finished locked doors
