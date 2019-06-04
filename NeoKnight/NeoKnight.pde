@@ -20,7 +20,7 @@ Screen screen;
 void setup() {
   size(1500, 1000);
   items = new ArrayList<Item>();
-  doors = new ArrayList<Door>();
+  doors = new ArrayList<Door>(4);
   arrows = new ArrayList<Arrow>();
   createEnemies();
  if(roomNum == 1){

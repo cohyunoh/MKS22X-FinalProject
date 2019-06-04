@@ -107,7 +107,12 @@ class Player extends Entity{
   }
   
   void hurt(Enemy enemy){
-    hp -= enemy.getDamage();
+    if(armor > 0){
+      armor -= (int)(enemy.getDamage() * 0.75);
+      hp -= (int)(enemy.getDamage() * 0.25);
+    }else{
+      hp -= enemy.getDamage();
+    }
     hurt = true;
   }
   
@@ -122,14 +127,18 @@ class Player extends Entity{
       return ;
     }
     textAlign(LEFT);
-    textSize(12);
-    text("HEALTH", 10, 10);
-    text("ARMOR",10,35);
+    textSize(24);
+    fill(225,0,0);
+    text("HEALTH", 10, 24);
+    fill(0,0,255);
+    text("ARMOR",10,75);
     rectMode(CORNER);
     fill(225,0,0);
-    rect(10,10,hp,10);
+    rect(10,24,hp * 2,30);
     fill(0,0,255);
-    rect(10,35,armor,10);
+    if(armor > 0){
+      rect(10,75,armor * 2,30);
+    }
     fill(50);
     rect(10, height - 50, 40, 40, 7);
     inHand.display();

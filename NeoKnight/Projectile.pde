@@ -16,15 +16,14 @@ class Arrow{
   }
   
   void display() {
-    move();
-    attack();
-
+    
     pushMatrix();
     translate(x, y);
     rotate(rotation);
-
     arrow.display(x,y);
     popMatrix();
+    move();
+    attack();
  
     //removes the bullet from the arrayList if it is off the room
   }

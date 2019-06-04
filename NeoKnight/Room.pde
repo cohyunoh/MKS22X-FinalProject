@@ -11,9 +11,7 @@ class Room implements Moveable {
   int locked = 0;
   PImage tile = loadImage("floor.png");
   PImage wall = loadImage("wall.png");  
-  ArrayList<Enemy> roomenemies = new ArrayList<Enemy>();
-  ArrayList<Item> roomitems = new ArrayList<Item>();
-  ArrayList<Door> roomdoors = new ArrayList<Door>();
+  ArrayList<Door> roomDoors = new ArrayList<Door>();
 //==============================================
 
 //Constructors====================================
@@ -44,7 +42,6 @@ class Room implements Moveable {
     hasLeft = false;
     hasRight = false;
     initRoom(door);
-    addDoors();
   }
 
 //================================================================
@@ -66,7 +63,6 @@ class Room implements Moveable {
       enemy.setY(constrain(abs((float)(Math.random() * (rows * 32))), 32, 32 * (rows - 2)));
       enemy.addConstrainX(32, 32 * (cols - 2));
       enemy.addConstrainY(32, 32 * (rows - 2));
-      roomenemies.add(enemy);
     }
   }
 //=================================================================
@@ -93,6 +89,7 @@ class Room implements Moveable {
     }
     totaldoors ++;
     generateRandomDoor();
+    addDoors();
   }
 
   void initRoom() {
@@ -177,6 +174,7 @@ class Room implements Moveable {
   }
 
   void addDoors() {
+   
     for (int r = 0; r < floor.length; r++) {
       for (int c = 0; c < floor[0].length; c++) {
         char slot = floor[r][c];
@@ -191,11 +189,11 @@ class Room implements Moveable {
           }else if( c == floor[0].length - 2){
             door = new Door(c * 32 + 12, (r+1)  * 32,r,c, "right", slot == 'L');
           }
-          roomdoors.add(door);
-          doors = roomdoors;
+          roomDoors.add(door);
         }
       }
     }
+    doors = roomDoors;
   }
 
   void putDoorDown() {
@@ -267,8 +265,8 @@ class Room implements Moveable {
 //DISPLAY =============================================================
 
   void displayEnemies(){
-    for (int i = 0; i < roomenemies.size(); i++) {
-      Enemy enemy = roomenemies.get(i);
+    for (int i = 0; i < enemies.size(); i++) {
+      Enemy enemy = enemies.get(i);
       enemy.setMove(person);
       if (dist(person.getX(), person.getY(), enemy.getX(), enemy.getY()) < 50) {
         enemy.attack(person);
