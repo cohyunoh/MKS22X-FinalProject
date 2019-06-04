@@ -47,6 +47,7 @@ class Screen {
     text("highx : " + current.highX, 0, 800);
     text("lowy : " + current.lowY, 0, 830);
     text("highy : " + current.highY, 0, 860);
+    text("rotation : " + person.rotation, 0, 890);
   }
 }
 //after the player dies a death screen comes up

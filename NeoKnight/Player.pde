@@ -6,7 +6,7 @@ class Player extends Entity{
   ArrayList<Item> inv;
   Animation useleft, useright;
   boolean canShoot = true;
-  float canShootCounter;
+  float canShootCounter, oldX, oldY,rotation;
 //===========================================================================================================  
 
 //Constructors===============================================================================================
@@ -15,7 +15,7 @@ class Player extends Entity{
     w = animLeft.getWidth();
     l = animLeft.getHeight();
     inv = new ArrayList<Item>();
-    Item hand = new Item(6, 29, height - 30);
+    Item hand = new Item(0, 29, height - 30);
     damage = hand.getDamage();
     inv.add(hand);
     inHand = inv.get(0);
@@ -25,6 +25,9 @@ class Player extends Entity{
     useleft = new Animation("use" + "/" + inHand + "-left",8);
     useright = new Animation("use" + "/" + inHand + "-right",8);
     wasRight = true;
+    oldX = mouseX;
+    oldY = mouseY;
+    rotation = atan2(oldY - this.yCor, oldX - this.xCor);
   }
 //=============================================================================================================  
   
@@ -76,8 +79,21 @@ class Player extends Entity{
     animRight = new Animation(type + "/" + inHand + "-right", 8);
     right = loadImage (type + "/" + inHand + "-right7.png");
     left = loadImage (type + "/" + inHand + "-left7.png");
-    useleft = new Animation("use"+ "/" + inHand + "-left",8);
-    useright = new Animation("use" + "/" + inHand + "-right",8);
+    if(!(inHand.type.equals("projectile"))){
+      useleft = new Animation("use"+ "/" + inHand + "-left",8);
+      useright = new Animation("use" + "/" + inHand + "-right",8);
+    }
+    if(inHand.type.equals("shooting")){
+      animlegL =  new Animation("legs/shootlegs-left", 8);
+      animlegR =  new Animation("legs/shootlegs-right", 8);
+      legR = loadImage ("legs/shootlegs-right7.png");
+      legL = loadImage ("legs/shootlegs-left7.png");
+    }else{
+      animlegL =  new Animation("legs/left", 8);
+      animlegR =  new Animation("legs/right", 8);
+      legR = loadImage ("legs/right7.png");
+      legL = loadImage ("legs/left7.png");
+    }
     swit = false;
   }
   
@@ -174,6 +190,35 @@ class Player extends Entity{
        enemy.hurt(enemy.hp - damage > 0);
      }
   }
+  
+  void followDisplay(Animation anim, boolean direction){
+    oldX = mouseX;
+    oldY = mouseY;
+    rotation = atan2(oldY - this.yCor, oldX - this.xCor);
+    if(direction){
+     rotation += PI; 
+    }
+    pushMatrix();
+    translate(xCor - anim.getWidth(), yCor - anim.getHeight());
+    rotate(rotation);
+    anim.display(0,0);
+    popMatrix();
+  }
+  
+  void followDisplay(PImage anim, boolean direction){
+    oldX = mouseX;
+    oldY = mouseY;
+    rotation = atan2(oldY - this.yCor, oldX - this.xCor);
+     if(direction){
+     rotation += PI; 
+    }
+    pushMatrix();
+    translate(xCor, yCor);
+    rotate(rotation);
+    imageMode(CENTER);
+    image(anim, 0,0);
+    popMatrix();
+  }
 //======================================================================================
   
   void display(){
@@ -215,95 +260,170 @@ class Player extends Entity{
         switchSlot();
     }
     if(use){
-      if(wasLeft){
-        useleft.display(xCor - animLeft.getWidth()/2, yCor - animLeft.getHeight()/2);
+      if(inHand.type.equals("shooting")){
+        oldX = mouseX;
+        oldY = mouseY;
+        rotation = atan2(oldY - this.yCor, oldX - this.xCor);
+        if(wasRight){
+          image(legR,xCor, yCor);
+        }
+        if(wasLeft){
+          image(legL,xCor, yCor);
+        }
+        if(rotation > -(PI/2) && rotation < (PI/2)){
+          followDisplay(useright, false);
+        }else{
+          followDisplay(useleft, true);
+        }
+        
+      }else{
+        if(wasLeft){
+          useleft.display(xCor - animLeft.getWidth()/2, yCor - animLeft.getHeight()/2);
+        }
+        if(wasRight) {
+          useright.display(xCor - animLeft.getWidth()/2, yCor - animLeft.getHeight()/2);
+        }
       }
-      if(wasRight) {
-        useright.display(xCor - animLeft.getWidth()/2, yCor - animLeft.getHeight()/2);
+      if(attack){
+          attack();
+        }
+      if(heal){
+        heal();
+      }
+      if(block){
+          block();
+        }
+      if (shoot) {
+        shoot();
       }
       useFrames += 1;
       if(useFrames >= 8){
         useFrames = 0;
-        if(attack){
-          attack();
-        }
-        if(heal){
-          heal();
-        }
         if(useKey){
           useKey();
-        }
-        if(block){
-          block();
         }
         use = false;
         attack = false;
         heal = false;
         block = false;
         useKey = false;
+        shoot = false;
       }
-      
-      
-      
-      
     }else{
-      
-      if (shoot && canShoot) {
-        shoot();
-      }
-      if(canShoot == false){
-        canShootCounter ++;
-        //if the right amount of time has passed. make canShoot true
-        if (canShootCounter == 5)/*change this number to change the duration*/{
-          canShoot = true;
-        }
-      }
       if(grab){
         grab(items);
       }
       if(isLeft){
-        animLeft.display(xCor - animLeft.getWidth()/2, yCor - animLeft.getHeight()/2);
         animlegL.display(xCor - animLeft.getWidth()/2, yCor - animLeft.getHeight()/2);
+        if(inHand.type.equals("shooting")){
+           if(rotation >= -(PI/2) && rotation < (PI/2)){
+              followDisplay(animRight, false);
+            }else{
+              followDisplay(animLeft, true);
+            }
+        }else{
+          animLeft.display(xCor - animLeft.getWidth()/2, yCor - animLeft.getHeight()/2);
+        }
+        
         return ;
       }
       if(isRight){
-        animRight.display(xCor - animLeft.getWidth()/2, yCor - animLeft.getHeight()/2);
         animlegR.display(xCor - animLeft.getWidth()/2, yCor - animLeft.getHeight()/2);
+        if(inHand.type.equals("shooting")){
+           if(rotation > -(PI/2) && rotation < (PI/2)){
+              followDisplay(animRight, false);
+            }else{
+              followDisplay(animLeft, true);
+            }
+        }else{
+          animRight.display(xCor - animRight.getWidth()/2, yCor - animRight.getHeight()/2);
+        }
         return ;
       }
       if(isUp) {
         if(wasLeft){
-          animLeft.display(xCor - animLeft.getWidth()/2, yCor - animLeft.getHeight()/2);
           animlegL.display(xCor - animLeft.getWidth()/2, yCor - animLeft.getHeight()/2);  
+          if(inHand.type.equals("shooting")){
+             if(rotation > -(PI/2) && rotation < (PI/2)){
+              followDisplay(animRight, false);
+            }else{
+              followDisplay(animLeft, true);
+            }
+          }else{
+            animLeft.display(xCor - animLeft.getWidth()/2, yCor - animLeft.getHeight()/2);
+          }
           return ;
         }
         if (wasRight){
-          animRight.display(xCor - animLeft.getWidth()/2, yCor - animLeft.getHeight()/2);
           animlegR.display(xCor - animLeft.getWidth()/2, yCor - animLeft.getHeight()/2);
+          if(inHand.type.equals("shooting")){
+           if(rotation > -(PI/2) && rotation < (PI/2)){
+              followDisplay(animRight, false);
+            }else{
+              followDisplay(animLeft, true);
+            }
+          }else{
+            animRight.display(xCor - animRight.getWidth()/2, yCor - animRight.getHeight()/2);
+          }
           return ;
         }
       }
       if(isDown) {
         if(wasLeft){
-          animLeft.display(xCor - animLeft.getWidth()/2, yCor - animLeft.getHeight()/2);
           animlegL.display(xCor - animLeft.getWidth()/2, yCor - animLeft.getHeight()/2);
+          if(inHand.type.equals("shooting")){
+            
+            if(rotation > -(PI/2) && rotation < (PI/2)){
+              followDisplay(animRight, false);
+            }else{
+              followDisplay(animLeft, true);
+            }
+          }else{
+            animLeft.display(xCor - animLeft.getWidth()/2, yCor - animLeft.getHeight()/2);
+          }
           return ;
         }
         if (wasRight){
-          animRight.display(xCor - animLeft.getWidth()/2, yCor - animLeft.getHeight()/2);
           animlegR.display(xCor - animLeft.getWidth()/2, yCor - animLeft.getHeight()/2);
+          if(inHand.type.equals("shooting")){
+           if(rotation > -(PI/2) && rotation < (PI/2)){
+              followDisplay(animRight, false);
+            }else{
+              followDisplay(animLeft, true);
+            }
+          }else{
+            animRight.display(xCor - animRight.getWidth()/2, yCor - animRight.getHeight()/2);
+          }
           return ;
         }
       }
       if(!isDown && !isUp && !isRight && !isLeft){
         if(wasLeft){
-          image(left, xCor, yCor);
           image(legL, xCor, yCor);
+          if(inHand.type.equals("shooting")){
+             if(rotation > -(PI/2) && rotation < (PI/2)){
+              followDisplay(left, false);
+              }else{
+                followDisplay(right, true);
+              }
+          }else{
+            image(left, xCor, yCor);
+          }
+          
           return ;
         }
         if (wasRight){
-          image(right, xCor, yCor);
           image(legR, xCor, yCor);
+          if(inHand.type.equals("shooting")){
+             if(rotation > -(PI/2) && rotation < (PI/2)){
+              followDisplay(left, false);
+            }else{
+              followDisplay(right, true);
+            }
+          }else{
+            image(right, xCor, yCor);
+          }
+          
           return ;
         }
       }

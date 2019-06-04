@@ -27,6 +27,13 @@ class Room implements Moveable {
     roomenemies = new ArrayList<Enemy>();
     roomitems = items;
     roomarrows = arrows;
+    roomitems.add(new Item(1,500,500));
+    roomitems.add(new Item(2,500,500));
+    roomitems.add(new Item(3,500,500));
+    roomitems.add(new Item(4,500,500));
+    roomitems.add(new Item(5,500,500));
+    roomitems.add(new Item(6,500,500));
+    roomitems.add(new Item(7,500,500));
     this.num = num;
     this.rows = rows;
     this.cols = cols;
@@ -48,6 +55,7 @@ class Room implements Moveable {
     items = new ArrayList<Item>();
     doors = new ArrayList<Door>();
     arrows = new ArrayList<Arrow>();
+    roomarrows = arrows;
     roomenemies = new ArrayList<Enemy>();
     roomitems = items;
     this.num = num;
