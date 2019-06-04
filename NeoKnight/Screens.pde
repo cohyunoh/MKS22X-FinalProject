@@ -25,7 +25,7 @@ class Screen {
     rect(0, height-borderStroke, width, borderStroke); 
     rect(0, 0, borderStroke, height);
     fill(255,0,0);
-    text("Welcome to THE DEADLY LABYRINTH", width/2, height/4);
+    text("Welcome to NEOKNIGHT", width/2, height/4);
     text("By Samson Badlia & Connor Oh", width/2, height/3);
     text("Click the mouse to start", width/2, height/1.5);
   }

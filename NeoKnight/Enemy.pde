@@ -1,5 +1,3 @@
-
-
 class Enemy extends Entity {
   boolean chase, isLeft, isRight, isUp, isDown, wasLeft, wasRight, attack, die, hasKey;
   int vel = 5, attackDam, num;

@@ -3,7 +3,6 @@ class Shop {
   ArrayList<Item> content;
   boolean open; 
   float xCor, yCor, lowX, lowY, highX, highY;
-  ;
 
   Shop(float xCor, float yCor) {
     content = new ArrayList<Item>();
@@ -11,6 +10,7 @@ class Shop {
     this.yCor = yCor;
     getItems();
     setCoords();
+    open = false;
   }
 
   void getItems() {
@@ -34,7 +34,7 @@ class Shop {
         item.yCor = y;
         x += 64;
         counter++;
-      } else if (inBounds(item.xCor, item.yCor) &&counter >= 4) {
+      } else if (inBounds(item.xCor, item.yCor) && counter >= 4) {
         y += 64;
         x = 654;
       }

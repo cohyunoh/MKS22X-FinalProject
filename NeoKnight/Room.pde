@@ -440,8 +440,8 @@ class Room implements Moveable {
     float moveX = newX - oldX;
     float moveY = newY - oldY;
     if (shops != null) {
-      for (int i = 0; i < shops.size(); i++) {
-        Shop shop = shops.get(i);
+      for (int i = 0; i < roomshops.size(); i++) {
+        Shop shop = roomshops.get(i);
         if (oldX != newX) {
           shop.changeX(moveX);
           shop.changeConstX(moveX);
