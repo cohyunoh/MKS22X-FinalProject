@@ -29,9 +29,9 @@ void setup() {
     currentRoomRow = map.getStartRow();
     currentRoomCol = map.getStartCol();
     current = rooms[currentRoomRow][currentRoomCol];
-    
+    screen = new Screen();
   }
-  screen = new Screen();
+  
   smooth(3);
   frameRate(10);
   current.addEnemies();
@@ -71,6 +71,7 @@ void mousePressed() {
   if (currentState == 0) currentState = 1;
   if (currentState == 2) {
     currentState = 0;
+    roomNum = 1;
     setup();
   }
   person.setAttack(true);

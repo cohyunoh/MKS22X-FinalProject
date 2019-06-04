@@ -39,7 +39,10 @@ class Room implements Moveable {
 
   public Room(int rows, int cols, String door, float x, float y) {
     this(rows, cols, x, y);
-    totaldoors = 1;
+    hasUp = false;
+    hasDown = false;
+    hasLeft = false;
+    hasRight = false;
     initRoom(door);
     addDoors();
   }
@@ -88,6 +91,7 @@ class Room implements Moveable {
       putDoorRight();
       hasRight = true;
     }
+    totaldoors ++;
     generateRandomDoor();
   }
 
