@@ -161,6 +161,8 @@ class Player extends Entity{
       if(dist(xCor,yCor,door.x,door.y) < 60 && door.isLocked){
         door.isLocked= false;
         inv.remove(inHand);
+        currentSlot --;
+        switchSlot();
       }
     }
   }
@@ -218,28 +220,31 @@ class Player extends Entity{
       if(wasRight) {
         useright.display(xCor - animLeft.getWidth()/2, yCor - animLeft.getHeight()/2);
       }
-      if(attack){
-        attack();
-      }
-      if(heal){
-        heal();
-      }
-      if(useKey){
-        useKey();
-      }
-      if(block){
-        block();
-      }
-      
       useFrames += 1;
       if(useFrames >= 8){
         useFrames = 0;
+        if(attack){
+          attack();
+        }
+        if(heal){
+          heal();
+        }
+        if(useKey){
+          useKey();
+        }
+        if(block){
+          block();
+        }
         use = false;
         attack = false;
         heal = false;
         block = false;
         useKey = false;
       }
+      
+      
+      
+      
     }else{
       
       if (shoot && canShoot) {
