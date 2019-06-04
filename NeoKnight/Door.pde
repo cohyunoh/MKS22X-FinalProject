@@ -66,6 +66,7 @@ class Door {
     if(transport){
       currentRoomRow += (int(down) - int(up));
       currentRoomCol += (int(right) - int(left));
+      setup();
       if(isNew(currentRoomRow, currentRoomCol)){
         map.createNextRoom(dir);
         roomNum ++;
@@ -73,7 +74,7 @@ class Door {
         current = rooms[currentRoomRow][currentRoomCol]; 
         roomNum ++;
       }
-      setup();
+      ;
       transport = false;
     }
   }
