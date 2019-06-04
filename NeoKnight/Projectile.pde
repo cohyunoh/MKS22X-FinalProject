@@ -22,7 +22,7 @@ class Arrow{
     arrow.display(0,0);
     popMatrix();
     attack();
-    move();
+    
     //removes the bullet from the arrayList if it is off the room
   }
   
@@ -30,10 +30,16 @@ class Arrow{
     //move the bullet
     newX = constrain(x + cos(rotation)*speed, lowX, highX);
     newY = constrain(y + sin(rotation)*speed, lowY, highY);
-    if(x != newX && y != newY){
+    if(newX != x && newY != y){ 
       x = newX;
       y = newY;
+    }else{
+      arrows.remove(this);
+      current.roomarrows.remove(this);
     }
+      x = newX;
+      y = newY;
+     
   }
   
   void changeX(float x) {

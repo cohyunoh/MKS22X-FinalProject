@@ -167,7 +167,11 @@ class Player extends Entity{
     arrow.addConstrainX(rooms[currentRoomRow][currentRoomCol].getX() + 32, rooms[currentRoomRow][currentRoomCol].getX() + current.getWidth() - 32);
     arrow.addConstrainY(rooms[currentRoomRow][currentRoomCol].getY() + 32, rooms[currentRoomRow][currentRoomCol].getY() + current.getLength() - 32);
     current.roomarrows.add(arrow);
+    pushMatrix();
+    translate(arrow.x, arrow.y);
+    rotate(rotation);
     arrows.add(arrow);
+    popMatrix();
     canShoot = false;
     canShootCounter = 0;
     shoot = false;
@@ -196,7 +200,7 @@ class Player extends Entity{
     oldY = mouseY;
     rotation = atan2(oldY - this.yCor, oldX - this.xCor);
     if(direction){
-     rotation += PI; 
+     rotation = (rotation + PI) % 2* PI ; 
     }
     pushMatrix();
     translate(xCor - anim.getWidth(), yCor - anim.getHeight());
@@ -209,8 +213,8 @@ class Player extends Entity{
     oldX = mouseX;
     oldY = mouseY;
     rotation = atan2(oldY - this.yCor, oldX - this.xCor);
-     if(direction){
-     rotation += PI; 
+    if(direction){
+     rotation = (rotation + PI) % 2* PI ; 
     }
     pushMatrix();
     translate(xCor, yCor);
@@ -272,7 +276,7 @@ class Player extends Entity{
         }
         if(rotation > -(PI/2) && rotation < (PI/2)){
           followDisplay(useright, false);
-        }else{
+        }else if(rotation < -(PI/2) && rotation >= (PI/2)){
           followDisplay(useleft, true);
         }
         
@@ -318,7 +322,7 @@ class Player extends Entity{
         if(inHand.type.equals("shooting")){
            if(rotation >= -(PI/2) && rotation < (PI/2)){
               followDisplay(animRight, false);
-            }else{
+            }else if(rotation < -(PI/2) && rotation >= (PI/2)){
               followDisplay(animLeft, true);
             }
         }else{
@@ -346,7 +350,7 @@ class Player extends Entity{
           if(inHand.type.equals("shooting")){
              if(rotation > -(PI/2) && rotation < (PI/2)){
               followDisplay(animRight, false);
-            }else{
+            }else if(rotation < -(PI/2) && rotation >= (PI/2)){
               followDisplay(animLeft, true);
             }
           }else{
@@ -359,7 +363,7 @@ class Player extends Entity{
           if(inHand.type.equals("shooting")){
            if(rotation > -(PI/2) && rotation < (PI/2)){
               followDisplay(animRight, false);
-            }else{
+            }else if(rotation < -(PI/2) && rotation >= (PI/2)){
               followDisplay(animLeft, true);
             }
           }else{
@@ -375,7 +379,7 @@ class Player extends Entity{
             
             if(rotation > -(PI/2) && rotation < (PI/2)){
               followDisplay(animRight, false);
-            }else{
+            }else if(rotation < -(PI/2) && rotation >= (PI/2)){
               followDisplay(animLeft, true);
             }
           }else{
@@ -388,7 +392,7 @@ class Player extends Entity{
           if(inHand.type.equals("shooting")){
            if(rotation > -(PI/2) && rotation < (PI/2)){
               followDisplay(animRight, false);
-            }else{
+            }else if(rotation < -(PI/2) && rotation >= (PI/2)){
               followDisplay(animLeft, true);
             }
           }else{
@@ -402,9 +406,9 @@ class Player extends Entity{
           image(legL, xCor, yCor);
           if(inHand.type.equals("shooting")){
              if(rotation > -(PI/2) && rotation < (PI/2)){
-              followDisplay(left, false);
-              }else{
-                followDisplay(right, true);
+              followDisplay(right, false);
+              }else if(rotation < -(PI/2) && rotation >= (PI/2)){
+                followDisplay(left, true);
               }
           }else{
             image(left, xCor, yCor);
@@ -416,9 +420,9 @@ class Player extends Entity{
           image(legR, xCor, yCor);
           if(inHand.type.equals("shooting")){
              if(rotation > -(PI/2) && rotation < (PI/2)){
-              followDisplay(left, false);
-            }else{
-              followDisplay(right, true);
+              followDisplay(right, false);
+            }else if(rotation < -(PI/2) && rotation >= (PI/2)){
+              followDisplay(left, true);
             }
           }else{
             image(right, xCor, yCor);
@@ -427,8 +431,8 @@ class Player extends Entity{
           return ;
         }
       }
-      image(right, xCor, yCor);
       image(legR, xCor, yCor);
+      image(right, xCor, yCor);
     }
   }
   

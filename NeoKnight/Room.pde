@@ -476,12 +476,12 @@ class Room implements Moveable {
       for (int i = 0; i < arrows.size(); i++) {
         Arrow arrow = arrows.get(i);
         if (oldX != newX) {
-          arrow.changeX(moveX);
           arrow.changeConstX(moveX);
+          arrow.changeX(moveX);
         }
         if (oldY != newY) {
-          arrow.changeY(moveY);
           arrow.changeConstY(moveY);
+          arrow.changeY(moveY);
         }
         arrow.move();
       }
