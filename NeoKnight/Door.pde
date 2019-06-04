@@ -76,11 +76,13 @@ class Door {
         current.addEnemies();
         current.addKeys();
         items = current.roomitems;
+        shops = current.roomshops;
       }else{
         currentRoomRow = newRow;
         currentRoomCol = newCol;
         current = rooms[currentRoomRow][currentRoomCol];
         items = current.roomitems;
+        shops = current.roomshops;
       }
       transport = false;
     }

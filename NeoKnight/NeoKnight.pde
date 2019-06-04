@@ -5,6 +5,7 @@ Player person;
 ArrayList<Enemy> enemies;
 ArrayList<Arrow> arrows;
 ArrayList<Item> items;
+ArrayList<Shop> shops;
 Map map;
 int currentRoomRow, currentRoomCol;
 int currentState = 0;
@@ -21,6 +22,7 @@ void setup() {
   createEnemies();
   arrows = new ArrayList<Arrow>();
   items = new ArrayList<Item>();
+  shops = new ArrayList<Shop>();
  if(roomNum == 1){
     person = new Player("bob", "knight", 750, 500);
     map = new Map(15, 15);
