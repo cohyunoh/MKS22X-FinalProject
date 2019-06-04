@@ -118,12 +118,19 @@ Successfully throws splashscreen
 Somewhat the map to work at all times although it does take a bit sometimes
 
 Day 15 6/2
+Samson:
+Did pair programing to work on locked Doors(SOMEWHAT SUCCESSFUL) and to finish world traversal (SUCCESS)
 Connor:
 Did pair programming to work on locked Doors
 Began work on arrows
 Helped to finish first version of world traversal
 
 Day 16 6/3
+Samson:
+Pair programmed after world traversal began not working 100% of the time
+Continued working on locked doors, able to display them
+Worked on displaying keys on the ground, was somewhat successful as sometimes key would end up being not displayed but tile would remain empty
+
 Connor:
 Worked on world traversal to make it actually worked. (SUCCESS)
 Worked on the constrains so everything stayed in bounds (SUCCESS)
@@ -131,3 +138,8 @@ Try to do projectiles and made them hurt enemies (SOMEWHAT SUCCESSFUL)
 Got arrows to stay in bounds but could not rotate them properly
 The Player can now hold and use all items in the game, just needs animations
 Finished locked doors
+
+Day 17 6/4
+Samson:
+Pair programmed and worked on shops (SOMEWHAT SUCCESSFUL)
+Gave shops random item generation
