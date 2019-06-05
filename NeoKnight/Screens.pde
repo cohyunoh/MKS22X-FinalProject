@@ -9,7 +9,8 @@ class Screen {
   float ran1 =random(255);
   float ran2 =random(255);
   float ran3 =random(255);
-
+  Animation anim = new Animation("intro", 8);
+  PImage death = loadImage("death.png");
   public Screen() {
   }
 
@@ -59,6 +60,8 @@ class Screen {
   //displays death screen upon player losing
   void deathScreen() {
     background(0);
+    imageMode(CENTER);
+    image(death, width / 2, height / 2);
     textAlign(CENTER);
     fill(255);
     textSize(30);
@@ -93,7 +96,7 @@ class Screen {
   //This produces a start screen 
   void startScreen() {
     background(0);
-    Animation anim = new Animation("intro", 8);
+    
     anim.display(width/2, height/2);
     textAlign(CENTER);
     textSize(50);

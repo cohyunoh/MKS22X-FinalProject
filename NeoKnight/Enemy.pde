@@ -200,10 +200,7 @@ class Mercenary extends Enemy{
       if(diecounter == 0){
         person.numEnemies++;
       }
-      if(diecounter < 8){
-         death.display(xCor,yCor);
-         diecounter++;
-      }
+      
       die =  true;
     }
   }
@@ -211,11 +208,17 @@ class Mercenary extends Enemy{
   void display() {
     die();
     if(die){
-      PImage death = loadImage("enemies/mercenary/death5.png");
+      PImage deathI = loadImage("enemies/mercenary/death5.png");
+      if(diecounter < 8){
+         death.display(xCor,yCor);
+         diecounter++;
+         return ;
+      }
       if(diecounter >= 8){
-        image(death, xCor, yCor);
+        image(deathI, xCor, yCor);
       }
       attack = false;
+      return;
     }else{
       if(attack){
         if(wasRight){
@@ -229,27 +232,34 @@ class Mercenary extends Enemy{
           attack(person);
           attack = false;
         }
+        return ;
       }
       if(isRight){
         animRight.display(xCor, yCor);
+        return ;
       }
       if(isLeft){
         animLeft.display(xCor, yCor);
+        return ;
       }
       if(isUp){
         if(wasRight){
           animRight.display(xCor, yCor);
+          return ;
         }
         if(wasLeft){
           animLeft.display(xCor, yCor);
+          return ;
         }
       }
       if(isDown){
         if(wasRight){
           animRight.display(xCor, yCor);
+          return ;
         }
         if(wasLeft){
           animLeft.display(xCor, yCor);
+          return ;
         }
       }
     }
