@@ -24,12 +24,16 @@ class Screen {
   //this prints out the current room 
 
   void gameScreen(Room room, Player person){
-    room.update();
-    update();
     room.move();
-    
     room.display();
+    
     person.display();
+    fill(0, 0, 255);
+    textSize(20);
+    textAlign(LEFT);
+    text("Enemies Left: " + countAlive(), 10, 500);
+   
+    /*
     fill(255);
     textSize(20);
     textAlign(LEFT);
@@ -48,6 +52,9 @@ class Screen {
     text("lowy : " + current.lowY, 0, 830);
     text("highy : " + current.highY, 0, 860);
     text("rotation : " + person.rotation, 0, 890);
+    */
   }
 }
+
+
 //after the player dies a death screen comes up

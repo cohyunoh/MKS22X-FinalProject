@@ -5,8 +5,8 @@ class Enemy extends Entity {
   int vel = 5, attackDam, num;
   float lowX, lowY, highX, highY;
   ArrayList<Item>inv;
-  Enemy(float x, float y, int a) {
-    super("gorlag", 100, 0, 10.00, "gorlag", x, y);
+  Enemy(String type,float x, float y, int a) {
+    super("gorlag", 100, 0, 10.00, type, x, y);
     attackDam = a;
     die = false;
     inv = new ArrayList<Item>();
@@ -19,7 +19,7 @@ class Enemy extends Entity {
       item.setX(xCor + (float)Math.random() * 8);
       item.setY(yCor + (float)Math.random() * 8);
       item.show();
-      items.add(item);
+      current.roomitems.add(item);
       inv.remove(item);
     }
   }
@@ -98,14 +98,14 @@ class Enemy extends Entity {
 
 
   void move() {
-    if (die) {
+    if (die || attack) {
       return ;
     }
     xCor = constrain(xCor + vel *(int(isRight) - int(isLeft)), lowX, highX) ;
     yCor = constrain(yCor + vel *(int(isDown)  - int(isUp)), lowY, highY);
   }
 
-  void setMove(Player person) {
+  void setMove() {
     if (dist(person.getX(), person.getY(), xCor, yCor) < 300 && person.getHealth() > 0) {
       chase = true;
       if (person.getX() > xCor) {
@@ -171,4 +171,154 @@ class Enemy extends Entity {
   void changeY(float y) {
     yCor = constrain(yCor + y, lowY, highY);
   }
+}
+
+class Mercenary extends Enemy{
+  boolean isLeft, isRight, isUp, isDown, wasLeft, wasRight, stroll;
+  int diecounter = 0;
+  int attackCounter = 0;
+  int strollcounter = 10;
+  Animation animLeft = new Animation("enemies/mercenary/left", 8);
+  Animation animRight = new Animation("enemies/mercenary/right", 8);
+  Animation death = new Animation("enemies/mercenary/death", 6);
+  Animation attackLeft = new Animation("enemies/mercenary/attack-left", 5);
+  Animation attackRight = new Animation("enemies/mercenary/attack-right", 5);
+  Mercenary(float x, float y){
+    super("mercenary",x,y,30);
+  }
+  
+  void die() {
+    if (hp <= 0) {
+      drop();
+      if(diecounter == 0){
+        person.numEnemies++;
+      }
+      if(diecounter < 8){
+         death.display(xCor,yCor);
+         diecounter++;
+      }
+      die =  true;
+    }
+  }
+  
+  void display() {
+    die();
+    if(die){
+      PImage death = loadImage("enemies/mercenary/death5.png");
+      if(diecounter >= 8){
+        image(death, xCor, yCor);
+      }
+      attack = false;
+    }else{
+      if(attack){
+        if(wasRight){
+          attackRight.display(xCor, yCor);
+        }
+        if(wasLeft){
+          attackLeft.display(xCor, yCor);
+        }
+        attackCounter++;
+        if(attackCounter >= 5){
+          attack(person);
+          attack = false;
+        }
+      }
+      if(isRight){
+        animRight.display(xCor, yCor);
+      }
+      if(isLeft){
+        animLeft.display(xCor, yCor);
+      }
+      if(isUp){
+        if(wasRight){
+          animRight.display(xCor, yCor);
+        }
+        if(wasLeft){
+          animLeft.display(xCor, yCor);
+        }
+      }
+      if(isDown){
+        if(wasRight){
+          animRight.display(xCor, yCor);
+        }
+        if(wasLeft){
+          animLeft.display(xCor, yCor);
+        }
+      }
+    }
+    
+    
+  }
+  
+  void setMove() {
+    if (dist(person.getX(), person.getY(), xCor, yCor) < 300 && person.getHealth() > 0) {
+      chase = true;
+      if (person.getX() > xCor) {
+        wasLeft = false;
+        wasRight = true;
+        isRight = true;
+        isLeft = false;
+      } else if (person.getX() < xCor) {
+        wasLeft = true;
+        wasRight = false;
+        isRight = false;
+        isLeft = true;
+      } else {
+        isRight = false;
+        isLeft = false;
+      }
+      if (person.getY() > yCor) {
+        isDown = true;
+        isUp = false;
+      } else if (person.getY() < yCor) {
+        isDown = false;
+        isUp = true;
+      } else {
+        isDown = false;
+        isUp = false;
+      }
+    } else {
+      chase = false;
+      stroll = true;
+    }
+    if(stroll){
+      if(strollcounter >= 10){
+        stroll();
+        strollcounter = 0;
+      }else{
+        strollcounter ++;
+      }
+    }
+  }
+  
+  void stroll(){
+    if(abs((float)Math.random()) > 0.5){
+      isLeft = true;
+      wasLeft = true;
+      isRight = false;
+      wasRight = false;
+    }else{
+      isLeft = false;
+      wasLeft = false;
+      isRight = true;
+      wasRight = true;
+    }
+    if(abs((float)Math.random()) > 0.5){
+      isUp = true;
+      isDown = false;
+    }else{
+     isUp = false;
+     isDown = true;
+    }
+  }
+  
+  void move() {
+    if (die || attack) {
+      return ;
+    }
+    xCor = constrain(xCor + vel *(int(isRight) - int(isLeft)), lowX, highX) ;
+    yCor = constrain(yCor + vel *(int(isDown)  - int(isUp)), lowY, highY);
+  }
+  
+  
 }

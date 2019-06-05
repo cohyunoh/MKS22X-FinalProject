@@ -1,17 +1,19 @@
 class Player extends Entity{
   
 //INSTANCE VARIABLES=========================================================================================
-  boolean isLeft, isRight, isUp, isDown, wasLeft, wasRight, grab, next, prev, swit, attack, die, hurt, shoot, useKey, use, block, heal, useDoor;
+  boolean isLeft, isRight, isUp, isDown, wasLeft, wasRight, grab, next, prev, swit, attack, die, hurt, shoot, useKey, use, block, heal, useDoor, hasSword, hasBow, hasShield;
   int w,l,currentSlot, damage, useFrames, amountOfArrows;
   ArrayList<Item> inv;
   Animation useleft, useright;
   boolean canShoot = true;
   float canShootCounter, oldX, oldY,rotation;
+  int numDoors = 0;
+  int numEnemies = 0;
 //===========================================================================================================  
 
 //Constructors===============================================================================================
   Player(String startname, String type, float xCor, float yCor){
-    super(startname, 100, 100, 1.00, type, xCor, yCor);
+    super(startname, 200, 100, 1.00, type, xCor, yCor);
     w = animLeft.getWidth();
     l = animLeft.getHeight();
     inv = new ArrayList<Item>();
@@ -182,7 +184,7 @@ class Player extends Entity{
     pushMatrix();
     translate(arrow.x, arrow.y);
     rotate(rotation);
-    arrows.add(arrow);
+    current.roomarrows.add(arrow);
     popMatrix();
     canShoot = false;
     canShootCounter = 0;
@@ -192,6 +194,7 @@ class Player extends Entity{
   void useKey(){
     for(Door door:current.doors){
       if(dist(xCor,yCor,door.x,door.y) < 60 && door.isLocked){
+        numDoors ++;
         door.isLocked= false;
         inv.remove(inHand);
         currentSlot --;
@@ -329,7 +332,7 @@ class Player extends Entity{
       }
     }else{
       if(grab){
-        grab(items);
+        grab(current.roomitems);
       }
       if(isLeft){
         animlegL.display(xCor, yCor);
