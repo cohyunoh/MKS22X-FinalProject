@@ -114,23 +114,23 @@ class Screen {
     textAlign(LEFT);
     text("Enemies Left: " + countAlive(), 10, 500);
       if(obj == 1){
-      text("Objective: Kill 1000 Enemies", 10, 130);
-      text(person.numEnemies + " / 1000 Enemies", 10, 160);
+      text("Objective: Kill 1000 Enemies", 10, 154);
+      text(person.numEnemies + " / 1000 Enemies", 10, 184);
     }
     if(obj == 2){
-      text("Objective: Unlock 500 Doors", 10, 130);
-      text(person.numDoors + " / 500 Doors", 10, 160);
+      text("Objective: Unlock 500 Doors", 10, 154);
+      text(person.numDoors + " / 500 Doors", 10, 184);
     }
     if(obj == 3){
-      text("Objective: Go To 500 Rooms", 10, 130);
-      text(roomNum + " / 500 Rooms", 10, 160);
+      text("Objective: Go To 500 Rooms", 10, 154);
+      text(roomNum + " / 500 Rooms", 10, 184);
     }
     
     if(obj == 4){
-      text("Objective: PLAY", 10, 130);
-      text("Rooms Searched:" + roomNum, 10, 160);
-      text("Enemies Killed:" + person.numEnemies, 10, 190);
-      text("Doors Unlocked:" + person.numDoors, 10, 210);
+      text("Objective: PLAY", 10, 154);
+      text("Rooms Searched:" + roomNum, 10, 184);
+      text("Enemies Killed:" + person.numEnemies, 10, 214);
+      text("Doors Unlocked:" + person.numDoors, 10, 244);
     }
     /*
     fill(255);

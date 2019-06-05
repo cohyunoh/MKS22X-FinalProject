@@ -109,20 +109,25 @@ class Player extends Entity{
   ArrayList<Item> grab(ArrayList<Item> items) {
     for (int i = 0; i < items.size(); i ++) {
       Item item = items.get(i);
-      if (dist(item.getX(), item.getY(), xCor, yCor) <= 50) {
-        if(item.name.equals("sword")){
-          hasSword = true;
+      if (dist(item.getX(), item.getY(), xCor, yCor) <= 70) {
+        if(item.name.equals("money")){
+            money += item.money;
+            item.display = false;
+        }else{
+          if(item.name.equals("sword")){
+            hasSword = true;
+          }
+          if(item.name.equals("shield")){
+            hasShield = true;
+          }
+          if(item.name.equals("bow")){
+            hasBow = true;
+          }
+          item.setX(46);
+          item.setY(height - 14);        
+          inv.add(item);
+          items.remove(i);
         }
-        if(item.name.equals("shield")){
-          hasShield = true;
-        }
-        if(item.name.equals("bow")){
-          hasBow = true;
-        }
-        item.setX(46);
-        item.setY(height - 14);        
-        inv.add(item);
-        items.remove(i);
       }
     }
     return items;
@@ -274,6 +279,8 @@ class Player extends Entity{
     if (armor > 0) {
       rect(10, 75, armor * 2, 30);
     } 
+    fill(0,128,0);
+    text("MONEY: " + money,10,130); 
     fill(50);
     rect(10, height - 50, 40, 40, 7);
     inHand.display();

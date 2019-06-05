@@ -7,3 +7,4 @@ id name price type frames damage heal armorHeal
 5 key 0.00 key 6 0 0 0
 6 bow 100.00 shooting 5 20 0 0
 7 arrows 1.00 projectile 5 30 0 0
+8 money 0.00 currency 5 0 0 0 

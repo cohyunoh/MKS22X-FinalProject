@@ -4,10 +4,13 @@ class Enemy extends Entity {
   float lowX, lowY, highX, highY;
   ArrayList<Item>inv;
   Enemy(String type,float x, float y, int a) {
-    super("gorlag", 100, 0, 10.00, type, x, y);
+    super("gorlag", 100, 0, 100.00 , type, x, y);
     attackDam = a;
     die = false;
     inv = new ArrayList<Item>();
+    Item coin = new Item(8,0,0);
+    coin.display = true;
+    inv.add(coin);
   }
 
 
@@ -183,6 +186,12 @@ class Mercenary extends Enemy{
   Animation attackRight = new Animation("enemies/mercenary/attack-right", 5);
   Mercenary(float x, float y){
     super("mercenary",x,y,30);
+    hp = (int)abs((float)Math.random() * 50) + 100;
+    money = abs((float)Math.random() * 1.00) + hp * 0.005 + attackDam * 0.05 + armor * 0.005;
+    Item coin = new Item(8,0,0);
+    coin.addMoney(money);
+    coin.display = false;
+    inv.add(coin);
   }
   
   void die() {

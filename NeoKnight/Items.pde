@@ -7,6 +7,7 @@ class Item {
   int imageCount;
   int id;
   int damage, heal;
+  float money;
 
   Item(int idNum, float xCor, float yCor) {
     String[] itemList = loadStrings("itemlist.txt");
@@ -44,7 +45,10 @@ class Item {
   void display() {
     if (display) anim.display(xCor-anim.getWidth()/2, yCor - anim.getHeight()/2);
   }
-
+  
+  void addMoney(float mon){
+    money = mon;
+  }
 
   boolean picked(Player person) {
     if (dist(xCor, yCor, person.getX(), person.getY()) < 0.5) {
