@@ -424,6 +424,7 @@ class Room implements Moveable {
         }
       }
     }
+    displayEnemies();
     if (roomitems != null) {
       displayItems();
     }

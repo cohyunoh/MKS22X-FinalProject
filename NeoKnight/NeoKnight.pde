@@ -40,7 +40,7 @@ void draw() {
   if (currentState == 1) {
 
     screen.gameScreen(current, person);
-    displayEnemies();
+    
   }
   if (currentState == 2) screen.deathScreen();
   if (obj == 1) {
