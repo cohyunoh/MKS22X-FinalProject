@@ -7,10 +7,10 @@ Map map;
 int currentRoomRow, currentRoomCol;
 int currentState = 0;
 Room[][] rooms;
-Room current; //<>// //<>//
-int roomNum = 1; //<>// //<>//
-//String str; //<>// //<>//
-Screen screen; //<>// //<>//
+Room current; //<>// //<>// //<>//
+int roomNum = 1; //<>// //<>// //<>//
+//String str; //<>// //<>// //<>//
+Screen screen; //<>// //<>// //<>//
 int obj;
 
 
@@ -44,19 +44,19 @@ void draw() {
   }
   if (currentState == 2) screen.deathScreen();
   if(obj == 1){
-    if(person.numEnemies == 5){
+    if(person.numEnemies == 1000){
       currentState = 5;
     }
   }
   
   if(obj == 2){
-    if(person.numDoors == 5){
+    if(person.numDoors == 500){
       currentState = 5;
     }
   }
   
   if(obj == 3){
-    if(roomNum == 5){
+    if(roomNum == 500){
       currentState = 5;
     }
   }

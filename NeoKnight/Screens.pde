@@ -93,6 +93,8 @@ class Screen {
   //This produces a start screen 
   void startScreen() {
     background(0);
+    Animation anim = new Animation("intro", 8);
+    anim.display(width/2, height/2);
     textAlign(CENTER);
     textSize(50);
     fill(255);

@@ -113,6 +113,7 @@ class Player extends Entity{
         if(item.name.equals("money")){
             money += item.money;
             item.display = false;
+            current.roomitems.remove(item);
         }else{
           if(item.name.equals("sword")){
             hasSword = true;
