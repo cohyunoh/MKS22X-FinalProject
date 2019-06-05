@@ -7,7 +7,7 @@ NEOKNIGHT is a roguelike game where the player traverses through the world attem
 
 # CONTROLS:
 
--**I** : Pressing this before starting allows you to
+-**I** : Pressing this before starting allows you to check the instructions
 
 -**E** : Pressing 'E' has two functions: Picking up items from the floor **and** Passing through open doors
 
