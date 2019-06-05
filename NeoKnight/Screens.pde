@@ -21,12 +21,35 @@ class Screen {
     text("Click to Restart", width/2, height/2 + 10);
   }
 
+  //This produces a screen with the game instructions
+  void instructionScreen() {
+    background(0);
+    fill(255);
+    textAlign(CENTER);
+    textSize(60);
+    text("How To Play", width /2, 60);
+    textSize(40);
+    text("Pressing E picks up objects and opens doors", width/2, 100);
+    text("Pressing Q opens and closes shop", width /2, 140);
+    text("In shop, pressing 1-6 allows you to buy stuff if you have enough money", width/2, 180);
+    text("W,A,S,D are movement keys for up,left,down,right respectively", width/2, 220);
+    text("Scroll your mouse wheel in order to go through the items in your inventory", width/2, 260);
+    text("Click your mouse to use the item in your hand", width/2, 300);
+    text("Pressing ESCAPE will leave the game", width/2, 340);
+    text("Press I to go back to start menu", width /2, 380);
+  }
+
   //This produces a start screen 
   void startScreen() {
     background(0);
     textAlign(CENTER);
     textSize(50);
-    text("Click the mouse to start", width/2, height/2);
+    fill(255);
+    text("Click the mouse to start", width/2, height/4);
+    text("Press I to read instructions", width / 2, height * 3/4);
+    textSize(100);
+    fill(random(255), random(255), random(255));
+    text("NEOKNIGHT", width/2, height/2);
   }
 
   //this prints out the current room 
