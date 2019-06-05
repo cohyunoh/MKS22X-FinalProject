@@ -10,6 +10,8 @@ INSTRUCTIONS
 -**E** : Pressing 'E' has two functions: Picking up items from the floor **and** Passing through open doors
 -**Q** : In order to access the shop, the player must press the 'Q' key. Pressing this key in the shop will lead to the player exiting the shop.
  -**1-6** : In order to purchase the desired item, the player must press the corresponding number on their keyboard.
+ -**Y** : After winning, if you decide you want to restart, press 'Y' to restart the game.
+ -**C** : Displays the player's inventory
 -**CLICKING** : Clicking the mouse allows you to use the item you are holding.
 -**SCROLLING** : Scrolling the mouse allows you to go through the player's inventory.
 -**ESC** : Pressing escape allows you to end the game.
@@ -160,3 +162,4 @@ Cleaned up the menus
 Added comments for legibility purposes
 Added instructions on how to play
 Added end Screen after you win
+Able to display player's inventory

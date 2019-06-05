@@ -44,6 +44,7 @@ void draw() {
   if (currentState == 3) screen.shopScreen();
   if (currentState == 4) screen.instructionScreen();
   if (currentState == 5) screen.winScreen();
+  if (currentState == 6) screen.inventory();
   if (person.isDead()) currentState = 2;
 }
 
@@ -62,6 +63,7 @@ void keyPressed() {
     current.setMove(keyCode, true); 
     person.setMove(keyCode, true);
     if (key == 'q' || key == 'Q') currentState = 3;
+    if (key == 'c' || key == 'C') currentState = 6;
   } else if (currentState == 3) {
     screen.setInput(keyCode);
     if (key == 'q' || key == 'Q') currentState = 1;
@@ -69,6 +71,8 @@ void keyPressed() {
     if (key == 'i' || key == 'I') currentState = 0;
   } else if (currentState == 5) {
     if (key == 'y' || key == 'Y') currentState = 0;
+  } else if (currentState  == 6){
+    if (key == 'c' || key == 'C') currentState = 1;
   }
 }
 

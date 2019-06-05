@@ -13,6 +13,7 @@ class Screen {
   public Screen() {
   }
 
+  //After the player completes the objective, this screen appears
   void winScreen() {
     background(0);
     textAlign(CENTER);
@@ -24,6 +25,35 @@ class Screen {
     text("Well, you can exit now", width/2, height /2);
     textSize(60);
     text("Press Y to restart", width/2, height/1.2);
+  }
+
+  //gives the player's inventory
+  void inventory() {
+    textSize(60);
+    textAlign(CENTER);
+    text("INVENTORY", width /2, 60);
+    int x = 10;
+    int y = 10;
+    for (int i = 0; i < person.inv.size(); i++) {
+      Item item = person.inv.get(i);
+      if (inBounds(x, y)) {
+        item.xCor = x;
+        item.yCor = y;
+      } else {
+        x = 10;
+        y = 10;
+      }
+      textSize(30);
+      text(item.getName(),item.xCor+50,item.yCor-10);
+      item.display();
+      x += 32;
+      y += 32;
+    }
+  }
+
+  boolean inBounds(int x, int y) {
+    if (x < width && x >= 0 && y < height && y > 0) return true;
+    return false;
   }
 
   //displays death screen upon player losing
@@ -52,9 +82,12 @@ class Screen {
     text("Scroll your mouse wheel in order to go through the items in your inventory", width/2, 260);
     text("Click your mouse to use the item in your hand", width/2, 300);
     text("Pressing ESCAPE will leave the game", width/2, 340);
-    text("Pressing Y at the win screen will restart the game",width/2,380);
-    text("Press I to go back to start menu", width /2, 420);
+    text("Pressing Y at the win screen will restart the game", width/2, 380);
+    text("Pressing C during the game will display the player's inventory", width/2, 420);
+    text("Press I to go back to start menu", width /2, 500);
   }
+
+
 
   //This produces a start screen 
   void startScreen() {
