@@ -5,7 +5,7 @@
 # HOW TO PLAY
 NEOKNIGHT is a roguelike game where the player traverses through the world attempting to complete different objectives. To start the player must press the mouse and after that, they are free to explore, fight, or complete the stated objective.
 
-INSTRUCTIONS:
+# CONTROLS:
 
 -**I** : Pressing this before starting allows you to
 
@@ -25,7 +25,7 @@ INSTRUCTIONS:
 
 -**ESC** : Pressing escape allows you to end the game.
 
-#DEV LOG
+# DEV LOG
 
 DAY 1 5/20:
 Connor:
