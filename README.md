@@ -185,3 +185,5 @@ Made enemies have certain items at certain times whether a player is in need of 
 Made potions disappear after use
 Arrows disappear once they hit a wall
 Bows use up arrows
+Fixed Item error
+Fixed potion error
