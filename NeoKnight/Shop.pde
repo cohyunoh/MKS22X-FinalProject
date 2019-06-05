@@ -55,9 +55,9 @@ class Shop {
 
   void display() {
     rect(xCor, yCor, 50, 50);
-    fill(255,0,0);
+    fill(255, 0, 0);
     textSize(20);
-    text(xCor,yCor,xCor,yCor);
+    text(xCor, yCor, xCor, yCor);
     if (open) {
       rectMode(CENTER);
       rect(750, 500, 244, 244);

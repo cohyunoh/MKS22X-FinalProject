@@ -16,13 +16,13 @@ class Map {
   //This creates a map where the starting room is always 50x50 and then creates four rooms in every direction
   void createMap() {
     maprooms[startRow][startCol] = new Room(50, 70, 0, 0, roomNum);
-   }
-  
-  void createNextRoom(Door door){
+  }
+
+  void createNextRoom(Door door) {
     int rows = (int)(abs((float)(Math.random() * 20))) + 30;
     int cols = (int)(abs((float)(Math.random() * 20))) + 30;
-    rooms[currentRoomRow][currentRoomCol] = new Room(rows, cols, door , 0,0, roomNum); 
-    current = rooms[currentRoomRow][currentRoomCol]; 
+    rooms[currentRoomRow][currentRoomCol] = new Room(rows, cols, door, 0, 0, roomNum); 
+    current = rooms[currentRoomRow][currentRoomCol];
   }
 
   int getStartRow() {

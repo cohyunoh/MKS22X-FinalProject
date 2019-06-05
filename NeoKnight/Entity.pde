@@ -16,7 +16,7 @@ class Entity {
     this.armor = armor;
     this.money = money;
     this.type = type;
-    inHand = new Item(0,0,0);
+    inHand = new Item(0, 0, 0);
     animLeft = new Animation(type + "/" + inHand + "-left", 8);
     animRight = new Animation(type + "/" + inHand + "-right", 8);
     animlegR = new Animation("legs/right", 8);

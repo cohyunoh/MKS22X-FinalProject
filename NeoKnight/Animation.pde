@@ -18,7 +18,7 @@ class Animation {
     imageMode(CENTER);
     image(frames[frame], xpos, ypos);
   }
-  
+
 
 
   int getWidth() {
