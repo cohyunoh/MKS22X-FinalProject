@@ -23,6 +23,71 @@ class Screen {
     text("Press 6 to buy Shield", width/6, height -40);
   }
 
+  void setInput(int k) {
+    switch(k) {
+    case '1':
+      Item healthPotion = new Item(3, 0, 0);
+      healthPotion.display = false;
+      if (person.money >= healthPotion.getPrice()) {
+        person.money -= healthPotion.getPrice();
+        person.inv.add(healthPotion);
+      } else {
+        text("You are missing " + (healthPotion.getPrice() - person.money + ""), 0, 20);
+      }
+      break;
+    case '2':
+      Item armorPotion = new Item(4, 0, 0);
+      armorPotion.display = false;
+      if (person.money >= armorPotion.getPrice()) {
+        person.money -= armorPotion.getPrice();
+        person.inv.add(armorPotion);
+      } else {
+        text("You are missing " + (armorPotion.getPrice() - person.money + ""), 0, 20);
+      }
+      break;
+    case '3':
+      Item bow = new Item(6, 0, 0);
+      bow.display = false;
+      if (person.money >= bow.getPrice()) {
+        person.money -= bow.getPrice();
+        person.inv.add(bow);
+      } else {
+        text("You are missing " + (bow.getPrice() - person.money + ""), 0, 20);
+      }
+      break;
+    case '4':
+      Item arrow = new Item(7, 0, 0);
+      arrow.display = false;
+      if (person.money >= arrow.getPrice()) {
+        person.money -= arrow.getPrice();
+        person.inv.add(arrow);
+      } else {
+        text("You are missing " + (arrow.getPrice() - person.money + ""), 0, 20);
+      }
+      break;
+    case '5':
+      Item sword = new Item(1, 0, 0);
+      sword.display = false;
+      if (person.money >= sword.getPrice()) {
+        person.money -= sword.getPrice();
+        person.inv.add(sword);
+      } else {
+        text("You are missing " + (sword.getPrice() - person.money + ""), 0, 20);
+      }
+      break;
+    case '6':
+      Item shield = new Item(2, 0, 0);
+      shield.display = false;
+      if (person.money >= shield.getPrice()) {
+        person.money -= shield.getPrice();
+        person.inv.add(shield);
+      } else {
+        text("You are missing " + (shield.getPrice() - person.money + ""), 0, 20);
+      }
+      break;
+    }
+  }
+
   //This produces a start screen 
   void startScreen() {
     background(0);
