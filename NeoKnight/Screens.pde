@@ -111,6 +111,11 @@ class Screen {
   //this prints out the current room 
 
   void gameScreen(Room room, Player person){
+    for(int i = 0; i < person.inv.size(); i++){
+      Item item = person.inv.get(i);
+      item.xCor = 46;
+      item.yCor = height - 14;
+    }
     room.move();
     room.display();
     
@@ -118,7 +123,6 @@ class Screen {
     fill(0, 0, 255);
     textSize(20);
     textAlign(LEFT);
-     text("InvSixe: " + person.inv.size(), 10, 560);
     text("Arrows: " + person.amountOfArrows, 10, 530);
     text("Enemies Left: " + countAlive(), 10, 500);
       if(obj == 1){

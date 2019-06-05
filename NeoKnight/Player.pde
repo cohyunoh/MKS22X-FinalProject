@@ -87,6 +87,7 @@ class Player extends Entity{
 
 
   void switchSlot() {
+    inHand.display = false;
     inHand = inv.get(currentSlot);
     inHand.display = true;
     if (inHand.type.equals("melee") || inHand.type.equals("block")) {
