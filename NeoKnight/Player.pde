@@ -173,7 +173,9 @@ class Player extends Entity{
     if(inHand.name.equals("potionA")){
       armor += inHand.getHeal();
     }
-    
+    inv.remove(inHand);
+    currentSlot --;
+    switchSlot();
   }
   
   void shoot(){
