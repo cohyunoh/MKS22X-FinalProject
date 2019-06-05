@@ -223,6 +223,7 @@ class Screen {
       bow.display = false;
       if (person.money >= bow.getPrice()) {
         person.money -= bow.getPrice();
+        person.hasBow = true;
         person.inv.add(bow);
       } else {
         text("You are missing " + (bow.getPrice() - person.money + ""), 0, 20);
@@ -245,6 +246,7 @@ class Screen {
       if (person.money >= sword.getPrice()) {
         person.money -= sword.getPrice();
         person.inv.add(sword);
+        person.hasSword = true;
       } else {
         text("You are missing " + (sword.getPrice() - person.money + ""), 0, 20);
       }
@@ -254,6 +256,7 @@ class Screen {
       shield.display = false;
       if (person.money >= shield.getPrice()) {
         person.money -= shield.getPrice();
+        person.hasShield = true;
         person.inv.add(shield);
       } else {
         text("You are missing " + (shield.getPrice() - person.money + ""), 0, 20);
