@@ -13,7 +13,7 @@ class Player extends Entity{
 
 //Constructors===============================================================================================
   Player(String startname, String type, float xCor, float yCor){
-    super(startname, 200, 100, 1000, type, xCor, yCor);
+    super(startname, 200, 100, 1.00, type, xCor, yCor);
     w = animLeft.getWidth();
     l = animLeft.getHeight();
     inv = new ArrayList<Item>();
