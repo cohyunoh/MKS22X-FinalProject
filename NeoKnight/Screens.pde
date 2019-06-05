@@ -6,8 +6,24 @@ class Screen {
   Item arrow = new Item(7, 0, 0);
   Item sword = new Item(1, 0, 0);
   Item shield = new Item(2, 0, 0);
+  float ran1 =random(255);
+  float ran2 =random(255);
+  float ran3 =random(255);
 
   public Screen() {
+  }
+
+  void winScreen() {
+    background(0);
+    textAlign(CENTER);
+    fill(ran1, ran2, ran3);
+    textSize(60);
+    text("WOW! You survived NEOKNIGHT", width/2, height/8);
+    text("You must be really good", width/2, height/5);
+    textSize(10);
+    text("Well, you can exit now", width/2, height /2);
+    textSize(60);
+    text("Press Y to restart", width/2, height/1.2);
   }
 
   //displays death screen upon player losing
@@ -36,7 +52,8 @@ class Screen {
     text("Scroll your mouse wheel in order to go through the items in your inventory", width/2, 260);
     text("Click your mouse to use the item in your hand", width/2, 300);
     text("Pressing ESCAPE will leave the game", width/2, 340);
-    text("Press I to go back to start menu", width /2, 380);
+    text("Pressing Y at the win screen will restart the game",width/2,380);
+    text("Press I to go back to start menu", width /2, 420);
   }
 
   //This produces a start screen 

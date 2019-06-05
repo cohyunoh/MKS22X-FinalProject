@@ -1,4 +1,4 @@
-import java.util.*; //<>// //<>// //<>//
+import java.util.*; //<>// //<>// //<>// //<>//
 import java.io.*;
 
 Player person;
@@ -43,6 +43,7 @@ void draw() {
   if (currentState == 2) screen.deathScreen();
   if (currentState == 3) screen.shopScreen();
   if (currentState == 4) screen.instructionScreen();
+  if (currentState == 5) screen.winScreen();
   if (person.isDead()) currentState = 2;
 }
 
@@ -66,6 +67,8 @@ void keyPressed() {
     if (key == 'q' || key == 'Q') currentState = 1;
   } else if (currentState == 4) {
     if (key == 'i' || key == 'I') currentState = 0;
+  } else if (currentState == 5) {
+    if (key == 'y' || key == 'Y') currentState = 0;
   }
 }
 
