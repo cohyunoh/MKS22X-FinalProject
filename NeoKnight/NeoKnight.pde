@@ -57,10 +57,9 @@ void keyPressed() {
   if (currentState == 1) {
     current.setMove(keyCode, true); 
     person.setMove(keyCode, true);
+    if (key == 'q' || key == 'Q') currentState = 3;
   }
-  if (currentState == 3){
-    if (key == 'q' || key == 'Q') currentState = 1;
-  }
+  else currentState = 1;
 }
 
 void mousePressed() {

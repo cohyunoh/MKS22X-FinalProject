@@ -15,12 +15,12 @@ class Screen {
 
   void shopScreen() {
     background(0);
-    text("Press 1 to buy Health Potion", width/6, (height / 6)-20);
-    text("Press 2 to buy Armor Potion", width/6, (height / 3)-20);
-    text("Press 3 to buy Bow", width/6, (height / 2)-20);
-    text("Press 4 to buy Arrow", width/6, (height * 2 / 3)-20);
-    text("Press 5 to buy Sword", width/6, (height * 5 /6)-20);
-    text("Press 6 to buy Shield", width/6, height -20);
+    text("Press 1 to buy Health Potion", width/6, (height / 6)-80);
+    text("Press 2 to buy Armor Potion", width/6, (height / 3)-60);
+    text("Press 3 to buy Bow", width/6, (height / 2)-40);
+    text("Press 4 to buy Arrow", width/6, (height * 2 / 3)-40);
+    text("Press 5 to buy Sword", width/6, (height * 5 /6)-40);
+    text("Press 6 to buy Shield", width/6, height -40);
   }
 
   //This produces a start screen 

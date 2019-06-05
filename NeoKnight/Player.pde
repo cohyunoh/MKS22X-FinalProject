@@ -236,6 +236,7 @@ class Player extends Entity {
     image(anim, 0, -25);
     popMatrix();
   }
+  
   //======================================================================================
 
   void display() {
@@ -496,9 +497,6 @@ class Player extends Entity {
     case + 'e':
       useDoor = b;
       return grab = b;
-    case + 'Q':
-    case + 'q':
-      return openShop = b;
     default:
       return b;
     }
