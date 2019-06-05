@@ -62,7 +62,6 @@ class Door {
 
   void display() {
     imageMode(CENTER);
-    text(x + ", " + y, x, y + 25);
     image(sprite, x, y);
     if (isLocked) {
       imageMode(CENTER);

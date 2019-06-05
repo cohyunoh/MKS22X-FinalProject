@@ -175,3 +175,13 @@ Added instructions on how to play
 Added end Screen after you win
 Able to display player's inventory
 Can restart game when want to
+
+Connor:
+Finished arrows for the Player
+Did the currency system
+Made mercenaries that can roam freely
+Made objectives work
+Made enemies have certain items at certain times whether a player is in need of health or a weapon
+Made potions disappear after use
+Arrows disappear once they hit a wall
+Bows use up arrows

@@ -118,6 +118,7 @@ class Screen {
     fill(0, 0, 255);
     textSize(20);
     textAlign(LEFT);
+    text("Arrows: " + person.amountOfArrows, 10, 530);
     text("Enemies Left: " + countAlive(), 10, 500);
       if(obj == 1){
       text("Objective: Kill 1000 Enemies", 10, 154);
@@ -193,7 +194,7 @@ class Screen {
   void setInput(int k) {
     switch(k) {
     case '1':
-      Item healthPotion = new Item(3, 0, 0);
+      Item healthPotion = new Item(3, 46, height - 14);
       healthPotion.display = false;
       if (person.money >= healthPotion.getPrice()) {
         person.money -= healthPotion.getPrice();
@@ -203,7 +204,7 @@ class Screen {
       }
       break;
     case '2':
-      Item armorPotion = new Item(4, 0, 0);
+      Item armorPotion = new Item(4, 46, height - 14);
       armorPotion.display = false;
       if (person.money >= armorPotion.getPrice()) {
         person.money -= armorPotion.getPrice();
@@ -213,7 +214,7 @@ class Screen {
       }
       break;
     case '3':
-      Item bow = new Item(6, 0, 0);
+      Item bow = new Item(6, 46, height - 14);
       bow.display = false;
       if (person.money >= bow.getPrice()) {
         person.money -= bow.getPrice();
@@ -223,17 +224,18 @@ class Screen {
       }
       break;
     case '4':
-      Item arrow = new Item(7, 0, 0);
+      Item arrow = new Item(7, 46, height - 14);
       arrow.display = false;
       if (person.money >= arrow.getPrice()) {
         person.money -= arrow.getPrice();
         person.inv.add(arrow);
+        person.amountOfArrows += 5;
       } else {
         text("You are missing " + (arrow.getPrice() - person.money + ""), 0, 20);
       }
       break;
     case '5':
-      Item sword = new Item(1, 0, 0);
+      Item sword = new Item(1, 46, height - 14);
       sword.display = false;
       if (person.money >= sword.getPrice()) {
         person.money -= sword.getPrice();
@@ -243,7 +245,7 @@ class Screen {
       }
       break;
     case '6':
-      Item shield = new Item(2, 0, 0);
+      Item shield = new Item(2, 46, height - 14);
       shield.display = false;
       if (person.money >= shield.getPrice()) {
         person.money -= shield.getPrice();

@@ -2,18 +2,18 @@ class Player extends Entity{
   
 //INSTANCE VARIABLES=========================================================================================
   boolean isLeft, isRight, isUp, isDown, wasLeft, wasRight, grab, next, prev, swit, attack, die, hurt, shoot, useKey, use, block, heal, useDoor, hasSword, hasBow, hasShield;
-  int w,l,currentSlot, damage, useFrames, amountOfArrows;
+  int w,l,currentSlot, damage, useFrames, amountOfArrows, shotClock;
   ArrayList<Item> inv;
   Animation useleft, useright;
   boolean canShoot = true;
-  float canShootCounter, oldX, oldY,rotation;
+  float oldX, oldY,rotation;
   int numDoors = 0;
   int numEnemies = 0;
 //===========================================================================================================  
 
 //Constructors===============================================================================================
   Player(String startname, String type, float xCor, float yCor){
-    super(startname, 200, 100, 1.00, type, xCor, yCor);
+    super(startname, 200, 100, 1000, type, xCor, yCor);
     w = animLeft.getWidth();
     l = animLeft.getHeight();
     inv = new ArrayList<Item>();
@@ -56,10 +56,17 @@ class Player extends Entity{
     }
   }
 
-  void removeArrows() {
+  boolean removeArrows() {
     for (int i = 0; i < inv.size(); i++) {
+      Item item = inv.get(i);
+      if(item.name.equals("arrows") && shotClock == 5){
+        inv.remove(item);
+        return true;
+      }
     }
+    return false;
   }
+  
 
   //ACTIONS (INPUT)==================================================================  
 
@@ -80,7 +87,9 @@ class Player extends Entity{
 
 
   void switchSlot() {
+    inHand.display = false;
     inHand = inv.get(currentSlot);
+    inHand.display = true;
     if (inHand.type.equals("melee") || inHand.type.equals("block")) {
       damage = inHand.getDamage();
     }
@@ -123,6 +132,9 @@ class Player extends Entity{
           }
           if(item.name.equals("bow")){
             hasBow = true;
+          }
+          if(item.name.equals("arrows")){
+            amountOfArrows += 5;
           }
           item.setX(46);
           item.setY(height - 14);        
@@ -194,17 +206,26 @@ class Player extends Entity{
   }
 
   void shoot() {
-    Arrow arrow = new Arrow(xCor, yCor);
-    arrow.addConstrainX(rooms[currentRoomRow][currentRoomCol].getX() + 32, rooms[currentRoomRow][currentRoomCol].getX() + current.getWidth() - 32);
-    arrow.addConstrainY(rooms[currentRoomRow][currentRoomCol].getY() + 32, rooms[currentRoomRow][currentRoomCol].getY() + current.getLength() - 32);
-    current.roomarrows.add(arrow);
-    pushMatrix();
-    translate(arrow.x, arrow.y);
-    rotate(rotation);
-    current.roomarrows.add(arrow);
-    popMatrix();
+    if(amountOfArrows > 0){
+      Arrow arrow = new Arrow(xCor, yCor);
+      arrow.addConstrainX(rooms[currentRoomRow][currentRoomCol].getX() + 32, rooms[currentRoomRow][currentRoomCol].getX() + current.getWidth() - 32);
+      arrow.addConstrainY(rooms[currentRoomRow][currentRoomCol].getY() + 32, rooms[currentRoomRow][currentRoomCol].getY() + current.getLength() - 32);
+      current.roomarrows.add(arrow);
+      pushMatrix();
+      translate(arrow.x, arrow.y);
+      rotate(rotation);
+      current.roomarrows.add(arrow);
+      popMatrix();
+      shotClock ++;
+      amountOfArrows -= 1;
+      if(shotClock == 5){
+        removeArrows();
+      }
+    }else{
+      while(removeArrows()){
+      }
+    }
     canShoot = false;
-    canShootCounter = 0;
     shoot = false;
   }
 
