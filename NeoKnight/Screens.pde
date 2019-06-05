@@ -10,6 +10,7 @@ class Screen {
   public Screen() {
   }
 
+  //displays death screen upon player losing
   void deathScreen() {
     background(0);
     textAlign(CENTER);
@@ -29,7 +30,6 @@ class Screen {
   }
 
   //this prints out the current room 
-
   void gameScreen(Room room, Player person) {
     room.update();
     update();

@@ -75,7 +75,7 @@ class Room implements Moveable {
     initRoom(door);
   }
 
-  //================================================================
+  //UPDATE METHODS================================================================
 
   void update() {
     roomitems = items;
@@ -88,16 +88,6 @@ class Room implements Moveable {
     highY = 500 - (y + 32) - person.getHeight() / 4;
   }
 
-  void addKeys() {
-    for (int i = 0; i < locked; i++) {
-      Enemy enemy = roomenemies.get(i);
-      Item keyy = new Item(5, 0, 0);
-      keyy.show();
-      enemy.addItem(keyy);
-      enemy.hasKey = true;
-    }
-  }
-
   //ADD METHODS=====================================================
   void addEnemies() {
     for (int i = 0; i < enemies.size(); i++) {
@@ -107,6 +97,16 @@ class Room implements Moveable {
       enemy.addConstrainX(32, 32 * (cols - 2));
       enemy.addConstrainY(32, 32 * (rows - 2));
       roomenemies.add(enemy);
+    }
+  }
+
+  void addKeys() {
+    for (int i = 0; i < locked; i++) {
+      Enemy enemy = roomenemies.get(i);
+      Item keyy = new Item(5, 0, 0);
+      keyy.show();
+      enemy.addItem(keyy);
+      enemy.hasKey = true;
     }
   }
   //=================================================================
@@ -217,7 +217,6 @@ class Room implements Moveable {
   }
 
   void addDoors() {
-
     for (int r = 0; r < floor.length; r++) {
       for (int c = 0; c < floor[0].length; c++) {
         char slot = floor[r][c];
@@ -322,7 +321,7 @@ class Room implements Moveable {
   }
   // =================================================================
 
-  //DISPLAY =============================================================
+  //DISPLAY METHODS =============================================================
 
   void displayEnemies() {
     for (int i = 0; i < roomenemies.size(); i++) {
@@ -360,9 +359,6 @@ class Room implements Moveable {
       Door door =  doors.get(i);
       door.display();
     }
-  }
-
-  void displayShops() {
   }
 
   void displayArrows() {

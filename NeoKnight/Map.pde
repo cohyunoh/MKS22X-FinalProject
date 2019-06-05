@@ -2,6 +2,7 @@ class Map {
   Room[][] maprooms;
   int rows, cols, startRow, startCol, numRooms, maxRooms;
 
+  //Constructors===============================================================================================
   Map(int rows, int cols) {
     this.rows = rows;
     this.cols = cols;
@@ -25,6 +26,7 @@ class Map {
     current = rooms[currentRoomRow][currentRoomCol];
   }
 
+  //GET METHODS=================================================================================
   int getStartRow() {
     return startRow;
   }
@@ -33,14 +35,15 @@ class Map {
     return startCol;
   }
 
+  Room[][] getMap() {
+    return maprooms;
+  }
+  //============================================================================================
+
   //checks if room is in bounds
   boolean inBounds(int row, int col) {
     if (row >= rows || row < 0 || col >= cols || col < 0) return false;
     return true;
-  }
-
-  Room[][] getMap() {
-    return maprooms;
   }
 
   String toString() {
