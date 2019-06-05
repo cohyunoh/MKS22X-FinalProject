@@ -61,8 +61,8 @@ void keyPressed() {
   }
   else if (currentState == 3){
     screen.setInput(keyCode);
+    if (key == 'q' || key == 'Q') currentState = 1;
   }
-  else currentState = 1;
 }
 
 void mousePressed() {
