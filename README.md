@@ -6,7 +6,8 @@
 NEOKNIGHT is a roguelike game where the player traverses through the world attempting to complete different objectives. To start the player must press the mouse and after that, they are free to explore, fight, or complete the stated objective.
 
 INSTRUCTIONS
--**I** : Pressing this before starting allows you to
+-**I** : Pressing 'I before starting allows you to read the instructions
+-**R** : Pressing 'R' will restart the game.
 -**E** : Pressing 'E' has two functions: Picking up items from the floor **and** Passing through open doors
 -**Q** : In order to access the shop, the player must press the 'Q' key. Pressing this key in the shop will lead to the player exiting the shop.
  -**1-6** : In order to purchase the desired item, the player must press the corresponding number on their keyboard.
@@ -163,3 +164,4 @@ Added comments for legibility purposes
 Added instructions on how to play
 Added end Screen after you win
 Able to display player's inventory
+Can restart game when want to
