@@ -84,6 +84,7 @@ class Screen {
     text("Pressing ESCAPE will leave the game", width/2, 340);
     text("Pressing Y at the win screen will restart the game", width/2, 380);
     text("Pressing C during the game will display the player's inventory", width/2, 420);
+    text("Pressing R during the game will restart the game", width/2, 460);
     text("Press I to go back to start menu", width /2, 500);
   }
 

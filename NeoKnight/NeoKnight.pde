@@ -86,6 +86,11 @@ void keyPressed() {
     person.setMove(keyCode, true);
     if (key == 'q' || key == 'Q') currentState = 3;
     if (key == 'c' || key == 'C') currentState = 6;
+    if (key == 'r' || key == 'R') {
+      currentState = 0;
+      roomNum = 1;
+      setup();
+    }
   } else if (currentState == 3) {
     screen.setInput(keyCode);
     if (key == 'q' || key == 'Q') currentState = 1;
@@ -93,7 +98,7 @@ void keyPressed() {
     if (key == 'i' || key == 'I') currentState = 0;
   } else if (currentState == 5) {
     if (key == 'y' || key == 'Y') currentState = 0;
-  } else if (currentState  == 6){
+  } else if (currentState  == 6) {
     if (key == 'c' || key == 'C') currentState = 1;
   }
 }
