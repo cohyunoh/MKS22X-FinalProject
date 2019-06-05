@@ -120,19 +120,19 @@ class Room implements Moveable {
     for(int i = person.hp; i <= 200; i += 10){
       int enemyI = (int)abs((float)Math.random() * roomenemies.size());
         Enemy enemy = roomenemies.get(enemyI);
-        Item shield = new Item(2,0,0);
-        shield.show();
-        enemy.addItem(shield);
+        Item potionH = new Item(3,0,0);
+        potionH.show();
+        enemy.addItem(potionH);
     }
   }
   
-  void addpotionHA){
-    for(int i = person.hp; i <= 200; i += 10){
+  void addpotionA(){
+    for(int i = person.armor; i <= 100; i += 10){
       int enemyI = (int)abs((float)Math.random() * roomenemies.size());
         Enemy enemy = roomenemies.get(enemyI);
-        Item shield = new Item(2,0,0);
-        shield.show();
-        enemy.addItem(shield);
+        Item potionA = new Item(4,0,0);
+        potionA.show();
+        enemy.addItem(potionA);
     }
   }
 
@@ -396,6 +396,12 @@ class Room implements Moveable {
     }
     if(num > 20){
       addBow();
+    }
+    if(person.hp < 50){
+      addpotionH();
+    }
+    if(person.armor < 20){
+      addpotionA();
     }
     if (run) {
       vel = 25;

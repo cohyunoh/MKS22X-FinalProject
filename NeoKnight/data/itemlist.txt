@@ -1,9 +1,9 @@
 id name price type frames damage heal armorHeal
 0 hand 0.00 melee 4 10 0 0 
-1 sword 25.00 melee 8 35 0 0
-2 shield 35.00 block 5 15 0 0
+1 sword 50.00 melee 8 35 0 0
+2 shield 75.00 block 5 15 0 0
 3 potionH 5.00 heal 5 0 20 0
 4 potionA 5.00 heal 5 0 0 10
 5 key 0.00 key 6 0 0 0
-6 bow 30.00 shooting 5 20 0 0
+6 bow 100.00 shooting 5 20 0 0
 7 arrows 1.00 projectile 5 30 0 0
