@@ -24,80 +24,80 @@ class Player extends Entity{
     currentSlot = 0;
     swit = false;
     attack = false;
-    useleft = new Animation("use" + "/" + inHand + "-left",8);
-    useright = new Animation("use" + "/" + inHand + "-right",8);
+    useleft = new Animation("use" + "/" + inHand + "-left", 8);
+    useright = new Animation("use" + "/" + inHand + "-right", 8);
     wasRight = true;
     oldX = mouseX;
     oldY = mouseY;
     rotation = atan2(oldY - this.yCor, oldX - this.xCor);
     amountOfArrows = 0;
   }
-//=============================================================================================================  
-  
-  int getDamage(){
-   return damage;
+  //=============================================================================================================  
+
+  int getDamage() {
+    return damage;
   }
-  
-  
-  
-  boolean isHurt(){
+
+
+
+  boolean isHurt() {
     return hurt;
   }
-  
-  
-  
-  void notHurt(){
+
+
+
+  void notHurt() {
     hurt =  false;
   }
-  
-  void die(){
-    if(hp <= 0){
+
+  void die() {
+    if (hp <= 0) {
       die =  true;
     }
   }
-  
-  void removeArrows(){
-    for(int i = 0; i < inv.size(); i++){
-      
+
+  void removeArrows() {
+    for (int i = 0; i < inv.size(); i++) {
     }
   }
-  
-//ACTIONS (INPUT)==================================================================  
-  
-  void switchItem(float e){
-    if(inv.size()>1){
-      if(e < 0){
+
+  //ACTIONS (INPUT)==================================================================  
+
+  void switchItem(float e) {
+    if (inv.size()>1) {
+      if (e < 0) {
         prev = true;
         next = false;
         swit = true;
-      }else if(e > 0){
+      } else if (e > 0) {
         prev = false;
         next = true;
         swit = true;
       }
     }
-    
   }
-  
-  void switchSlot(){
+
+
+
+  void switchSlot() {
     inHand = inv.get(currentSlot);
-    if(inHand.type.equals("melee") || inHand.type.equals("block")) {
+    if (inHand.type.equals("melee") || inHand.type.equals("block")) {
       damage = inHand.getDamage();
     }
     animLeft = new Animation(type + "/" + inHand + "-left", 8);
     animRight = new Animation(type + "/" + inHand + "-right", 8);
     right = loadImage (type + "/" + inHand + "-right7.png");
     left = loadImage (type + "/" + inHand + "-left7.png");
-    if(!(inHand.type.equals("projectile"))){
-      useleft = new Animation("use"+ "/" + inHand + "-left",8);
-      useright = new Animation("use" + "/" + inHand + "-right",8);
+    if (!(inHand.type.equals("projectile"))) {
+      useleft = new Animation("use"+ "/" + inHand + "-left", 8);
+      useright = new Animation("use" + "/" + inHand + "-right", 8);
     }
-    if(inHand.type.equals("shooting")){
+    if (inHand.type.equals("shooting")) {
       animlegL =  new Animation("legs/shootlegs-left", 8);
       animlegR =  new Animation("legs/shootlegs-right", 8);
       legR = loadImage ("legs/shootlegs-right7.png");
       legL = loadImage ("legs/shootlegs-left7.png");
-    }else{
+    } else {
       animlegL =  new Animation("legs/left", 8);
       animlegR =  new Animation("legs/right", 8);
       legR = loadImage ("legs/right7.png");
@@ -105,11 +105,20 @@ class Player extends Entity{
     }
     swit = false;
   }
-  
-  ArrayList<Item> grab(ArrayList<Item> items){
-    for(int i = 0; i < items.size(); i ++){
+
+  ArrayList<Item> grab(ArrayList<Item> items) {
+    for (int i = 0; i < items.size(); i ++) {
       Item item = items.get(i);
-      if(dist(item.getX(),item.getY(),xCor,yCor) <= 50){
+      if (dist(item.getX(), item.getY(), xCor, yCor) <= 50) {
+        if(item.name.equals("sword")){
+          hasSword = true;
+        }
+        if(item.name.equals("shield")){
+          hasShield = true;
+        }
+        if(item.name.equals("bow")){
+          hasBow = true;
+        }
         item.setX(46);
         item.setY(height - 14);        
         inv.add(item);
@@ -119,66 +128,66 @@ class Player extends Entity{
     return items;
   }
   //set methods==========================================================================
-  void setAttack(){
+  void setAttack() {
     attack = true;
     use = true;
   }
-  
-  void setShoot(){
+
+  void setShoot() {
     shoot = true;
     use = true;
   }
-  
-  void setHeal(){
+
+  void setHeal() {
     heal = true;
     use = true;
   }
-  
-  void setBlock(){
+
+  void setBlock() {
     block = true;
     use = true;
   }
-  
-  void setUseKey(){
+
+  void setUseKey() {
     useKey = true;
     use = true;
   }
   //==========================================================================================
-  void attack(){
-     for(int i = 0; i < enemies.size(); i ++){
-       Enemy enemy = enemies.get(i);
-       enemy.hurt(true);
-     }
+  void attack() {
+    for (int i = 0; i < enemies.size(); i ++) {
+      Enemy enemy = enemies.get(i);
+      enemy.hurt(true);
+    }
   }
-  
-  void hurt(Enemy enemy){
-    if(armor > 0){
-      if(inHand.type.equals("block")){
+
+  void hurt(Enemy enemy) {
+    if (armor > 0) {
+      if (inHand.type.equals("block")) {
         armor -= (int)(enemy.getDamage() * 0.25);
         hp -= (int)(enemy.getDamage() * 0.25);
-      }else{
+      } else {
         armor -= (int)(enemy.getDamage() * 0.75);
         hp -= (int)(enemy.getDamage() * 0.25);
       }
-    }else{
+    } else {
       hp -= enemy.getDamage();
     }
     hurt = true;
   }
-  
-  void heal(){
-    if(inHand.name.equals("potionH")){
+
+  void heal() {
+    if (inHand.name.equals("potionH")) {
       hp += inHand.getHeal();
     }
-    if(inHand.name.equals("potionA")){
+    if (inHand.name.equals("potionA")) {
       armor += inHand.getHeal();
     }
     inv.remove(inHand);
     currentSlot --;
     switchSlot();
   }
-  
-  void shoot(){
+
+  void shoot() {
     Arrow arrow = new Arrow(xCor, yCor);
     arrow.addConstrainX(rooms[currentRoomRow][currentRoomCol].getX() + 32, rooms[currentRoomRow][currentRoomCol].getX() + current.getWidth() - 32);
     arrow.addConstrainY(rooms[currentRoomRow][currentRoomCol].getY() + 32, rooms[currentRoomRow][currentRoomCol].getY() + current.getLength() - 32);
@@ -192,11 +201,10 @@ class Player extends Entity{
     canShootCounter = 0;
     shoot = false;
   }
-  
-  void useKey(){
-    for(Door door:current.doors){
-      if(dist(xCor,yCor,door.x,door.y) < 60 && door.isLocked){
-        numDoors ++;
+
+  void useKey() {
+    for (Door door : current.doors) {
+      if (dist(xCor, yCor, door.x, door.y) < 60 && door.isLocked) {
         door.isLocked= false;
         inv.remove(inHand);
         currentSlot --;
@@ -204,125 +212,125 @@ class Player extends Entity{
       }
     }
   }
-  
-  void block(){
-    for(int i = 0; i < enemies.size(); i ++){
-       Enemy enemy = enemies.get(i);
-       enemy.hurt(enemy.hp - damage > 0);
-     }
+
+  void block() {
+    for (int i = 0; i < enemies.size(); i ++) {
+      Enemy enemy = enemies.get(i);
+      enemy.hurt(enemy.hp - damage > 0);
+    }
   }
-  
-  void followDisplay(Animation anim){
+
+  void followDisplay(Animation anim) {
     oldX = mouseX;
     oldY = mouseY;
     rotation = atan2(oldY - this.yCor, oldX - this.xCor);
     pushMatrix();
     translate(xCor, yCor);
-    if(rotation < -(PI/2) || rotation >= (PI/2)){
+    if (rotation < -(PI/2) || rotation >= (PI/2)) {
       rotate((rotation + PI) % (2 * PI));
-    }else{
+    } else {
       rotate(rotation);
     }
-    anim.display(0,-25);
+    anim.display(0, -25);
     popMatrix();
   }
-  
-  void followDisplay(PImage anim){
+
+  void followDisplay(PImage anim) {
     oldX = mouseX;
     oldY = mouseY;
     rotation = atan2(oldY - this.yCor, oldX - this.xCor);
     pushMatrix();
     translate(xCor, yCor);
-    if(rotation < -(PI/2) || rotation >= (PI/2)){
+    if (rotation < -(PI/2) || rotation >= (PI/2)) {
       rotate((rotation + PI) % (2 * PI));
-    }else{
+    } else {
       rotate(rotation);
     }
     imageMode(CENTER);
-    image(anim, 0,-25);
+    image(anim, 0, -25);
     popMatrix();
   }
-//======================================================================================
-  
-  void display(){
+
+  //======================================================================================
+
+  void display() {
     die();
-    if(die){
+    if (die) {
       fill(50);
-      rect(xCor, yCor, 30,30);
+      rect(xCor, yCor, 30, 30);
       attack = false;
       return ;
     }
     textAlign(LEFT);
     textSize(24);
-    fill(225,0,0);
+    fill(225, 0, 0);
     text("HEALTH", 10, 24);
-    fill(0,0,255);
-    text("ARMOR",10,75);
+    fill(0, 0, 255);
+    text("ARMOR", 10, 75);
     rectMode(CORNER);
-    fill(225,0,0);
-    rect(10,24,hp * 2,30);
-    fill(0,0,255);
-    if(armor > 0){
-      rect(10,75,armor * 2,30);
+    fill(225, 0, 0);
+    rect(10, 24, hp * 2, 30);
+    fill(0, 0, 255);
+    if (armor > 0) {
+      rect(10, 75, armor * 2, 30);
     } 
     fill(50);
     rect(10, height - 50, 40, 40, 7);
     inHand.display();
     imageMode(CENTER);
-    if(swit){
-       if(next){
-         currentSlot ++;
-         currentSlot = currentSlot % inv.size();
+    if (swit) {
+      if (next) {
+        currentSlot ++;
+        currentSlot = currentSlot % inv.size();
+      }
+      if (prev) {
+        currentSlot --;
+        if (currentSlot < 0) {
+          currentSlot = inv.size() - 1;
         }
-        if(prev){
-          currentSlot --;
-          if(currentSlot < 0){
-            currentSlot = inv.size() - 1;
-           }
-        }
-        switchSlot();
+      }
+      switchSlot();
     }
-    if(use){
-      if(inHand.type.equals("shooting")){
+    if (use) {
+      if (inHand.type.equals("shooting")) {
         oldX = mouseX;
         oldY = mouseY;
         rotation = atan2(oldY - this.yCor, oldX - this.xCor);
-        if(wasRight){
-          image(legR,xCor, yCor);
+        if (wasRight) {
+          image(legR, xCor, yCor);
         }
-        if(wasLeft){
-          image(legL,xCor, yCor);
+        if (wasLeft) {
+          image(legL, xCor, yCor);
         }
-        if(rotation >= -(PI/2) && rotation < (PI/2)){
+        if (rotation >= -(PI/2) && rotation < (PI/2)) {
           followDisplay(useright);
-        }else if(rotation < -(PI/2) || rotation >= (PI/2)){
+        } else if (rotation < -(PI/2) || rotation >= (PI/2)) {
           followDisplay(useleft);
         }
-        
-      }else{
-        if(wasLeft){
+      } else {
+        if (wasLeft) {
           useleft.display(xCor, yCor);
         }
-        if(wasRight) {
+        if (wasRight) {
           useright.display(xCor, yCor);
         }
       }
-      if(attack){
-          attack();
-        }
-      if(heal){
+      if (attack) {
+        attack();
+      }
+      if (heal) {
         heal();
       }
-      if(block){
-          block();
-        }
+      if (block) {
+        block();
+      }
       if (shoot) {
         shoot();
       }
       useFrames += 1;
-      if(useFrames >= 8){
+      if (useFrames >= 8) {
         useFrames = 0;
-        if(useKey){
+        if (useKey) {
           useKey();
         }
         use = false;
@@ -336,140 +344,140 @@ class Player extends Entity{
       if(grab){
         grab(current.roomitems);
       }
-      if(isLeft){
+      if (isLeft) {
         animlegL.display(xCor, yCor);
-        if(inHand.type.equals("shooting")){
-           oldX = mouseX;
-           oldY = mouseY;
-           rotation = atan2(oldY - this.yCor, oldX - this.xCor);
-           if(rotation >= -(PI/2) && rotation < (PI/2)){
-              followDisplay(animRight);
-            }else if(rotation < -(PI/2) || rotation >= (PI/2)){
-              followDisplay(animLeft);
-            }
-        }else{
+        if (inHand.type.equals("shooting")) {
+          oldX = mouseX;
+          oldY = mouseY;
+          rotation = atan2(oldY - this.yCor, oldX - this.xCor);
+          if (rotation >= -(PI/2) && rotation < (PI/2)) {
+            followDisplay(animRight);
+          } else if (rotation < -(PI/2) || rotation >= (PI/2)) {
+            followDisplay(animLeft);
+          }
+        } else {
           animLeft.display(xCor, yCor);
         }
-        
+
         return ;
       }
-      if(isRight){
+      if (isRight) {
         animlegR.display(xCor, yCor);
-        if(inHand.type.equals("shooting")){
-           oldX = mouseX;
-           oldY = mouseY;
-           rotation = atan2(oldY - this.yCor, oldX - this.xCor);
-           if(rotation >= -(PI/2) && rotation < (PI/2)){
-              followDisplay(animRight);
-            }else{
-              followDisplay(animLeft);
-            }
-        }else{
+        if (inHand.type.equals("shooting")) {
+          oldX = mouseX;
+          oldY = mouseY;
+          rotation = atan2(oldY - this.yCor, oldX - this.xCor);
+          if (rotation >= -(PI/2) && rotation < (PI/2)) {
+            followDisplay(animRight);
+          } else {
+            followDisplay(animLeft);
+          }
+        } else {
           animRight.display(xCor, yCor);
         }
         return ;
       }
-      if(isUp) {
-        if(wasLeft){
+      if (isUp) {
+        if (wasLeft) {
           animlegL.display(xCor, yCor);  
-          if(inHand.type.equals("shooting")){
-           oldX = mouseX;
-           oldY = mouseY;
-           rotation = atan2(oldY - this.yCor, oldX - this.xCor);
-             if(rotation >= -(PI/2) && rotation < (PI/2)){
+          if (inHand.type.equals("shooting")) {
+            oldX = mouseX;
+            oldY = mouseY;
+            rotation = atan2(oldY - this.yCor, oldX - this.xCor);
+            if (rotation >= -(PI/2) && rotation < (PI/2)) {
               followDisplay(animRight);
-            }else if(rotation < -(PI/2) || rotation >= (PI/2)){
+            } else if (rotation < -(PI/2) || rotation >= (PI/2)) {
               followDisplay(animLeft);
             }
-          }else{
+          } else {
             animLeft.display(xCor, yCor);
           }
           return ;
         }
-        if (wasRight){
+        if (wasRight) {
           animlegR.display(xCor, yCor);
-          if(inHand.type.equals("shooting")){
-           oldX = mouseX;
-           oldY = mouseY;
-           rotation = atan2(oldY - this.yCor, oldX - this.xCor);
-           if(rotation >= -(PI/2) && rotation < (PI/2)){
+          if (inHand.type.equals("shooting")) {
+            oldX = mouseX;
+            oldY = mouseY;
+            rotation = atan2(oldY - this.yCor, oldX - this.xCor);
+            if (rotation >= -(PI/2) && rotation < (PI/2)) {
               followDisplay(animRight);
-            }else if(rotation < -(PI/2) || rotation >= (PI/2)){
+            } else if (rotation < -(PI/2) || rotation >= (PI/2)) {
               followDisplay(animLeft);
             }
-          }else{
+          } else {
             animRight.display(xCor, yCor);
           }
           return ;
         }
       }
-      if(isDown) {
-        if(wasLeft){
+      if (isDown) {
+        if (wasLeft) {
           animlegL.display(xCor, yCor);
-          if(inHand.type.equals("shooting")){
-           oldX = mouseX;
-           oldY = mouseY;
-           rotation = atan2(oldY - this.yCor, oldX - this.xCor);
-            if(rotation >= -(PI/2) && rotation < (PI/2)){
+          if (inHand.type.equals("shooting")) {
+            oldX = mouseX;
+            oldY = mouseY;
+            rotation = atan2(oldY - this.yCor, oldX - this.xCor);
+            if (rotation >= -(PI/2) && rotation < (PI/2)) {
               followDisplay(animRight);
-            }else if(rotation < -(PI/2) || rotation >= (PI/2)){
+            } else if (rotation < -(PI/2) || rotation >= (PI/2)) {
               followDisplay(animLeft);
             }
-          }else{
+          } else {
             animLeft.display(xCor, yCor);
           }
           return ;
         }
-        if (wasRight){
+        if (wasRight) {
           animlegR.display(xCor, yCor);
-          if(inHand.type.equals("shooting")){
-           oldX = mouseX;
-           oldY = mouseY;
-           rotation = atan2(oldY - this.yCor, oldX - this.xCor);
-           if(rotation >= -(PI/2) && rotation < (PI/2)){
+          if (inHand.type.equals("shooting")) {
+            oldX = mouseX;
+            oldY = mouseY;
+            rotation = atan2(oldY - this.yCor, oldX - this.xCor);
+            if (rotation >= -(PI/2) && rotation < (PI/2)) {
               followDisplay(animRight);
-            }else if(rotation < -(PI/2) || rotation >= (PI/2)){
+            } else if (rotation < -(PI/2) || rotation >= (PI/2)) {
               followDisplay(animLeft);
             }
-          }else{
+          } else {
             animRight.display(xCor, yCor);
           }
           return ;
         }
       }
-      if(!isDown && !isUp && !isRight && !isLeft){
-        if(wasLeft){
+      if (!isDown && !isUp && !isRight && !isLeft) {
+        if (wasLeft) {
           image(legL, xCor, yCor);
-          if(inHand.type.equals("shooting")){
-             oldX = mouseX;
-             oldY = mouseY;
-             rotation = atan2(oldY - this.yCor, oldX - this.xCor);
-             if(rotation >= -(PI/2) && rotation < (PI/2)){
-                followDisplay(right);
-              }else if(rotation < -(PI/2) || rotation >= (PI/2)){
-                followDisplay(left);
-              }
-          }else{
-            image(left, xCor, yCor);
-          }
-          
-          return ;
-        }
-        if (wasRight){
-          image(legR, xCor, yCor);
-          if(inHand.type.equals("shooting")){
-           oldX = mouseX;
-           oldY = mouseY;
-           rotation = atan2(oldY - this.yCor, oldX - this.xCor);
-             if(rotation >= -(PI/2) && rotation < (PI/2)){
+          if (inHand.type.equals("shooting")) {
+            oldX = mouseX;
+            oldY = mouseY;
+            rotation = atan2(oldY - this.yCor, oldX - this.xCor);
+            if (rotation >= -(PI/2) && rotation < (PI/2)) {
               followDisplay(right);
-            }else if(rotation < -(PI/2) || rotation >= (PI/2)){
+            } else if (rotation < -(PI/2) || rotation >= (PI/2)) {
               followDisplay(left);
             }
-          }else{
+          } else {
+            image(left, xCor, yCor);
+          }
+
+          return ;
+        }
+        if (wasRight) {
+          image(legR, xCor, yCor);
+          if (inHand.type.equals("shooting")) {
+            oldX = mouseX;
+            oldY = mouseY;
+            rotation = atan2(oldY - this.yCor, oldX - this.xCor);
+            if (rotation >= -(PI/2) && rotation < (PI/2)) {
+              followDisplay(right);
+            } else if (rotation < -(PI/2) || rotation >= (PI/2)) {
+              followDisplay(left);
+            }
+          } else {
             image(right, xCor, yCor);
           }
-          
+
           return ;
         }
       }
@@ -477,48 +485,47 @@ class Player extends Entity{
       image(right, xCor, yCor);
     }
   }
-  
-  
+
+
   boolean setMove(int k, boolean b) {
     switch (k) {
-      case + 'W':
-      case 'w':
-        return isUp = b;
-      case + 'S':  
-      case 's':
-        return isDown = b;
-      case + 'A':  
-      case 'a':
-        wasLeft = true;
-        wasRight = false;
-        return isLeft = b;
-      case + 'D':  
-      case 'd':
-        wasLeft = false;
-        wasRight = true;
-        return isRight = b;
-      case + 'E':
-      case + 'e':
-        useDoor = b;
-        return grab = b;
-      default:
-        return b;
-      }
+    case + 'W':
+    case 'w':
+      return isUp = b;
+    case + 'S':  
+    case 's':
+      return isDown = b;
+    case + 'A':  
+    case 'a':
+      wasLeft = true;
+      wasRight = false;
+      return isLeft = b;
+    case + 'D':  
+    case 'd':
+      wasLeft = false;
+      wasRight = true;
+      return isRight = b;
+    case + 'E':
+    case + 'e':
+      useDoor = b;
+      return grab = b;
+    default:
+      return b;
+    }
   }
-  
 
-  
-  
-  String stringInv(){
+
+
+
+  String stringInv() {
     String ans = "";
-    for (int i = 0; i < inv.size(); i++){
+    for (int i = 0; i < inv.size(); i++) {
       Item item = inv.get(i);
       ans += item.getName();
-      if(i != inv.size() - 1){
+      if (i != inv.size() - 1) {
         ans += ", ";
       }
     }
     return ans;
   }
-  
 }

@@ -1,4 +1,4 @@
-import java.util.*;
+import java.util.*; //<>// //<>// //<>// //<>//
 import java.io.*;
 
 Player person;
@@ -7,10 +7,10 @@ Map map;
 int currentRoomRow, currentRoomCol;
 int currentState = 0;
 Room[][] rooms;
-Room current; //<>//
-int roomNum = 1; //<>//
-//String str; //<>//
-Screen screen; //<>//
+Room current; //<>// //<>//
+int roomNum = 1; //<>// //<>//
+//String str; //<>// //<>//
+Screen screen; //<>// //<>//
 int obj;
 
 
@@ -18,7 +18,7 @@ int obj;
 void setup() {
   size(1500, 1000);
   createEnemies();
- if(roomNum == 1){
+  if (roomNum == 1) {
     person = new Player("bob", "knight", 750, 500);
     map = new Map(100, 100);
     currentRoomRow = map.getStartRow();
@@ -63,22 +63,39 @@ void draw() {
   if (person.isDead()) {
     currentState = 2;
   }
-  
+  if (currentState == 3) screen.shopScreen();
+  if (currentState == 4) screen.instructionScreen();
+  if (currentState == 5) screen.winScreen();
+  if (currentState == 6) screen.inventory();
+  if (person.isDead()) currentState = 2;
 }
-
-
-
-
 
 
 void keyReleased() {
-  current.setMove(keyCode, false); 
-  person.setMove(keyCode, false);
+  if (currentState == 1) {
+    current.setMove(keyCode, false); 
+    person.setMove(keyCode, false);
+  }
 }
 
 void keyPressed() {
-  current.setMove(keyCode, true); 
-  person.setMove(keyCode, true);
+  if (currentState == 0) {
+    if (key == 'i' || key == 'I') currentState = 4;
+  } else if (currentState == 1) {
+    current.setMove(keyCode, true); 
+    person.setMove(keyCode, true);
+    if (key == 'q' || key == 'Q') currentState = 3;
+    if (key == 'c' || key == 'C') currentState = 6;
+  } else if (currentState == 3) {
+    screen.setInput(keyCode);
+    if (key == 'q' || key == 'Q') currentState = 1;
+  } else if (currentState == 4) {
+    if (key == 'i' || key == 'I') currentState = 0;
+  } else if (currentState == 5) {
+    if (key == 'y' || key == 'Y') currentState = 0;
+  } else if (currentState  == 6){
+    if (key == 'c' || key == 'C') currentState = 1;
+  }
 }
 
 void mousePressed() {
@@ -91,24 +108,22 @@ void mousePressed() {
     roomNum = 1;
     setup();
   }
-  if(person.inHand.getType().equals("melee")){
+  if (person.inHand.getType().equals("melee")) {
     person.setAttack();
   }
-  if(person.inHand.getType().equals("shooting")){
+  if (person.inHand.getType().equals("shooting")) {
     person.setShoot();
   }
-  if(person.inHand.getType().equals("heal")){
+  if (person.inHand.getType().equals("heal")) {
     person.setHeal();
   }
-  if(person.inHand.getType().equals("block")){
+  if (person.inHand.getType().equals("block")) {
     person.setBlock();
   }
-  if(person.inHand.getType().equals("key")){
+  if (person.inHand.getType().equals("key")) {
     person.setUseKey();
   }
 }
-
-
 
 
 

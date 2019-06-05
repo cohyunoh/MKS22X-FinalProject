@@ -6,7 +6,7 @@ class Item {
   Animation anim;
   int imageCount;
   int id;
-  int damage,heal;
+  int damage, heal;
 
   Item(int idNum, float xCor, float yCor) {
     String[] itemList = loadStrings("itemlist.txt");
@@ -23,11 +23,11 @@ class Item {
     if (type.equals("melee") || type.equals("block")) {
       damage = Integer.parseInt(itemInfo[5]);
     }
-    if(type.equals("heal")){
-      if(name.equals("potionH")){
+    if (type.equals("heal")) {
+      if (name.equals("potionH")) {
         heal = Integer.parseInt(itemInfo[6]);
       }
-      if(name.equals("potionA")){
+      if (name.equals("potionA")) {
         heal = Integer.parseInt(itemInfo[7]);
       }
     }
@@ -36,13 +36,13 @@ class Item {
   int getDamage() {
     return damage;
   }
-  
+
   int getHeal() {
     return heal;
   }
 
   void display() {
-    if(display) anim.display(xCor-anim.getWidth()/2, yCor - anim.getHeight()/2);
+    if (display) anim.display(xCor-anim.getWidth()/2, yCor - anim.getHeight()/2);
   }
 
 
@@ -81,7 +81,7 @@ class Item {
     return yCor;
   }
 
-  void show(){
+  void show() {
     display = !display;
   }
 

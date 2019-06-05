@@ -1,5 +1,3 @@
-
-
 class Enemy extends Entity {
   boolean chase, isLeft, isRight, isUp, isDown, wasLeft, wasRight, attack, die, hasKey;
   int vel = 5, attackDam, num;
@@ -13,8 +11,8 @@ class Enemy extends Entity {
   }
 
 
-  void drop(){
-    for(int i = 0; i < inv.size(); i++){
+  void drop() {
+    for (int i = 0; i < inv.size(); i++) {
       Item item = inv.get(i);
       item.setX(xCor + (float)Math.random() * 8);
       item.setY(yCor + (float)Math.random() * 8);
@@ -28,7 +26,7 @@ class Enemy extends Entity {
     return attackDam;
   }
 
-  void addItem(Item item){
+  void addItem(Item item) {
     inv.add(item);
   }
 
@@ -37,9 +35,9 @@ class Enemy extends Entity {
       person.hurt(this);
     }
   }
-  
 
-  void attack(){
+
+  void attack() {
     attack = true;
   }
 
@@ -61,17 +59,17 @@ class Enemy extends Entity {
         fill(225, 0, 0);
         attack(person);
         attack = false;
-      }else if(hasKey){
-        fill(0,225,0);
-      }else {
+      } else if (hasKey) {
+        fill(0, 225, 0);
+      } else {
         fill(0, 225, 225);
       }
-      
+
       rectMode(CENTER);
       rect(xCor, yCor, 50, 50);
       fill(255);
       textSize(20);
-      text(num,xCor, yCor);
+      text(num, xCor, yCor);
     }
   }
 
@@ -143,23 +141,23 @@ class Enemy extends Entity {
 
   void hurt(boolean hurt) {
     float bounce = 10;
-    if(dist(person.getX(), person.getY(),xCor, yCor) < 100){
-      if(hurt){
+    if (dist(person.getX(), person.getY(), xCor, yCor) < 100) {
+      if (hurt) {
         hp -= person.getDamage();
         fill(0);
       }
-      if(person.block){
+      if (person.block) {
         bounce = 50;
       }
       if (person.getX() > xCor && person.wasLeft) {
-        xCor = constrain(xCor - bounce,lowX,highX);
-      } else if(person.getX() <= xCor && person.isRight) {
-        xCor = constrain(xCor + bounce,lowX,highX);
+        xCor = constrain(xCor - bounce, lowX, highX);
+      } else if (person.getX() <= xCor && person.isRight) {
+        xCor = constrain(xCor + bounce, lowX, highX);
       }
       if (person.getY() > yCor && person.wasLeft) {
-        xCor = constrain(xCor - bounce,lowX,highX);
+        xCor = constrain(xCor - bounce, lowX, highX);
       } else {
-        xCor = constrain(xCor + bounce,lowX,highX);
+        xCor = constrain(xCor + bounce, lowX, highX);
       }
     }
   }
