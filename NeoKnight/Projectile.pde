@@ -27,7 +27,8 @@ class Arrow {
       arrow.display(0, 0);
     } else {
       imageMode(CENTER);
-      image(stationary, 0, 0);
+      image(stationary,0,0);
+      current.roomarrows.remove(this);
     }
     popMatrix();
     attack();
@@ -83,7 +84,7 @@ class Arrow {
         enemy.hp -= 10;
         enemy.xCor += 30 * int(x < enemy.getX()) - int(x > enemy.getX()) ; 
         enemy.yCor += 30 * int(y < enemy.getY()) - int(y > enemy.getY()) ; 
-        arrows.remove(this);
+        current.roomarrows.remove(this);
       }
     }
   }

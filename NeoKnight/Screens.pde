@@ -104,13 +104,36 @@ class Screen {
   }
 
   //this prints out the current room 
-  void gameScreen(Room room, Player person) {
-    room.update();
-    update();
-    room.move();
 
+  void gameScreen(Room room, Player person){
+    room.move();
     room.display();
+    
     person.display();
+    fill(0, 0, 255);
+    textSize(20);
+    textAlign(LEFT);
+    text("Enemies Left: " + countAlive(), 10, 500);
+      if(obj == 1){
+      text("Objective: Kill 1000 Enemies", 10, 130);
+      text(person.numEnemies + " / 1000 Enemies", 10, 160);
+    }
+    if(obj == 2){
+      text("Objective: Unlock 500 Doors", 10, 130);
+      text(person.numDoors + " / 500 Doors", 10, 160);
+    }
+    if(obj == 3){
+      text("Objective: Go To 500 Rooms", 10, 130);
+      text(roomNum + " / 500 Rooms", 10, 160);
+    }
+    
+    if(obj == 4){
+      text("Objective: PLAY", 10, 130);
+      text("Rooms Searched:" + roomNum, 10, 160);
+      text("Enemies Killed:" + person.numEnemies, 10, 190);
+      text("Doors Unlocked:" + person.numDoors, 10, 210);
+    }
+    /*
     fill(255);
     textSize(20);
     textAlign(LEFT);
@@ -129,6 +152,7 @@ class Screen {
     text("lowy : " + current.lowY, 0, 830);
     text("highy : " + current.highY, 0, 860);
     text("rotation : " + person.rotation, 0, 890);
+    */
   }
 
   //displaying shop

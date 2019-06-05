@@ -3,27 +3,24 @@ import java.io.*;
 
 Player person;
 ArrayList<Enemy> enemies;
-ArrayList<Arrow> arrows;
-ArrayList<Item> items;
 Map map;
 int currentRoomRow, currentRoomCol;
 int currentState = 0;
 Room[][] rooms;
-Room current;
-int roomNum = 1;
-//String str;
-Screen screen;
+Room current; //<>// //<>//
+int roomNum = 1; //<>// //<>//
+//String str; //<>// //<>//
+Screen screen; //<>// //<>//
+int obj;
 
 
 
 void setup() {
   size(1500, 1000);
   createEnemies();
-  arrows = new ArrayList<Arrow>();
-  items = new ArrayList<Item>();
   if (roomNum == 1) {
     person = new Player("bob", "knight", 750, 500);
-    map = new Map(15, 15);
+    map = new Map(100, 100);
     currentRoomRow = map.getStartRow();
     currentRoomCol = map.getStartCol();
     current = rooms[currentRoomRow][currentRoomCol];
@@ -33,14 +30,39 @@ void setup() {
   frameRate(10);
   current.addEnemies();
   current.addKeys();
+  obj = (int)abs((float)Math.random() * 4) + 1;
 }
 
 
 void draw() {
   background(0);
   if (currentState == 0) screen.startScreen();
-  if (currentState == 1) screen.gameScreen(current, person);
+  if (currentState == 1){
+    
+    screen.gameScreen(current, person);
+    displayEnemies();
+  }
   if (currentState == 2) screen.deathScreen();
+  if(obj == 1){
+    if(person.numEnemies == 5){
+      currentState = 5;
+    }
+  }
+  
+  if(obj == 2){
+    if(person.numDoors == 5){
+      currentState = 5;
+    }
+  }
+  
+  if(obj == 3){
+    if(roomNum == 5){
+      currentState = 5;
+    }
+  }
+  if (person.isDead()) {
+    currentState = 2;
+  }
   if (currentState == 3) screen.shopScreen();
   if (currentState == 4) screen.instructionScreen();
   if (currentState == 5) screen.winScreen();
@@ -82,7 +104,10 @@ void keyPressed() {
 }
 
 void mousePressed() {
-  if (currentState == 0) currentState = 1;
+  if (currentState == 0) {
+    currentState = 1;
+    
+  }
   if (currentState == 2) {
     currentState = 0;
     roomNum = 1;
@@ -106,22 +131,58 @@ void mousePressed() {
 }
 
 
-void update() {
-  items = current.getItems();
-  enemies = current.getEnemies();
-}
-
 
 void mouseWheel(MouseEvent event) {
   float e = event.getCount();
   person.switchItem(e);
 }
 
+int countAlive(){
+  int ans = 0;
+  for (int i = 0; i < enemies.size(); i++) {
+    Enemy enemy = enemies.get(i);
+    if(!enemy.die){
+      ans ++;
+    }
+  }
+  return ans;
+}
+
+void displayEnemies(){
+    for (int i = 0; i < current.roomenemies.size(); i++) {
+      Enemy enemy = current.roomenemies.get(i);
+      enemy.setMove();
+      if (dist(person.getX(), person.getY(), enemy.getX(), enemy.getY()) < 50) {
+        enemy.attack();
+        if (person.isHurt()) {
+          float newX = 0;
+          float newY = 0;
+          if (enemy.getX() > current.x) {
+            newX = constrain(current.x + 30, -1 * abs(750 - ((current.cols) * 32)) + person.getWidth() / 2, 750 - person.getWidth() / 2);
+          } else {
+            newX = constrain(current.x - 30, -1 * abs(750 - ((current.cols) * 32)) + person.getWidth() / 2, 750 - person.getWidth() / 2);
+          }
+          if (enemy.getY() > current.y) {
+            newY = constrain(current.y + 30, -1 * abs(500 - ((current.rows) * 32)) + person.getHeight() / 2, 500 - person.getHeight() / 2);
+          } else {
+            newY = constrain(current.y - 30, -1 * abs(500 - ((current.rows) * 32)) + person.getHeight() / 2, 500 - person.getHeight() / 2);
+          }
+
+          current.moveAll(newX, newY, current.x, current.y);
+          current.x = newX;
+          current.y = newY;
+          person.notHurt();
+        }
+      }
+      enemy.display();
+    }
+  }
+
 void createEnemies() {
   enemies = new ArrayList<Enemy>();
   int numEnemies = (int)(Math.random() * (5 + roomNum)) + 5;
   for (int i = 0; i < numEnemies; i++) {
-    Enemy gorlag = new Enemy(0, 0, (int)(Math.random() * 15) + 5);
+    Enemy gorlag = new Mercenary(0, 0);
     gorlag.num = roomNum;
     enemies.add(gorlag);
   }

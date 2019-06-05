@@ -1,17 +1,19 @@
-class Player extends Entity {
-
-  //INSTANCE VARIABLES=========================================================================================
-  boolean isLeft, isRight, isUp, isDown, wasLeft, wasRight, grab, next, prev, swit, attack, die, hurt, shoot, useKey, use, block, heal, useDoor, openShop;
-  int w, l, currentSlot, damage, useFrames, amountOfArrows;
+class Player extends Entity{
+  
+//INSTANCE VARIABLES=========================================================================================
+  boolean isLeft, isRight, isUp, isDown, wasLeft, wasRight, grab, next, prev, swit, attack, die, hurt, shoot, useKey, use, block, heal, useDoor, hasSword, hasBow, hasShield;
+  int w,l,currentSlot, damage, useFrames, amountOfArrows;
   ArrayList<Item> inv;
   Animation useleft, useright;
   boolean canShoot = true;
-  float canShootCounter, oldX, oldY, rotation;
-  //===========================================================================================================  
+  float canShootCounter, oldX, oldY,rotation;
+  int numDoors = 0;
+  int numEnemies = 0;
+//===========================================================================================================  
 
-  //Constructors===============================================================================================
-  Player(String startname, String type, float xCor, float yCor) {
-    super(startname, 100, 100, 1.00, type, xCor, yCor);
+//Constructors===============================================================================================
+  Player(String startname, String type, float xCor, float yCor){
+    super(startname, 200, 100, 1.00, type, xCor, yCor);
     w = animLeft.getWidth();
     l = animLeft.getHeight();
     inv = new ArrayList<Item>();
@@ -108,6 +110,15 @@ class Player extends Entity {
     for (int i = 0; i < items.size(); i ++) {
       Item item = items.get(i);
       if (dist(item.getX(), item.getY(), xCor, yCor) <= 50) {
+        if(item.name.equals("sword")){
+          hasSword = true;
+        }
+        if(item.name.equals("shield")){
+          hasShield = true;
+        }
+        if(item.name.equals("bow")){
+          hasBow = true;
+        }
         item.setX(46);
         item.setY(height - 14);        
         inv.add(item);
@@ -171,6 +182,9 @@ class Player extends Entity {
     if (inHand.name.equals("potionA")) {
       armor += inHand.getHeal();
     }
+    inv.remove(inHand);
+    currentSlot --;
+    switchSlot();
   }
 
   void shoot() {
@@ -181,7 +195,7 @@ class Player extends Entity {
     pushMatrix();
     translate(arrow.x, arrow.y);
     rotate(rotation);
-    arrows.add(arrow);
+    current.roomarrows.add(arrow);
     popMatrix();
     canShoot = false;
     canShootCounter = 0;
@@ -264,8 +278,6 @@ class Player extends Entity {
     rect(10, height - 50, 40, 40, 7);
     inHand.display();
     imageMode(CENTER);
-    if (openShop) currentState = 3;
-    if (!openShop) currentState = 1;
     if (swit) {
       if (next) {
         currentSlot ++;
@@ -328,9 +340,9 @@ class Player extends Entity {
         useKey = false;
         shoot = false;
       }
-    } else {
-      if (grab) {
-        grab(items);
+    }else{
+      if(grab){
+        grab(current.roomitems);
       }
       if (isLeft) {
         animlegL.display(xCor, yCor);

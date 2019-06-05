@@ -80,12 +80,11 @@ class Door {
         createEnemies();
         current.addEnemies();
         current.addKeys();
-        items = current.roomitems;
       } else {
         currentRoomRow = newRow;
         currentRoomCol = newCol;
         current = rooms[currentRoomRow][currentRoomCol];
-        items = current.roomitems;
+        enemies = current.roomenemies;
       }
       transport = false;
     }

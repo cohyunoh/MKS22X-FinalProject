@@ -10,7 +10,7 @@ class Room implements Moveable {
   int rows, cols, totaldoors;
   float x, y, lowX, lowY, highX, highY, w, l, newX, newY;
   int locked = 0;
-  int num;
+  int num, addHp = 0, addAp = 0, addShield = 0, addSword = 0, addBow = 0;
   PImage tile = loadImage("floor.png");
   PImage wall = loadImage("wall.png");  
   ArrayList<Item> roomitems;
@@ -26,15 +26,8 @@ class Room implements Moveable {
   public Room(int rows, int cols, float x, float y, int num) {
     doors = new ArrayList<Door>();
     roomenemies = new ArrayList<Enemy>();
-    roomitems = items;
-    roomarrows = arrows;
-    roomitems.add(new Item(1, 500, 500));
-    roomitems.add(new Item(2, 500, 500));
-    roomitems.add(new Item(3, 500, 500));
-    roomitems.add(new Item(4, 500, 500));
-    roomitems.add(new Item(5, 500, 500));
-    roomitems.add(new Item(6, 500, 500));
-    roomitems.add(new Item(7, 500, 500));
+    roomitems = new ArrayList<Item>();
+    roomarrows = new ArrayList<Arrow>();
     this.num = num;
     this.rows = rows;
     this.cols = cols;
@@ -53,12 +46,10 @@ class Room implements Moveable {
   }
 
   public Room(int rows, int cols, Door door, float x, float y, int num) {
-    items = new ArrayList<Item>();
+    roomitems = new ArrayList<Item>();
     doors = new ArrayList<Door>();
-    arrows = new ArrayList<Arrow>();
-    roomarrows = arrows;
+    roomarrows = new ArrayList<Arrow>();
     roomenemies = new ArrayList<Enemy>();
-    roomitems = items;
     this.num = num;
     this.rows = rows;
     this.cols = cols;
@@ -75,18 +66,76 @@ class Room implements Moveable {
     initRoom(door);
   }
 
-  //UPDATE METHODS================================================================
-
-  void update() {
-    roomitems = items;
-  }
-
-  void updateConstrains() {
+//================================================================
+  
+  
+  void updateConstrains(){
     lowX = -1 * ((cols - 1) * 32 - 750) + person.getWidth() / 6;
     lowY = -1 * ((rows - 1) * 32 - 500) + person.getHeight() / 4;
     highX = 750 - (x + 32) - person.getWidth() / 4;
     highY = 500 - (y + 32) - person.getHeight() / 4;
   }
+
+  void addKeys(){
+    for (int i = 0; i < locked; i++){
+      Enemy enemy = roomenemies.get(i);
+      Item keyy = new Item(5,0,0);
+      keyy.show();
+      enemy.addItem(keyy);
+      enemy.hasKey = true;
+    }
+  }
+  
+  void addSword(){
+    int enemyI = (int)abs((float)Math.random() * roomenemies.size());
+    if(!person.hasSword){
+      Enemy enemy = roomenemies.get(enemyI);
+      Item sword = new Item(1,0,0);
+      sword.show();
+      enemy.addItem(sword);
+    }
+  }
+  
+  void addBow(){
+    int enemyI = (int)abs((float)Math.random() * roomenemies.size());
+    if(person.hasBow){
+      Enemy enemy = roomenemies.get(enemyI);
+      Item bow = new Item(6,0,0);
+      bow.show();
+      enemy.addItem(bow);
+    }
+  }
+  
+  void addShield(){
+    int enemyI = (int)abs((float)Math.random() * roomenemies.size());
+    if(!person.hasShield){
+      Enemy enemy = roomenemies.get(enemyI);
+      Item shield = new Item(2,0,0);
+      shield.show();
+      enemy.addItem(shield);
+    }
+  }
+  
+  void addpotionH(){
+    for(int i = person.hp; i <= 200; i += 10){
+        int enemyI = (int)abs((float)Math.random() * roomenemies.size());
+        Enemy enemy = roomenemies.get(enemyI);
+        Item potionH = new Item(3,0,0);
+        potionH.show();
+        enemy.addItem(potionH);
+    }
+  }
+  
+  void addpotionA(){
+    for(int i = person.armor; i <= 100; i += 10){
+        int enemyI = (int)abs((float)Math.random() * roomenemies.size());
+        Enemy enemy = roomenemies.get(enemyI);
+        Item potionA = new Item(4,0,0);
+        potionA.show();
+        enemy.addItem(potionA);
+    }
+  }
+
 
   //ADD METHODS=====================================================
   void addEnemies() {
@@ -100,15 +149,6 @@ class Room implements Moveable {
     }
   }
 
-  void addKeys() {
-    for (int i = 0; i < locked; i++) {
-      Enemy enemy = roomenemies.get(i);
-      Item keyy = new Item(5, 0, 0);
-      keyy.show();
-      enemy.addItem(keyy);
-      enemy.hasKey = true;
-    }
-  }
   //=================================================================
 
   //Initialize Room methods==========================================
@@ -321,50 +361,20 @@ class Room implements Moveable {
   }
   // =================================================================
 
-  //DISPLAY METHODS =============================================================
-
-  void displayEnemies() {
-    for (int i = 0; i < roomenemies.size(); i++) {
-      Enemy enemy = roomenemies.get(i);
-      enemy.setMove(person);
-      if (dist(person.getX(), person.getY(), enemy.getX(), enemy.getY()) < 50) {
-        enemy.attack();
-        if (person.isHurt()) {
-          float newX = 0;
-          float newY = 0;
-          if (enemy.getX() > x) {
-            newX = constrain(x + 30, -1 * abs(750 - ((cols) * 32)) + person.getWidth() / 2, 750 - person.getWidth() / 2);
-          } else {
-            newX = constrain(x - 30, -1 * abs(750 - ((cols) * 32)) + person.getWidth() / 2, 750 - person.getWidth() / 2);
-          }
-          if (enemy.getY() > y) {
-            newY = constrain(y + 30, -1 * abs(500 - ((rows) * 32)) + person.getHeight() / 2, 500 - person.getHeight() / 2);
-          } else {
-            newY = constrain(y - 30, -1 * abs(500 - ((rows) * 32)) + person.getHeight() / 2, 500 - person.getHeight() / 2);
-          }
-
-          moveAll(newX, newY, x, y);
-          x = newX;
-          y = newY;
-
-          person.notHurt();
-        }
-      }
-      enemy.display();
-    }
-  }
-
-  void displayDoors() {
+  
+  
+  void displayDoors(){
     for (int i = 0; i < doors.size(); i++) {
       Door door =  doors.get(i);
       door.display();
     }
   }
 
-  void displayArrows() {
-    for (int i = 0; i < arrows.size(); i++) {
+  
+  void displayArrows(){
+    for (int i = 0; i < roomarrows.size(); i++) {
       //you need a seperate var to get the object from the bullets arraylist then use that variable to call the functions
-      Arrow arrow = arrows.get(i);
+      Arrow arrow = roomarrows.get(i);
       arrow.display();
     }
   }
@@ -377,6 +387,26 @@ class Room implements Moveable {
   }
 
   void display() {
+    if(num > 5 && addSword == 0){
+      addSword();
+      addSword ++;
+    }
+    if(num > 7 && addShield == 0){
+      addShield();
+      addShield ++;
+    }
+    if(num > 20 && addBow == 0){
+      addBow();
+      addBow++;
+    }
+    if(person.hp < 50 && addHp == 0){
+      addpotionH();
+      addHp++;
+    }
+    if(person.armor < 20 && addAp == 0){
+      addpotionA();
+      addAp++;
+    }
     if (run) {
       vel = 25;
     } else {
@@ -394,16 +424,13 @@ class Room implements Moveable {
         }
       }
     }
-    if (items != null) {
+    if (roomitems != null) {
       displayItems();
-    }
-    if (enemies != null) {
-      displayEnemies();
     }
     if (doors != null) {
       displayDoors();
     }
-    if (arrows != null) {
+    if(roomarrows != null){
       displayArrows();
     }
   }
@@ -442,9 +469,9 @@ class Room implements Moveable {
   void moveAll(float newX, float newY, float oldX, float oldY) {
     float moveX = newX - oldX;
     float moveY = newY - oldY;
-    if (items != null) {
-      for (int i = 0; i < items.size(); i++) {
-        Item item = items.get(i);
+    if (roomitems != null) {
+      for (int i = 0; i < roomitems.size(); i++) {
+        Item item = roomitems.get(i);
         if (oldX != newX) {
           item.setX(item.getX() + moveX);
         }
@@ -479,9 +506,9 @@ class Room implements Moveable {
         enemy.move();
       }
     }
-    if (arrows != null) {
-      for (int i = 0; i < arrows.size(); i++) {
-        Arrow arrow = arrows.get(i);
+     if(roomarrows != null){
+      for (int i = 0; i < roomarrows.size(); i++) {
+        Arrow arrow = roomarrows.get(i);
         if (oldX != newX) {
           arrow.changeConstX(moveX);
           arrow.changeX(moveX);
