@@ -87,7 +87,6 @@ class Player extends Entity{
 
 
   void switchSlot() {
-    inHand.display = false;
     inHand = inv.get(currentSlot);
     inHand.display = true;
     if (inHand.type.equals("melee") || inHand.type.equals("block")) {
@@ -139,7 +138,7 @@ class Player extends Entity{
           item.setX(46);
           item.setY(height - 14);        
           inv.add(item);
-          items.remove(i);
+          current.roomitems.remove(i);
         }
       }
     }
@@ -202,7 +201,11 @@ class Player extends Entity{
     }
     inv.remove(inHand);
     currentSlot --;
+    if(currentSlot < 0){
+      currentSlot = 0;
+    }
     switchSlot();
+    heal = false;
   }
 
   void shoot() {
@@ -235,6 +238,9 @@ class Player extends Entity{
         door.isLocked= false;
         inv.remove(inHand);
         currentSlot --;
+        if(currentSlot < 0){
+          currentSlot = 0;
+        }
         switchSlot();
       }
     }

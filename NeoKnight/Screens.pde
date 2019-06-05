@@ -118,6 +118,7 @@ class Screen {
     fill(0, 0, 255);
     textSize(20);
     textAlign(LEFT);
+     text("InvSixe: " + person.inv.size(), 10, 560);
     text("Arrows: " + person.amountOfArrows, 10, 530);
     text("Enemies Left: " + countAlive(), 10, 500);
       if(obj == 1){
