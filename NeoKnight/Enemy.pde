@@ -3,12 +3,12 @@ class Enemy extends Entity {
   int vel = 5, attackDam, num;
   float lowX, lowY, highX, highY;
   ArrayList<Item>inv;
-  Enemy(String type,float x, float y, int a) {
-    super("gorlag", 100, 0, 100.00 , type, x, y);
+  Enemy(String type, float x, float y, int a) {
+    super("gorlag", 100, 0, 100.00, type, x, y);
     attackDam = a;
     die = false;
     inv = new ArrayList<Item>();
-    Item coin = new Item(8,0,0);
+    Item coin = new Item(8, 0, 0);
     coin.display = true;
     inv.add(coin);
   }
@@ -174,7 +174,7 @@ class Enemy extends Entity {
   }
 }
 
-class Mercenary extends Enemy{
+class Mercenary extends Enemy {
   boolean isLeft, isRight, isUp, isDown, wasLeft, wasRight, stroll;
   int diecounter = 0;
   int attackCounter = 0;
@@ -184,89 +184,87 @@ class Mercenary extends Enemy{
   Animation death = new Animation("enemies/mercenary/death", 6);
   Animation attackLeft = new Animation("enemies/mercenary/attack-left", 5);
   Animation attackRight = new Animation("enemies/mercenary/attack-right", 5);
-  Mercenary(float x, float y){
-    super("mercenary",x,y,30);
+  Mercenary(float x, float y) {
+    super("mercenary", x, y, 30);
     hp = (int)abs((float)Math.random() * 50) + 100;
     money = abs((float)Math.random() * 1.00) + hp * 0.005 + attackDam * 0.05 + armor * 0.005;
-    Item coin = new Item(8,0,0);
+    Item coin = new Item(8, 0, 0);
     coin.addMoney(money);
     coin.display = false;
     inv.add(coin);
   }
-  
+
   void die() {
     if (hp <= 0) {
       drop();
-      if(diecounter == 0){
+      if (diecounter == 0) {
         person.numEnemies++;
       }
-      
+
       die =  true;
     }
   }
-  
+
   void display() {
     die();
-    if(die){
+    if (die) {
       PImage deathI = loadImage("enemies/mercenary/death5.png");
-      if(diecounter < 8){
-         death.display(xCor,yCor);
-         diecounter++;
-         return ;
+      if (diecounter < 8) {
+        death.display(xCor, yCor);
+        diecounter++;
+        return ;
       }
-      if(diecounter >= 8){
+      if (diecounter >= 8) {
         image(deathI, xCor, yCor);
       }
       attack = false;
       return;
-    }else{
-      if(attack){
-        if(wasRight){
+    } else {
+      if (attack) {
+        if (wasRight) {
           attackRight.display(xCor, yCor);
         }
-        if(wasLeft){
+        if (wasLeft) {
           attackLeft.display(xCor, yCor);
         }
         attackCounter++;
-        if(attackCounter >= 5){
+        if (attackCounter >= 5) {
           attack(person);
           attack = false;
         }
         return ;
       }
-      if(isRight){
+      if (isRight) {
         animRight.display(xCor, yCor);
         return ;
       }
-      if(isLeft){
+      if (isLeft) {
         animLeft.display(xCor, yCor);
         return ;
       }
-      if(isUp){
-        if(wasRight){
+      if (isUp) {
+        if (wasRight) {
           animRight.display(xCor, yCor);
           return ;
         }
-        if(wasLeft){
+        if (wasLeft) {
           animLeft.display(xCor, yCor);
           return ;
         }
       }
-      if(isDown){
-        if(wasRight){
+      if (isDown) {
+        if (wasRight) {
           animRight.display(xCor, yCor);
           return ;
         }
-        if(wasLeft){
+        if (wasLeft) {
           animLeft.display(xCor, yCor);
           return ;
         }
       }
     }
-    
-    
   }
-  
+
   void setMove() {
     if (dist(person.getX(), person.getY(), xCor, yCor) < 300 && person.getHealth() > 0) {
       chase = true;
@@ -298,37 +296,37 @@ class Mercenary extends Enemy{
       chase = false;
       stroll = true;
     }
-    if(stroll){
-      if(strollcounter >= 10){
+    if (stroll) {
+      if (strollcounter >= 10) {
         stroll();
         strollcounter = 0;
-      }else{
+      } else {
         strollcounter ++;
       }
     }
   }
-  
-  void stroll(){
-    if(abs((float)Math.random()) > 0.5){
+
+  void stroll() {
+    if (abs((float)Math.random()) > 0.5) {
       isLeft = true;
       wasLeft = true;
       isRight = false;
       wasRight = false;
-    }else{
+    } else {
       isLeft = false;
       wasLeft = false;
       isRight = true;
       wasRight = true;
     }
-    if(abs((float)Math.random()) > 0.5){
+    if (abs((float)Math.random()) > 0.5) {
       isUp = true;
       isDown = false;
-    }else{
-     isUp = false;
-     isDown = true;
+    } else {
+      isUp = false;
+      isDown = true;
     }
   }
-  
+
   void move() {
     if (die || attack) {
       return ;
@@ -336,6 +334,4 @@ class Mercenary extends Enemy{
     xCor = constrain(xCor + vel *(int(isRight) - int(isLeft)), lowX, highX) ;
     yCor = constrain(yCor + vel *(int(isDown)  - int(isUp)), lowY, highY);
   }
-  
-  
 }

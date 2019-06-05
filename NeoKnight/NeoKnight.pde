@@ -37,26 +37,26 @@ void setup() {
 void draw() {
   background(0);
   if (currentState == 0) screen.startScreen();
-  if (currentState == 1){
-    
+  if (currentState == 1) {
+
     screen.gameScreen(current, person);
     displayEnemies();
   }
   if (currentState == 2) screen.deathScreen();
-  if(obj == 1){
-    if(person.numEnemies == 1000){
+  if (obj == 1) {
+    if (person.numEnemies == 1000) {
       currentState = 5;
     }
   }
-  
-  if(obj == 2){
-    if(person.numDoors == 500){
+
+  if (obj == 2) {
+    if (person.numDoors == 500) {
       currentState = 5;
     }
   }
-  
-  if(obj == 3){
-    if(roomNum == 500){
+
+  if (obj == 3) {
+    if (roomNum == 500) {
       currentState = 5;
     }
   }
@@ -106,7 +106,6 @@ void keyPressed() {
 void mousePressed() {
   if (currentState == 0) {
     currentState = 1;
-    
   }
   if (currentState == 2) {
     currentState = 0;
@@ -137,46 +136,46 @@ void mouseWheel(MouseEvent event) {
   person.switchItem(e);
 }
 
-int countAlive(){
+int countAlive() {
   int ans = 0;
   for (int i = 0; i < enemies.size(); i++) {
     Enemy enemy = enemies.get(i);
-    if(!enemy.die){
+    if (!enemy.die) {
       ans ++;
     }
   }
   return ans;
 }
 
-void displayEnemies(){
-    for (int i = 0; i < current.roomenemies.size(); i++) {
-      Enemy enemy = current.roomenemies.get(i);
-      enemy.setMove();
-      if (dist(person.getX(), person.getY(), enemy.getX(), enemy.getY()) < 50) {
-        enemy.attack();
-        if (person.isHurt()) {
-          float newX = 0;
-          float newY = 0;
-          if (enemy.getX() > current.x) {
-            newX = constrain(current.x + 30, -1 * abs(750 - ((current.cols) * 32)) + person.getWidth() / 2, 750 - person.getWidth() / 2);
-          } else {
-            newX = constrain(current.x - 30, -1 * abs(750 - ((current.cols) * 32)) + person.getWidth() / 2, 750 - person.getWidth() / 2);
-          }
-          if (enemy.getY() > current.y) {
-            newY = constrain(current.y + 30, -1 * abs(500 - ((current.rows) * 32)) + person.getHeight() / 2, 500 - person.getHeight() / 2);
-          } else {
-            newY = constrain(current.y - 30, -1 * abs(500 - ((current.rows) * 32)) + person.getHeight() / 2, 500 - person.getHeight() / 2);
-          }
-
-          current.moveAll(newX, newY, current.x, current.y);
-          current.x = newX;
-          current.y = newY;
-          person.notHurt();
+void displayEnemies() {
+  for (int i = 0; i < current.roomenemies.size(); i++) {
+    Enemy enemy = current.roomenemies.get(i);
+    enemy.setMove();
+    if (dist(person.getX(), person.getY(), enemy.getX(), enemy.getY()) < 50) {
+      enemy.attack();
+      if (person.isHurt()) {
+        float newX = 0;
+        float newY = 0;
+        if (enemy.getX() > current.x) {
+          newX = constrain(current.x + 30, -1 * abs(750 - ((current.cols) * 32)) + person.getWidth() / 2, 750 - person.getWidth() / 2);
+        } else {
+          newX = constrain(current.x - 30, -1 * abs(750 - ((current.cols) * 32)) + person.getWidth() / 2, 750 - person.getWidth() / 2);
         }
+        if (enemy.getY() > current.y) {
+          newY = constrain(current.y + 30, -1 * abs(500 - ((current.rows) * 32)) + person.getHeight() / 2, 500 - person.getHeight() / 2);
+        } else {
+          newY = constrain(current.y - 30, -1 * abs(500 - ((current.rows) * 32)) + person.getHeight() / 2, 500 - person.getHeight() / 2);
+        }
+
+        current.moveAll(newX, newY, current.x, current.y);
+        current.x = newX;
+        current.y = newY;
+        person.notHurt();
       }
-      enemy.display();
     }
+    enemy.display();
   }
+}
 
 void createEnemies() {
   enemies = new ArrayList<Enemy>();

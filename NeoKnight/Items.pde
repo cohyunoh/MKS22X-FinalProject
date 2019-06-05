@@ -45,8 +45,8 @@ class Item {
   void display() {
     if (display) anim.display(xCor-anim.getWidth()/2, yCor - anim.getHeight()/2);
   }
-  
-  void addMoney(float mon){
+
+  void addMoney(float mon) {
     money = mon;
   }
 

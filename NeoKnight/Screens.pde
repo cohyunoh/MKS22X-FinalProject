@@ -45,7 +45,7 @@ class Screen {
         y = 10;
       }
       textSize(30);
-      text(item.getName(),item.xCor+50,item.yCor-10);
+      text(item.getName(), item.xCor+50, item.yCor-10);
       item.display();
       x += 32;
       y += 32;
@@ -61,7 +61,7 @@ class Screen {
   void deathScreen() {
     background(0);
     imageMode(CENTER);
-    image(death, width / 2, height / 2);
+    //image(death, width / 2, height / 2);
     textAlign(CENTER);
     fill(255);
     textSize(30);
@@ -96,7 +96,7 @@ class Screen {
   //This produces a start screen 
   void startScreen() {
     background(0);
-    
+
     anim.display(width/2, height/2);
     textAlign(CENTER);
     textSize(50);
@@ -110,35 +110,35 @@ class Screen {
 
   //this prints out the current room 
 
-  void gameScreen(Room room, Player person){
-    for(int i = 0; i < person.inv.size(); i++){
+  void gameScreen(Room room, Player person) {
+    for (int i = 0; i < person.inv.size(); i++) {
       Item item = person.inv.get(i);
       item.xCor = 46;
       item.yCor = height - 14;
     }
     room.move();
     room.display();
-    
+
     person.display();
     fill(0, 0, 255);
     textSize(20);
     textAlign(LEFT);
     text("Arrows: " + person.amountOfArrows, 10, 530);
     text("Enemies Left: " + countAlive(), 10, 500);
-      if(obj == 1){
+    if (obj == 1) {
       text("Objective: Kill 1000 Enemies", 10, 154);
       text(person.numEnemies + " / 1000 Enemies", 10, 184);
     }
-    if(obj == 2){
+    if (obj == 2) {
       text("Objective: Unlock 500 Doors", 10, 154);
       text(person.numDoors + " / 500 Doors", 10, 184);
     }
-    if(obj == 3){
+    if (obj == 3) {
       text("Objective: Go To 500 Rooms", 10, 154);
       text(roomNum + " / 500 Rooms", 10, 184);
     }
-    
-    if(obj == 4){
+
+    if (obj == 4) {
       text("Objective: PLAY", 10, 154);
       text("Rooms Searched:" + roomNum, 10, 184);
       text("Enemies Killed:" + person.numEnemies, 10, 214);
@@ -146,24 +146,24 @@ class Screen {
     }
     /*
     fill(255);
-    textSize(20);
-    textAlign(LEFT);
-    text(room.toString(), room.getX(), room.getY());
-    text("Room X: " + room.getX(), 0, 500);
-    text("Room Y: " + room.getY(), 0, 530);
-    text("NUMDOORS: " + current.getDoors().size(), 0, 560);
-    text("UP: " + room.hasUp, 0, 590);
-    text("DOWN: " + room.hasDown, 0, 620);
-    text("LEFT: " + room.hasLeft, 0, 650);
-    text("RIGHT: " + room.hasRight, 0, 680);
-    text("CURRENT ROW: " + currentRoomRow, 0, 710);
-    text("CURRENT COL: " + currentRoomCol, 0, 740);
-    text("lowx : " + current.lowX, 0, 770);
-    text("highx : " + current.highX, 0, 800);
-    text("lowy : " + current.lowY, 0, 830);
-    text("highy : " + current.highY, 0, 860);
-    text("rotation : " + person.rotation, 0, 890);
-    */
+     textSize(20);
+     textAlign(LEFT);
+     text(room.toString(), room.getX(), room.getY());
+     text("Room X: " + room.getX(), 0, 500);
+     text("Room Y: " + room.getY(), 0, 530);
+     text("NUMDOORS: " + current.getDoors().size(), 0, 560);
+     text("UP: " + room.hasUp, 0, 590);
+     text("DOWN: " + room.hasDown, 0, 620);
+     text("LEFT: " + room.hasLeft, 0, 650);
+     text("RIGHT: " + room.hasRight, 0, 680);
+     text("CURRENT ROW: " + currentRoomRow, 0, 710);
+     text("CURRENT COL: " + currentRoomCol, 0, 740);
+     text("lowx : " + current.lowX, 0, 770);
+     text("highx : " + current.highX, 0, 800);
+     text("lowy : " + current.lowY, 0, 830);
+     text("highy : " + current.highY, 0, 860);
+     text("rotation : " + person.rotation, 0, 890);
+     */
   }
 
   //displaying shop

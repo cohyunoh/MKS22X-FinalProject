@@ -27,7 +27,7 @@ class Arrow {
       arrow.display(0, 0);
     } else {
       imageMode(CENTER);
-      image(stationary,0,0);
+      image(stationary, 0, 0);
       current.roomarrows.remove(this);
     }
     popMatrix();
