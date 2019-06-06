@@ -59,7 +59,7 @@ class Player extends Entity {
   boolean removeArrows() {
     for (int i = 0; i < inv.size(); i++) {
       Item item = inv.get(i);
-      if (item.name.equals("arrows") && shotClock == 5) {
+      if (item.name.equals("arrows")) {
         inv.remove(item);
         return true;
       }
@@ -221,13 +221,11 @@ class Player extends Entity {
       popMatrix();
       shotClock ++;
       amountOfArrows -= 1;
-      if (shotClock == 5) {
+      if (shotClock >= 5) {
         removeArrows();
+        shotClock = 0;
       }
-    } else {
-      while (removeArrows()) {
-      }
-    }
+    } 
     canShoot = false;
     shoot = false;
   }
