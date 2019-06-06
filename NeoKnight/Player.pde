@@ -242,6 +242,7 @@ class Player extends Entity {
           currentSlot = 0;
         }
         switchSlot();
+        numDoors++;
       }
     }
   }
