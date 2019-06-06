@@ -44,7 +44,7 @@ void draw() {
   }
   if (currentState == 2) screen.deathScreen();
   if (obj == 1) {
-    if (person.numEnemies == 1000) {
+    if (person.numEnemies == 10000) {
       currentState = 5;
     }
   }

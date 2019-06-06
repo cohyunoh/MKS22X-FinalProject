@@ -200,7 +200,7 @@ class Screen {
     switch(k) {
     case '1':
       Item healthPotion = new Item(3, 46, height - 14);
-      healthPotion.display = false;
+      healthPotion.display = true;
       if (person.money >= healthPotion.getPrice()) {
         person.money -= healthPotion.getPrice();
         person.inv.add(healthPotion);
@@ -210,7 +210,7 @@ class Screen {
       break;
     case '2':
       Item armorPotion = new Item(4, 46, height - 14);
-      armorPotion.display = false;
+      armorPotion.display = true;
       if (person.money >= armorPotion.getPrice()) {
         person.money -= armorPotion.getPrice();
         person.inv.add(armorPotion);
@@ -220,7 +220,7 @@ class Screen {
       break;
     case '3':
       Item bow = new Item(6, 46, height - 14);
-      bow.display = false;
+      bow.display = true;
       if (person.money >= bow.getPrice()) {
         person.money -= bow.getPrice();
         person.hasBow = true;
@@ -231,7 +231,7 @@ class Screen {
       break;
     case '4':
       Item arrow = new Item(7, 46, height - 14);
-      arrow.display = false;
+      arrow.display = true;
       if (person.money >= arrow.getPrice()) {
         person.money -= arrow.getPrice();
         person.inv.add(arrow);
@@ -242,7 +242,7 @@ class Screen {
       break;
     case '5':
       Item sword = new Item(1, 46, height - 14);
-      sword.display = false;
+      sword.display = true;
       if (person.money >= sword.getPrice()) {
         person.money -= sword.getPrice();
         person.inv.add(sword);
@@ -253,7 +253,7 @@ class Screen {
       break;
     case '6':
       Item shield = new Item(2, 46, height - 14);
-      shield.display = false;
+      shield.display = true;
       if (person.money >= shield.getPrice()) {
         person.money -= shield.getPrice();
         person.hasShield = true;
